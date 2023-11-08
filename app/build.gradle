@@ -6,6 +6,7 @@ plugins {
 android {
     namespace 'com.Apic.apic'
     compileSdk 33
+    compileSdkVersion 34
 
     defaultConfig {
         applicationId "com.Apic.apic"
@@ -30,10 +31,12 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    viewBinding{
+        enabled true
+    }
 }
 
 dependencies {
-
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.10.0'
