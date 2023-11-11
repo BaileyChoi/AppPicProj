@@ -17,6 +17,7 @@ class MainActivity : AppCompatActivity() {
     private val fragmentManager: FragmentManager = supportFragmentManager
     private val fragmentCalendar = CalendarFragment()
     private val fragmentFriend = FriendFragment()
+    private val GroupListActivity = GroupListActivity()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,29 +37,13 @@ class MainActivity : AppCompatActivity() {
             when (menuItem.itemId) {
                 R.id.menu_home -> transaction.replace(R.id.menu_frame_view, fragmentCalendar).commitAllowingStateLoss()
                 R.id.menu_friend -> transaction.replace(R.id.menu_frame_view, fragmentFriend).commitAllowingStateLoss()
-                //R.id.menu_share -> transaction.replace(R.id.menu_frame_view, fragmentShare).commitAllowingStateLoss()
-                // 위 코드는 아직 fragment 추가 안해서 주석 처리 합니다.
+                R.id.menu_share -> {
+                    val intent = Intent(this, GroupListActivity::class.java)
+                    startActivity(intent)
+                }
             }
-
             true
         }
     }
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val menuInflater = menuInflater
-        menuInflater.inflate(R.menu.toolbar_menu, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.getItemId()) {
-            R.id.back -> {
-                val intent = Intent(this, GroupListActivity::class.java)
-                startActivity(intent)
-                return true
-            }
-        }
-        return false
-    }
-
 
 }
