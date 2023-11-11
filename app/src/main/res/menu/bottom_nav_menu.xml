@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_home"
+        android:icon="@drawable/outline_home_24"
+        android:title="home" />
+
+    <item
+        android:id="@+id/menu_friend"
+        android:icon="@drawable/outline_person_outline_24"
+        android:title="friend" />
+
+    <item
+        android:id="@+id/menu_share"
+        android:icon="@drawable/baseline_share_24"
+        android:title="share" />
+
+    <item
+        android:id="@+id/menu_call"
+        android:icon="@drawable/outline_photo_camera_24"
+        android:title="4cut" />
+
+</menu>
