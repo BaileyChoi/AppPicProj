@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="30dp"
         app:icon="@android:drawable/ic_input_add"
-        android:text="Add Group"
+        android:text="모임 추가"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"/>
 
