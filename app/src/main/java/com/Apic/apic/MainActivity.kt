@@ -1,7 +1,11 @@
 package com.Apic.apic
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import android.view.Window
 import com.Apic.apic.databinding.ActivityMainBinding
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
@@ -13,10 +17,15 @@ class MainActivity : AppCompatActivity() {
     private val fragmentManager: FragmentManager = supportFragmentManager
     private val fragmentCalendar = CalendarFragment()
     private val fragmentFriend = FriendFragment()
+    private val GroupListActivity = GroupListActivity()
+
     override fun onCreate(savedInstanceState: Bundle?) {
-        binding = ActivityMainBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
+
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        setSupportActionBar(findViewById(R.id.toolbar)) // 뒤로가기 메뉴
 
         val transaction: FragmentTransaction = fragmentManager.beginTransaction()
         transaction.replace(R.id.menu_frame_view, fragmentCalendar).commitAllowingStateLoss()
@@ -28,8 +37,10 @@ class MainActivity : AppCompatActivity() {
             when (menuItem.itemId) {
                 R.id.menu_home -> transaction.replace(R.id.menu_frame_view, fragmentCalendar).commitAllowingStateLoss()
                 R.id.menu_friend -> transaction.replace(R.id.menu_frame_view, fragmentFriend).commitAllowingStateLoss()
-                //R.id.menu_share -> transaction.replace(R.id.menu_frame_view, fragmentShare).commitAllowingStateLoss()
-                // 위 코드는 아직 fragment 추가 안해서 주석 처리 합니다.
+                R.id.menu_share -> {
+                    val intent = Intent(this, GroupListActivity::class.java)
+                    startActivity(intent)
+                }
             }
 
             true
