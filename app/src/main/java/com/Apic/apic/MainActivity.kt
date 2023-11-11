@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
     private val fragmentCalendar = CalendarFragment()
     private val fragmentFriend = FriendFragment()
     override fun onCreate(savedInstanceState: Bundle?) {
-        val binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityMainBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
