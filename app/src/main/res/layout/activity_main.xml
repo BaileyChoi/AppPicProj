@@ -19,7 +19,6 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_marginTop="48dp"
-        android:backgroundTint=""
         android:padding="10dp"
         android:text="클릭 시 여기에 일정이 표시됩니다."
         android:textSize="20dp"
@@ -27,6 +26,8 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/calendar" />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
