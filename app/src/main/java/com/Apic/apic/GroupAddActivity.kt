@@ -5,20 +5,22 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.Window
-import com.Apic.apic.databinding.ActivityMainBinding
+import com.Apic.apic.databinding.ActivityGroupAddBinding
 
-class MainActivity : AppCompatActivity() {
+class GroupAddActivity : AppCompatActivity() {
 
-    lateinit var binding : ActivityMainBinding
+    lateinit var binding: ActivityGroupAddBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityGroupAddBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         setSupportActionBar(findViewById(R.id.toolbar)) // 뒤로가기 메뉴
+
+
     }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val menuInflater = menuInflater
         menuInflater.inflate(R.menu.toolbar_menu, menu)
@@ -35,6 +37,8 @@ class MainActivity : AppCompatActivity() {
         }
         return false
     }
+
+
 
 
 }

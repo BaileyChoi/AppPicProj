@@ -1,15 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:orientation="vertical"
+    tools:context=".GroupListActivity">
+
+    <include
+        android:id="@+id/topView"
+        layout="@layout/topbar"/>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="GROUP" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="그룹명 / 친구명 검색"
+        android:inputType="text"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/main_recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/main_fab"
@@ -21,4 +39,5 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"/>
 
-</RelativeLayout>
+</LinearLayout>
+

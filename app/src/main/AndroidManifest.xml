@@ -12,10 +12,10 @@
         android:theme="@style/Theme.Apic"
         tools:targetApi="31">
         <activity
-            android:name=".Group_add"
+            android:name=".GroupAddActivity"
             android:exported="false" />
         <activity
-            android:name=".Group_list"
+            android:name=".GroupListActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
