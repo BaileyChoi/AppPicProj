@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".GroupAddActivity"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/groupName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="그룹이름" />
+
+    <EditText
+        android:id="@+id/add_groupName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"/>
+
+    <TextView
+        android:id="@+id/groupMember"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="그룹멤버" />
+
+    <EditText
+        android:id="@+id/add_groupMember"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"/>
+
+</LinearLayout>
