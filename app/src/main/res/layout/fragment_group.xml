@@ -24,6 +24,8 @@
             android:layout_height="50dp"
             android:src="@drawable/ic_tmp_img" />
 
+        <!-- Group Information Layout -->
+        <!-- 그룹 정보 레이아웃 -->
         <LinearLayout
             android:id="@+id/group_info_layout"
             android:layout_width="wrap_content"
@@ -40,16 +42,30 @@
                 android:layout_height="wrap_content"
                 android:text="GROUP A" />
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
             <!-- Group Member Num -->
             <!-- 그룹 멤버 수 -->
             <TextView
                 android:id="@+id/group_member_num"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="3명" />
+                android:text="3" />
+
+            <TextView
+                android:id="@+id/group_member_myeong"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/group_member_num"
+                android:text="명" />
+            </LinearLayout>
 
         </LinearLayout>
 
+        <!-- Group Icon Layout -->
+        <!-- 그룹 아이콘 레이아웃 -->
         <LinearLayout
             android:id="@+id/group_icon_layout"
             android:layout_width="wrap_content"
@@ -57,26 +73,28 @@
             android:orientation="horizontal"
             android:layout_alignParentEnd="true">
 
-        <!-- liked  Icon -->
-        <ImageButton
-            android:id="@+id/group_liked"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_unliked"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="16dp"
-            android:background="?android:attr/selectableItemBackground"/>
+            <!-- Liked Icon -->
+            <!-- 즐겨찾기 아이콘 -->
+            <ImageButton
+                android:id="@+id/group_liked"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_unliked"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="16dp"
+                android:background="?android:attr/selectableItemBackground"/>
 
-        <!-- Menu Icon -->
-        <ImageButton
-            android:id="@+id/menu_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_toEndOf="@id/group_liked"
-            android:background="?android:attr/selectableItemBackground"
-            android:src="@drawable/ic_menu" />
+            <!-- Menu Icon -->
+            <!-- 메뉴 아이콘 -->
+            <ImageButton
+                android:id="@+id/menu_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_toEndOf="@id/group_liked"
+                android:background="?android:attr/selectableItemBackground"
+                android:src="@drawable/ic_menu" />
 
         </LinearLayout>
 
@@ -87,9 +105,9 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
+        <!-- Tab Layout -->
         <!-- 탭 레이아웃 -->
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_layout"
@@ -106,6 +124,8 @@
             app:tabSelectedTextColor="@color/mainColor1">
         </com.google.android.material.tabs.TabLayout>
 
+        <!-- ViewPager -->
+        <!-- 뷰페이저 -->
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewPager2"
             android:layout_width="0dp"
@@ -116,7 +136,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tab_layout" />
 
-        <!-- Floating Action Button -->
+        <!-- Floating Action Buttons -->
+        <!-- 플로팅 액션 버튼들 -->
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_camera"
             android:layout_width="wrap_content"
