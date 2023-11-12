@@ -7,6 +7,10 @@
     android:orientation="vertical"
     tools:context=".GroupActivity">
 
+    <include
+        android:id="@+id/topView"
+        layout="@layout/topbar"/>
+
     <!-- Group Section -->
     <!-- 그룹 섹션 -->
     <RelativeLayout
@@ -62,6 +66,8 @@
                 android:text="명" />
             </LinearLayout>
 
+
+
         </LinearLayout>
 
         <!-- Group Icon Layout -->
@@ -102,8 +108,6 @@
 
     <!-- TabLayout -->
     <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -126,18 +130,22 @@
 
         <!-- ViewPager -->
         <!-- 뷰페이저 -->
+
+
+        <!-- Floating Action Buttons -->
+        <!-- 플로팅 액션 버튼들 -->
+
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewPager2"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tab_layout" />
+            app:layout_constraintTop_toBottomOf="@+id/tab_layout"
+            app:layout_constraintVertical_bias="0.0" />
 
-        <!-- Floating Action Buttons -->
-        <!-- 플로팅 액션 버튼들 -->
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_camera"
             android:layout_width="wrap_content"
@@ -171,6 +179,20 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Bottom NavigationView -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigationview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/mainColor3"
+        app:labelVisibilityMode="labeled"
+        app:itemIconTint="@drawable/menu_item_color"
+        app:itemTextColor="@drawable/menu_item_color"
+        app:menu="@menu/bottom_nav_menu"
+        />
 
 </LinearLayout>
