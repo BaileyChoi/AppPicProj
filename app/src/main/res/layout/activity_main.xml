@@ -13,9 +13,19 @@
 
     <FrameLayout
         android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="48dp"
+        android:padding="10dp"
+        android:text="클릭 시 여기에 일정이 표시됩니다."
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/calendar" />
         android:layout_height="0dp"
         android:layout_weight="1"
         android:id="@+id/menu_frame_view"/>
+
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigationview"
@@ -28,4 +38,8 @@
         app:itemTextColor="@drawable/menu_item_color"
         app:menu="@menu/bottom_nav_menu" />
 
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
 </LinearLayout>
+
