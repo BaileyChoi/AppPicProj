@@ -9,8 +9,8 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import java.lang.IllegalArgumentException
 class GroupFragment : Fragment() {
 
-    private lateinit var boardFragment: BoardFragment
-    private lateinit var memberFragment: MemberFragment
+    private lateinit var firstFragment: FirstFragment
+    private lateinit var secondFragment: SecondFragment
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -67,8 +67,8 @@ class GroupFragment : Fragment() {
 
         override fun createFragment(position: Int): Fragment {
             return when (position) {
-                0 -> BoardFragment()
-                1 -> MemberFragment()
+                0 -> FirstFragment()
+                1 -> SecondFragment()
                 else -> throw IllegalArgumentException("Invalid position: $position")
             }
         }

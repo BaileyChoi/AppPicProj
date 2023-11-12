@@ -50,8 +50,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupTabLayout() {
         adapter = FragmentPagerAdapter(supportFragmentManager, lifecycle)
-        tabLayout.addTab(tabLayout.newTab().setText("Board"))
-        tabLayout.addTab(tabLayout.newTab().setText("Friends"))
+        tabLayout.addTab(tabLayout.newTab().setText("Tab1"))
+        tabLayout.addTab(tabLayout.newTab().setText("Tab2"))
         viewPager2.adapter = adapter
     }
 
@@ -87,7 +87,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun toggleFab() {
-        showToast("메인 플로팅 버튼 클릭 $isFabOpen")
+        showToast("메인 플로팅 버튼 클릭!")
 
         val translateYCamera = if (isFabOpen) 0f else -200f
         val translateYCreate = if (isFabOpen) 0f else -400f
