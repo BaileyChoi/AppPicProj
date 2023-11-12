@@ -16,7 +16,6 @@ import com.google.android.material.tabs.TabLayout
 
 class GroupActivity : AppCompatActivity() {
 
-
     private lateinit var tabLayout: TabLayout
     private lateinit var viewPager2: ViewPager2
     private lateinit var adapter: FragmentPagerAdapter
