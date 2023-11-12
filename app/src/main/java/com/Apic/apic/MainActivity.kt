@@ -32,12 +32,17 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_group)
 
+        // 뷰 초기화
         initializeViews()
+        // 탭 레이아웃 설정
         setupTabLayout()
+        // 뷰페이저 설정
         setupViewPager()
+        // 리스너 설정
         setupListeners()
     }
 
+    // 뷰 초기화
     private fun initializeViews() {
         tabLayout = findViewById(R.id.tab_layout)
         viewPager2 = findViewById(R.id.viewPager2)
@@ -48,6 +53,7 @@ class MainActivity : AppCompatActivity() {
         menuIcon = findViewById(R.id.menu_icon)
     }
 
+    // 탭 레이아웃 설정
     private fun setupTabLayout() {
         adapter = FragmentPagerAdapter(supportFragmentManager, lifecycle)
         tabLayout.addTab(tabLayout.newTab().setText("Tab1"))
@@ -55,6 +61,7 @@ class MainActivity : AppCompatActivity() {
         viewPager2.adapter = adapter
     }
 
+    // 뷰페이저 설정
     private fun setupViewPager() {
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
@@ -78,6 +85,7 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    // 리스너 설정
     private fun setupListeners() {
         fabMain.setOnClickListener { toggleFab() }
         fabCamera.setOnClickListener { showToast("카메라 버튼 클릭!") }
@@ -86,6 +94,7 @@ class MainActivity : AppCompatActivity() {
         menuIcon.setOnClickListener { showPopupMenu(it) }
     }
 
+    // 플로팅 버튼 토글
     private fun toggleFab() {
         showToast("메인 플로팅 버튼 클릭!")
 
@@ -99,13 +108,19 @@ class MainActivity : AppCompatActivity() {
         isFabOpen = !isFabOpen
     }
 
+    // 즐겨찾기 상태 토글
     private fun toggleLikedState() {
+
         isLiked = !isLiked
 
-        // Change the icon based on the liked state
+        // 즐겨찾기 상태에 따라 아이콘 변경
         groupLikedButton.setImageResource(if (isLiked) R.drawable.ic_liked else R.drawable.ic_unliked)
+
+        // 즐겨찾기 상태에 따라 토스트 메시지 출력
+        showToast(if (isLiked) "즐겨찾기 등록!" else "즐겨찾기 해제!")
     }
 
+    // 팝업 메뉴 표시
     private fun showPopupMenu(view: View) {
         val popupMenu = PopupMenu(this, view)
         val inflater = popupMenu.menuInflater
@@ -120,8 +135,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.menu_item2 -> {
                     showToast("메뉴 아이템 2 클릭!")
                     true
-                }
-                // Add more menu items as needed
+                }// 추가적인 메뉴 아이템이 필요한 경우 여기에 추가
                 else -> false
             }
         }
@@ -129,6 +143,7 @@ class MainActivity : AppCompatActivity() {
         popupMenu.show()
     }
 
+    // 토스트 메시지 표시
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
