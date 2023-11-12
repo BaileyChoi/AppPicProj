@@ -1,12 +1,12 @@
 package com.Apic.apic
 
 import android.animation.ObjectAnimator
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageButton
 import android.widget.PopupMenu
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -14,7 +14,7 @@ import com.google.android.material.tabs.TabLayout
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var tabLayout:TabLayout
+    private lateinit var tabLayout: TabLayout
     private lateinit var viewPager2: ViewPager2
     private lateinit var adapter: FragmentPagerAdapter
     private var isFabOpen = false
@@ -24,122 +24,86 @@ class MainActivity : AppCompatActivity() {
     private lateinit var fabCreate: FloatingActionButton
 
     private lateinit var groupLikedButton: ImageButton
-    private var isLiked = false;
+    private var isLiked = false
 
-    private lateinit var menuIcon : ImageButton
+    private lateinit var menuIcon: ImageButton
 
-
-    override fun onCreate(savedInstanceState:
-                          Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_group)
 
+        initializeViews()
+        setupTabLayout()
+        setupViewPager()
+        setupListeners()
+    }
+
+    private fun initializeViews() {
         tabLayout = findViewById(R.id.tab_layout)
         viewPager2 = findViewById(R.id.viewPager2)
-
-        // Initialize FloatingActionButton instances after setContentView
         fabMain = findViewById(R.id.fab_main)
         fabCamera = findViewById(R.id.fab_camera)
         fabCreate = findViewById(R.id.fab_create)
+        groupLikedButton = findViewById(R.id.group_liked)
+        menuIcon = findViewById(R.id.menu_icon)
+    }
 
-
+    private fun setupTabLayout() {
         adapter = FragmentPagerAdapter(supportFragmentManager, lifecycle)
-
-        // tab
         tabLayout.addTab(tabLayout.newTab().setText("Board"))
         tabLayout.addTab(tabLayout.newTab().setText("Friends"))
-
         viewPager2.adapter = adapter
+    }
 
-        // group liked
-        groupLikedButton = findViewById(R.id.group_liked)
-
-        // menu
-        menuIcon = findViewById(R.id.menu_icon)
-
-
-        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
+    private fun setupViewPager() {
+        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                if (tab!=null) {
-                    viewPager2.currentItem = tab.position
-                }
+                tab?.let { viewPager2.currentItem = it.position }
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
-                if (tab!=null) {
-                    viewPager2.currentItem = tab.position
-                }
+                tab?.let { viewPager2.currentItem = it.position }
             }
 
             override fun onTabReselected(tab: TabLayout.Tab?) {
-                if (tab!=null) {
-                    viewPager2.currentItem = tab.position
-                }
+                tab?.let { viewPager2.currentItem = it.position }
             }
-
         })
 
-        viewPager2.registerOnPageChangeCallback(object: OnPageChangeCallback(){
+        viewPager2.registerOnPageChangeCallback(object : OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 tabLayout.selectTab(tabLayout.getTabAt(position))
             }
-        } )
-
-
-        // 플로팅 이벤트 구현
-        // 플로팅 버튼 클릭시 애니메이션 동작 기능
-        fabMain.setOnClickListener{
-            toggleFab()
-        }
-
-        // 플로팅 버튼 클릭 이벤트 - 카메라
-        fabCamera.setOnClickListener{
-            Toast.makeText(this, "카메라 버튼 클릭!", Toast.LENGTH_SHORT).show()
-        }
-
-        // 플로팅 버튼 클릭 이벤트 - 카메라
-        fabCreate.setOnClickListener{
-            Toast.makeText(this, " 버튼 클릭!", Toast.LENGTH_SHORT).show()
-        }
-
-        // 즐겨찾기 버튼 클릭 이벤트
-        groupLikedButton.setOnClickListener{
-            isLiked =! isLiked
-
-            // Change the icon based on the liked state
-            if (isLiked) {
-                groupLikedButton.setImageResource(R.drawable.ic_liked)
-            } else {
-                groupLikedButton.setImageResource(R.drawable.ic_unliked)
-            }
-
-        }
-
-        // 메뉴
-        menuIcon.setOnClickListener {
-            showPopupMenu(it)
-        }
+        })
     }
 
-    private fun toggleFab(){
+    private fun setupListeners() {
+        fabMain.setOnClickListener { toggleFab() }
+        fabCamera.setOnClickListener { showToast("카메라 버튼 클릭!") }
+        fabCreate.setOnClickListener { showToast("버튼 클릭!") }
+        groupLikedButton.setOnClickListener { toggleLikedState() }
+        menuIcon.setOnClickListener { showPopupMenu(it) }
+    }
 
-        Toast.makeText(this, "메인 플로팅 버튼 클릭 $isFabOpen", Toast.LENGTH_SHORT).show()
+    private fun toggleFab() {
+        showToast("메인 플로팅 버튼 클릭 $isFabOpen")
 
+        val translateYCamera = if (isFabOpen) 0f else -200f
+        val translateYCreate = if (isFabOpen) 0f else -400f
 
-        // 플로팅 액션 버튼 닫기 - 열려있는 플로팅 버튼 집어넣는 애니메이션 세팅
-        if (isFabOpen) {
-            ObjectAnimator.ofFloat(fabCamera, "translationY", 0f).apply { start() }
-            ObjectAnimator.ofFloat(fabCreate, "translationY", 0f).apply { start() }
-            fabMain.setImageResource(R.drawable.ic_add)
-        } else {
-            ObjectAnimator.ofFloat(fabCamera, "translationY", -200f).apply { start() }
-            ObjectAnimator.ofFloat(fabCreate, "translationY", -400f).apply { start() }
-            fabMain.setImageResource(R.drawable.ic_add)
-        }
+        ObjectAnimator.ofFloat(fabCamera, "translationY", translateYCamera).start()
+        ObjectAnimator.ofFloat(fabCreate, "translationY", translateYCreate).start()
 
-        isFabOpen =!isFabOpen
+        fabMain.setImageResource(R.drawable.ic_add)
+        isFabOpen = !isFabOpen
+    }
 
+    private fun toggleLikedState() {
+        isLiked = !isLiked
+
+        // Change the icon based on the liked state
+        groupLikedButton.setImageResource(if (isLiked) R.drawable.ic_liked else R.drawable.ic_unliked)
     }
 
     private fun showPopupMenu(view: View) {
@@ -150,11 +114,11 @@ class MainActivity : AppCompatActivity() {
         popupMenu.setOnMenuItemClickListener { item ->
             when (item.itemId) {
                 R.id.menu_item1 -> {
-                    // Handle menu item 1 click
+                    showToast("메뉴 아이템 1 클릭!")
                     true
                 }
                 R.id.menu_item2 -> {
-                    // Handle menu item 2 click
+                    showToast("메뉴 아이템 2 클릭!")
                     true
                 }
                 // Add more menu items as needed
@@ -165,5 +129,7 @@ class MainActivity : AppCompatActivity() {
         popupMenu.show()
     }
 
-
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
 }
