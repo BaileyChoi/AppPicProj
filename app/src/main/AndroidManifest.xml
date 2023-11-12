@@ -11,11 +11,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Apic"
         tools:targetApi="31">
+      
         <activity
             android:name=".GroupActivity"
             android:exported="false"
             android:label="@string/title_activity_group"
             android:theme="@style/Theme.Apic" />
+            android:name=".GroupAddActivity"
+            android:exported="false" />
+      
+        <activity
+            android:name=".GroupListActivity"
+            android:exported="false" />
+      
         <activity
             android:name=".MainActivity"
             android:exported="true">
