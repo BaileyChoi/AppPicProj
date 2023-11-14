@@ -17,7 +17,7 @@
         android:title="share" />
 
     <item
-        android:id="@+id/menu_call"
+        android:id="@+id/menu_fourcut"
         android:icon="@drawable/camera_image_photo_photography_video_icon"
         android:title="4cut" />
 

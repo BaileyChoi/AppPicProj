@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity() {
     private val fragmentManager: FragmentManager = supportFragmentManager
     private val fragmentCalendar = CalendarFragment()
     private val fragmentFriend = FriendFragment()
+    private val fragmentFourcut = FourcutFragment()
     private val GroupListActivity = GroupListActivity()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,6 +43,7 @@ class MainActivity : AppCompatActivity() {
                     val intent = Intent(this, GroupListActivity::class.java)
                     startActivity(intent)
                 }
+                R.id.menu_fourcut -> transaction.replace(R.id.menu_frame_view, fragmentFourcut).commitAllowingStateLoss()
             }
             true
         }
