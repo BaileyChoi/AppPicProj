@@ -1,5 +1,6 @@
 package com.Apic.apic
 
+
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -40,6 +41,11 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
+
+        // group activity test code
+//        val intent = Intent(this, GroupActivity::class.java)
+//        startActivity(intent)
+//        finish()
     }
 
 }
