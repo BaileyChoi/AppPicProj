@@ -16,7 +16,7 @@
         <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/account_friend_human_man_member_icon" />
+            android:src="@drawable/ic_account_friend" />
 
         <TextView
             android:layout_width="wrap_content"
