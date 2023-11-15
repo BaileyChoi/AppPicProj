@@ -18,15 +18,13 @@ class MainActivity : AppCompatActivity() {
     private val fragmentManager: FragmentManager = supportFragmentManager
     private val fragmentCalendar = CalendarFragment()
     private val fragmentFriend = FriendFragment()
-    private val GroupListActivity = GroupListActivity()
+    private val fragmentGroupListBinding = GroupListFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        setSupportActionBar(findViewById(R.id.toolbar)) // 뒤로가기 메뉴
 
         val transaction: FragmentTransaction = fragmentManager.beginTransaction()
         transaction.replace(R.id.menu_frame_view, fragmentCalendar).commitAllowingStateLoss()
@@ -38,10 +36,8 @@ class MainActivity : AppCompatActivity() {
             when (menuItem.itemId) {
                 R.id.menu_home -> transaction.replace(R.id.menu_frame_view, fragmentCalendar).commitAllowingStateLoss()
                 R.id.menu_friend -> transaction.replace(R.id.menu_frame_view, fragmentFriend).commitAllowingStateLoss()
-                R.id.menu_share -> {
-                    val intent = Intent(this, GroupListActivity::class.java)
-                    startActivity(intent)
-                }
+                R.id.menu_share -> transaction.replace(R.id.menu_frame_view, fragmentGroupListBinding).commitAllowingStateLoss()
+
             }
             true
         }
