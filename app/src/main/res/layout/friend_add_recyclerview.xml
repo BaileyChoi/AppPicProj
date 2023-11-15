@@ -1,75 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:background="#e4e7eb"
         android:gravity="center_vertical"
         android:padding="20dp"
-        android:background="#c3cad1">
+        android:elevation="10dp">
 
         <!--프로필 사진-->
         <ImageView
             android:id="@+id/profile"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:src="@drawable/person_circle"/>
+            android:src="@drawable/person_circle" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:gravity="center_vertical"
+            android:orientation="vertical"
             android:padding="0dp">
+
             <!--이름-->
             <TextView
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:text="이름"
                 android:layout_marginBottom="10dp"
-                android:textStyle="bold"
+                android:text="이름"
+                android:textColor="#000"
                 android:textSize="25sp"
-                android:textColor="#000"/>
+                android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:text="ID"
-                android:textSize="20sp"
-                android:textColor="#000"/>
+                android:textColor="#000"
+                android:textSize="20sp" />
         </LinearLayout>
 
-        <!--친구 삭제-->
         <View
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_weight="1"/>
 
-        <TextView
-            android:id="@+id/message"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_marginLeft="100dp"
-            android:text="삭제"
-            android:textSize="16sp"
-            android:textColor="#444"
-            android:maxLines="1"/>
-
+        <ImageButton
+            android:id="@+id/checkButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:padding="0sp"
+            android:scaleType="centerCrop"
+            android:background="#e4e7eb"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/ic_check_circle_icon" />
+        <ImageButton
+            android:id="@+id/cancelButton"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:padding="0sp"
+            android:scaleType="centerCrop"
+            android:background="#e4e7eb"
+            android:src="@drawable/ic_cancel_circle_close_delete_discard_icon"/>
     </LinearLayout>
 
-    <!--구분선-->
+    <!--margin-->
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginHorizontal="10dp"
-        android:background="#aaa"/>
+        android:layout_marginBottom="15dp" />
 
 </LinearLayout>

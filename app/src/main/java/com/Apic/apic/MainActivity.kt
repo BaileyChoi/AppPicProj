@@ -27,6 +27,7 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(findViewById(R.id.toolbar)) // 뒤로가기 메뉴
 
+        // calendar
         val transaction: FragmentTransaction = fragmentManager.beginTransaction()
         transaction.replace(R.id.menu_frame_view, fragmentCalendar).commitAllowingStateLoss()
 
