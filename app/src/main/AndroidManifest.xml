@@ -10,7 +10,6 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.Apic"
-        android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
             android:name=".GroupAddActivity"

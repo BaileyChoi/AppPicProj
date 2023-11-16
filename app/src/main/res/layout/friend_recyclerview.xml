@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:padding="10dp"
-        android:background="#e4e7eb"
+        android:background="@color/mainColor1"
         android:elevation="10dp">
 
         <!--프로필 사진-->
@@ -40,7 +40,7 @@
                 android:textSize="25sp"
                 android:textColor="#000"/>
             <TextView
-                android:id="@+id/id"
+                android:id="@+id/emailId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="ID"
@@ -65,13 +65,6 @@
 
     </LinearLayout>
 
-    <!--구분선-->
-    <!--<View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginHorizontal="10dp"
-        android:background="#aaa"/>-->
-    <!--margin-->
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
