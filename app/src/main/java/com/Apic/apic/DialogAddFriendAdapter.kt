@@ -7,6 +7,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
+import com.Apic.apic.databinding.FriendAddRecyclerviewBinding
+import com.Apic.apic.databinding.FriendRecyclerviewBinding
 
 class DialogAddFriendAdapter : RecyclerView.Adapter<DialogAddFriendAdapter.ViewHolder>() {
 
@@ -14,10 +16,9 @@ class DialogAddFriendAdapter : RecyclerView.Adapter<DialogAddFriendAdapter.ViewH
 
     @NonNull
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.friend_add_recyclerview, parent, false)
-
-        return ViewHolder(view)
+        val layoutInflater = LayoutInflater.from(parent.context)
+        val binding = FriendAddRecyclerviewBinding.inflate(layoutInflater, parent, false)
+        return ViewHolder(binding)
     }
 
     // Item을 하나, 하나 보여주는(bind 되는) 함수입니다.
@@ -34,16 +35,11 @@ class DialogAddFriendAdapter : RecyclerView.Adapter<DialogAddFriendAdapter.ViewH
         return mFriendList.size
     }
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val profile: ImageView = itemView.findViewById(R.id.profile)
-        private val name: TextView = itemView.findViewById(R.id.name)
-        private val emailId: TextView = itemView.findViewById(R.id.emailId)
-
+    inner class ViewHolder(private val binding: FriendAddRecyclerviewBinding) : RecyclerView.ViewHolder(binding.root) {
         fun onBind(item: FriendItem) {
-            profile.setImageResource(item.getResourceId())
-            emailId.text = item.getID()
-            name.text = item.getName()
+            binding.profile.setImageResource(item.getResourceId())
+            binding.emailId.text = item.getID()
+            binding.name.text = item.getName()
         }
     }
-
 }

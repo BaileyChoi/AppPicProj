@@ -27,7 +27,7 @@
             android:textSize="30dp"
             android:textStyle="bold" />-->
 
-        <TextView
+        <!--<TextView
             android:id="@+id/textFr"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -37,7 +37,20 @@
             android:hint="FRIENDS"
             android:textSize="30dp"
             android:textColor="#000000"
-            android:text="FRIENDS" />
+            android:text="FRIENDS" />-->
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/search_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:queryBackground="@null"
+            android:layout_weight="1"
+            android:background="@drawable/bin_search_window"
+            android:iconifiedByDefault="false"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            app:iconifiedByDefault="false"
+            app:queryHint="친구명 검색" />
 
         <ImageButton
             android:id="@+id/searchButton"
@@ -47,6 +60,7 @@
             android:scaleType="centerCrop"
             android:background="@drawable/shape_for_circle_button"
             android:src="@drawable/search_icon" />
+
         <ImageButton
             android:id="@+id/addButton"
             android:layout_width="50dp"

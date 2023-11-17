@@ -59,6 +59,10 @@ class FriendFragment : Fragment() {
         binding.addButton.setOnClickListener {
             (activity as? MainActivity)?.setFragment(1)
         }
+        binding.searchButton.setOnClickListener {
+            // 친구 리스트에서 사용자 이름 검색하기
+        }
+
 
         return binding.root
     }
