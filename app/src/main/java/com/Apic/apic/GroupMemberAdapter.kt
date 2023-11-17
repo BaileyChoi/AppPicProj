@@ -1,34 +1,27 @@
 package com.Apic.apic
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.Apic.apic.databinding.RvGroupDateBinding
+import com.Apic.apic.databinding.RvGroupMemberBinding
 
-class GroupDateAdapter: RecyclerView.Adapter<GroupDateAdapter.ViewHolder>() {
+class GroupMemberAdapter: RecyclerView.Adapter<GroupMemberAdapter.ViewHolder>() {
     private var data = ArrayList<String>()
 
-    inner class ViewHolder(val binding: RvGroupDateBinding): RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(val binding: RvGroupMemberBinding): RecyclerView.ViewHolder(binding.root) {
         fun onBind(item : String) {
-            binding.groupDate.text = item
+            binding.memberName.text = item
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         var layoutInflater = LayoutInflater.from(parent.context)
-        val binding = RvGroupDateBinding.inflate(layoutInflater,parent,false)
+        val binding = RvGroupMemberBinding.inflate(layoutInflater,parent,false)
         return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.onBind(data[position])
-
-//        holder.layout.layoutListItem.setOnClickListener {
-//            Toast.makeText(holder.layout.context, "${list[position]} Click!", Toast.LENGTH_SHORT).show()
-//        }
     }
 
     override fun getItemCount(): Int {

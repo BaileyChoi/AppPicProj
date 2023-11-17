@@ -8,13 +8,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.Apic.apic.databinding.GroupRecyclerviewBinding
+import com.Apic.apic.databinding.RvGroupListBinding
 
 class GroupListAdapter : RecyclerView.Adapter<GroupListAdapter.ViewHolder>() {
     private lateinit var itemClickListener : OnItemClickListener
     private var data = mutableListOf<GroupListItem>()
 
-    inner class ViewHolder(val binding: GroupRecyclerviewBinding): RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(val binding: RvGroupListBinding): RecyclerView.ViewHolder(binding.root) {
         fun onBind(item: GroupListItem) {
             binding.groupName.text =  item.getGroupName() // 그룹 이름
             binding.groupNum.text = item.getGroupNum().toString()   // 그룹 멤버명수
@@ -37,7 +37,7 @@ class GroupListAdapter : RecyclerView.Adapter<GroupListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val binding = GroupRecyclerviewBinding.inflate(layoutInflater, parent, false)
+        val binding = RvGroupListBinding.inflate(layoutInflater, parent, false)
         return ViewHolder(binding)
     }
 

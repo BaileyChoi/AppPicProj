@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="10dp"
-        tools:listitem="@layout/group_date_recyclerview"/>
+        tools:listitem="@layout/rv_group_date"/>
 
 
 </LinearLayout>

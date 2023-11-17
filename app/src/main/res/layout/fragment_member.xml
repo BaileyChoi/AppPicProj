@@ -17,11 +17,11 @@
         />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/group_date_recyclerView"
+        android:id="@+id/group_member_recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="10dp"
-        tools:listitem="@layout/group_date_recyclerview" />
+        tools:listitem="@layout/rv_group_member" />
 
 
 </LinearLayout>

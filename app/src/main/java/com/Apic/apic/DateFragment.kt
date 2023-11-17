@@ -40,18 +40,16 @@ class DateFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val binding = FragmentDateBinding.inflate(inflater, container, false)
-        var list = arrayListOf("09.07", "09.13", "08.16", "08.23")
+        var list = arrayListOf("09.07", "09.13", "08.16", "08.23", "07.11", "06,22", "05.01")
 
         val recyclerView:RecyclerView = binding.groupDateRecyclerView
-        recyclerView.layoutManager = GridLayoutManager(context, 3)
+        recyclerView.layoutManager = GridLayoutManager(context, 4)
         groupDateAdapter = GroupDateAdapter()
         groupDateAdapter.replaceList(list)
         recyclerView.adapter = groupDateAdapter
 
 
         return binding.root
-
-
     }
 
     companion object {
