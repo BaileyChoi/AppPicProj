@@ -1,6 +1,21 @@
+// 최신버전이기 때문에 firebase 사용 시 아래 buildscript추가 필요 //
+buildscript {
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.google.gms:google-services:4.3.10' // 사용하고 있는 Firebase 버전에 맞게 변경
+        classpath 'com.android.tools.build:gradle:7.1.0' // 최신 버전으로 변경
+    }
+}
+
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+
+    id 'com.google.gms.google-services' version '4.3.10' // 사용하고 있는 Firebase 버전에 맞게 변경
+    id 'kotlin-kapt' //Kotlin Annotation Processing Tool (@)
 }
 
 android {
@@ -14,6 +29,8 @@ android {
         targetSdk 33
         versionCode 1
         versionName "1.0"
+
+        multiDexEnabled true //파이어베이스 추가하기
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -47,4 +64,27 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    //추가 내용
+
+
+    //Firebase에 대한 내용 추가 _auth
+    // Import the Firebase BoM
+    implementation(platform("com.google.firebase:firebase-bom:32.5.0"))
+    implementation("com.google.firebase:firebase-analytics")
+    implementation platform('com.google.firebase:firebase-bom:32.5.0')
+
+    implementation 'com.google.firebase:firebase-bom:32.0.0'
+    implementation 'com.google.android.gms:play-services-auth:20.5.0'
+    implementation 'androidx.multidex:multidex:2.0.1'
+    implementation 'com.google.firebase:firebase-auth-ktx:22.0.0'
+
+    //Firebase에 대한 내용 추가_firestore
+    implementation 'com.google.firebase:firebase-firestore-ktx:24.6.0'//데이터 저장
+
+    //스토리지 이미지 저장&업로드
+    implementation 'com.google.firebase:firebase-storage-ktx:20.2.0'
+    implementation 'com.firebaseui:firebase-ui-storage:8.0.1'
+    kapt 'android.arch.lifecycle:compiler:1.1.1'
+    kapt 'com.github.bumptech.glide:compiler:4.13.2'
 }

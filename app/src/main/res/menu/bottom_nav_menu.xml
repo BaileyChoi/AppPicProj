@@ -13,7 +13,7 @@
 
     <item
         android:id="@+id/menu_share"
-        android:icon="@drawable/baseline_share_24"
+        android:icon="@drawable/account_friend_human_man_member_icon"
         android:title="share" />
 
     <item
