@@ -1,13 +1,13 @@
 package com.Apic.apic
 
-import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
-import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.Apic.apic.databinding.FragmentGroupListBinding
-import com.google.android.material.bottomnavigation.BottomNavigationView
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -24,6 +24,16 @@ class GroupListFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private lateinit var groupListAdapter: GroupListAdapter
+    private fun setOnClickEvent() {
+        groupListAdapter.setItemClickListener(object:GroupListAdapter.OnItemClickListener {
+            override fun onClick(view:View, position:Int) {
+                super.onClick(view, position)
+                val intent = Intent(getActivity(), GroupActivity::class.java)
+                startActivity(intent)
+            }
+        })
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -33,7 +43,7 @@ class GroupListFragment : Fragment() {
 
 
     }
-
+    
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,29 +51,44 @@ class GroupListFragment : Fragment() {
         // Inflate the layout for this fragment
         val binding = FragmentGroupListBinding.inflate(inflater, container, false)
 
-        // (activity as AppCompatActivity).setSupportActionBar(R.id.back) // 뒤로가기 메뉴
+        val group_datas : MutableList<GroupListItem> = mutableListOf (
+            GroupListItem("GroupA", 3, true),
+            GroupListItem("GroupB", 5, false),
+            GroupListItem("GroupC", 7, true)
+        )
 
-        // 그룹 추가 다이얼로그 추가
+        val recyclerView: RecyclerView = binding.groupRecyclerView
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        groupListAdapter = GroupListAdapter()
+        groupListAdapter.replaceList(group_datas)
+        recyclerView.adapter = groupListAdapter
+
+        setOnClickEvent()
+
+        // 그룹 추가
         binding.addBtn.setOnClickListener {
-            // Dialog
+            // 그룹 추가 프래그먼트
         }
 
+        // 뒤로 가기 버튼
+        // (activity as AppCompatActivity).setSupportActionBar(R.id.back) // 뒤로가기 메뉴
 
         return binding.root
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.toolbar_menu, menu)
-    }
+    // 뒤로가기 버튼
+//    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+//        inflater.inflate(R.menu.toolbar_menu, menu)
+//    }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.getItemId()) {
-            R.id.back -> {
-                // 뒤로 가기 메뉴
-            }
-        }
-        return false
-    }
+//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//        when (item.getItemId()) {
+//            R.id.back -> {
+//                // 뒤로 가기 메뉴
+//            }
+//        }
+//        return false
+//    }
 
     companion object {
         /**

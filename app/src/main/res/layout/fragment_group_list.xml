@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".GroupListFragment"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="10dp">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -14,7 +15,10 @@
         android:id="@+id/textView3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="GROUP" />
+        android:text="GROUP"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:paddingLeft="10dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,7 +26,7 @@
         android:orientation="horizontal">
 
         <EditText
-            android:layout_width="300dp"
+            android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:hint="그룹명 검색"
             android:background="@color/mainColor2"/>
@@ -33,23 +37,20 @@
             android:layout_height="30dp"
             android:src="@drawable/ic_plus"
             android:background="@drawable/ic_cirecle_button"
-            android:padding="0sp"
+            android:layout_marginLeft="10dp"
             android:scaleType="centerCrop"/>
 
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:id="@+id/group_recyclerView"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        tools:listitem="@layout/group_recyclerview"/>
 
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/main_fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="30dp"
-        app:icon="@android:drawable/ic_input_add"
-        android:text="모임 추가"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"/>
+
 
 </LinearLayout>

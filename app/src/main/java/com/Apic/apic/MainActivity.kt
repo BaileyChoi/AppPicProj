@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
     private val fragmentManager: FragmentManager = supportFragmentManager
     private val fragmentCalendar = CalendarFragment()
     private val fragmentFriend = FriendFragment()
-    private val fragmentGroupListBinding = GroupListFragment()
+    private val fragmentGroupList = GroupListFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
             when (menuItem.itemId) {
                 R.id.menu_home -> transaction.replace(R.id.menu_frame_view, fragmentCalendar).commitAllowingStateLoss()
                 R.id.menu_friend -> transaction.replace(R.id.menu_frame_view, fragmentFriend).commitAllowingStateLoss()
-                R.id.menu_share -> transaction.replace(R.id.menu_frame_view, fragmentGroupListBinding).commitAllowingStateLoss()
+                R.id.menu_share -> transaction.replace(R.id.menu_frame_view, fragmentGroupList).commitAllowingStateLoss()
 
             }
             true
