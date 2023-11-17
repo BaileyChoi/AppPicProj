@@ -8,7 +8,7 @@
     tools:context=".FriendFragment">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="20dp"
@@ -39,8 +39,8 @@
             android:textColor="#000000"
             android:text="FRIENDS" />-->
 
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/search_view"
+        <EditText
+            android:id="@+id/searchView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:queryBackground="@null"
@@ -49,6 +49,7 @@
             android:iconifiedByDefault="false"
             android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"
+            android:hint="친구명 검색"
             app:iconifiedByDefault="false"
             app:queryHint="친구명 검색" />
 
@@ -79,4 +80,10 @@
         android:layout_height="wrap_content"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
+    <EditText
+        android:id="@+id/edtProduct"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:hint="돈까스"/>
 </LinearLayout>

@@ -55,7 +55,6 @@ class AddFriendFragment : Fragment() {
             (activity as? MainActivity)?.setFragment(0)
         }
 
-
         return binding.root
     }
 

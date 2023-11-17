@@ -1,17 +1,16 @@
 package com.Apic.apic
 
-import android.app.Dialog
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.Window
-import android.widget.Button
-import androidx.core.content.ContentProviderCompat.requireContext
+import android.widget.EditText
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.Apic.apic.databinding.DialogAddFriendBinding
+import com.Apic.apic.databinding.FragmentFriendBinding
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -23,6 +22,12 @@ class FriendFragment : Fragment() {
 
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var mRecyclerAdapter: DialogFriendAdapter
+    private val originalList: ArrayList<FriendItem> = ArrayList()   // =friendItems // Adapter list이름 확인
+    private val searchList: ArrayList<FriendItem> = ArrayList()
+    private lateinit var editText: EditText
+    //private val dialogFriendAdapter: String = String()
+    //private lateinit var fragmentTransaction: FragmentTransaction
+    private lateinit var dialogFriendAdapter: DialogFriendAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +41,7 @@ class FriendFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = com.Apic.apic.databinding.FragmentFriendBinding.inflate(inflater, container, false)
+        val binding = FragmentFriendBinding.inflate(inflater, container, false)
 
         mRecyclerView = binding.recyclerView
 
@@ -47,25 +52,61 @@ class FriendFragment : Fragment() {
         mRecyclerView.adapter = mRecyclerAdapter
         mRecyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        val friendItems = ArrayList<FriendItem>()
-        for (i in 1..10) {
+
+        //val friendItems = ArrayList<FriendItem>()
+        for (i in 1..50) {
             val resourceId = R.drawable.person_circle
-            friendItems.add(FriendItem(resourceId, "${i}@gmail.com", "${i}p"))
+            //friendItems.add(FriendItem(resourceId, "${i}@gmail.com", "${i}p"))
+            originalList.add(FriendItem(resourceId, "${i}@gmail.com", "${i}p"))
         }
 
-        mRecyclerAdapter.setFriendList(friendItems)
+        mRecyclerAdapter.setFriendList(originalList)
 
         // Button click listener
         binding.addButton.setOnClickListener {
             (activity as? MainActivity)?.setFragment(1)
         }
-        binding.searchButton.setOnClickListener {
-            // 친구 리스트에서 사용자 이름 검색하기
-        }
 
+        editText = binding.searchView   // 검색어 변수로 받음.
+
+        editText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
+                // Optional: Add any functionality needed before text changes
+            }
+
+            override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
+                // Optional: Add any functionality needed during text changes
+            }
+
+            override fun afterTextChanged(editable: Editable) {
+                val searchText = editText.text.toString() //editable.toString()
+                searchList.clear()
+
+                if (searchText.isEmpty()) {
+                    dialogFriendAdapter.setFriendList(originalList)
+                } else {
+                    // 검색 단어를 포함하는지 확인
+                    for (a in 0 until originalList.size) {
+                        if (originalList[a].getName().toLowerCase().contains(searchText.toLowerCase())) {
+                            searchList.add(originalList[a])
+                        }
+                    }
+                    //dialogFriendAdapter.setFriendList(originalList)
+                    dialogFriendAdapter.setFriendList(searchList)
+                }
+            }
+        })
+    //
+        // 리사이클러뷰, 어댑터 연결
+        val recyclerView: RecyclerView = binding.recyclerView
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        dialogFriendAdapter = DialogFriendAdapter()
+        dialogFriendAdapter.setFriendList(originalList)
+        recyclerView.adapter = dialogFriendAdapter
 
         return binding.root
     }
+
 
     companion object {
         /**
