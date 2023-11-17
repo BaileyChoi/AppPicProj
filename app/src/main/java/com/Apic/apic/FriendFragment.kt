@@ -50,7 +50,7 @@ class FriendFragment : Fragment() {
         val friendItems = ArrayList<FriendItem>()
         for (i in 1..10) {
             val resourceId = R.drawable.person_circle
-            friendItems.add(FriendItem(resourceId, "${i}번째 사람", "${i}번째 상태메시지"))
+            friendItems.add(FriendItem(resourceId, "${i}@gmail.com", "${i}p"))
         }
 
         mRecyclerAdapter.setFriendList(friendItems)

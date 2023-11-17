@@ -58,8 +58,8 @@
 
         <ImageButton
             android:id="@+id/checkButton"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:padding="0sp"
             android:scaleType="centerCrop"
             android:background="#e4e7eb"
@@ -67,8 +67,8 @@
             android:src="@drawable/ic_check_circle_icon" />
         <ImageButton
             android:id="@+id/cancelButton"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:padding="0sp"
             android:scaleType="centerCrop"
             android:background="#e4e7eb"

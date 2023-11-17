@@ -59,6 +59,10 @@ class MainActivity : AppCompatActivity() {
             1 -> fragmentTransaction.replace(R.id.menu_frame_view, fragmentAddFriend).commit()  // FriendFragment, addButton눌렀을 때
 
         }
+        when (n) {
+            0 -> fragmentTransaction.replace(R.id.menu_frame_view, fragmentFriend).commit()  // FriendFragment, addButton눌렀을 때
+        }
+
     }
 
 }
