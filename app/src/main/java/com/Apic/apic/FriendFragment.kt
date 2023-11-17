@@ -1,5 +1,7 @@
 package com.Apic.apic
 
+import android.content.Context
+import android.content.Context.INPUT_METHOD_SERVICE
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -7,10 +9,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import androidx.core.content.ContextCompat.getSystemService
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.Apic.apic.databinding.FragmentFriendBinding
+import com.google.android.material.internal.ViewUtils.hideKeyboard
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -25,9 +32,8 @@ class FriendFragment : Fragment() {
     private val originalList: ArrayList<FriendItem> = ArrayList()   // =friendItems // Adapter list이름 확인
     private val searchList: ArrayList<FriendItem> = ArrayList()
     private lateinit var editText: EditText
-    //private val dialogFriendAdapter: String = String()
-    //private lateinit var fragmentTransaction: FragmentTransaction
     private lateinit var dialogFriendAdapter: DialogFriendAdapter
+    private lateinit var imm: InputMethodManager;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,6 +71,11 @@ class FriendFragment : Fragment() {
         // Button click listener
         binding.addButton.setOnClickListener {
             (activity as? MainActivity)?.setFragment(1)
+        }
+
+        binding.searchButton.setOnClickListener{
+            val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(binding.searchView.windowToken, 0)
         }
 
         editText = binding.searchView   // 검색어 변수로 받음.
