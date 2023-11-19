@@ -1,10 +1,12 @@
 package com.Apic.apic
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.Apic.apic.databinding.FragmentDateBinding
@@ -25,6 +27,7 @@ class DateFragment : Fragment() {
     private var param2: String? = null
 
     private lateinit var groupDateAdapter: GroupDateAdapter
+    private var dateList : ArrayList<String> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,20 +37,39 @@ class DateFragment : Fragment() {
         }
     }
 
+    private fun setOnClickEvent() {
+        groupDateAdapter.setItemClickListener(object: GroupDateAdapter.OnItemClickListener {
+            override fun onClick(view:View, position:Int) {
+                super.onClick(view, position)
+                Toast.makeText(view.context, "테스트 - ${dateList[position]} 클릭", Toast.LENGTH_SHORT).show()
+                // 약속 프레그먼트(게시글/사진첩)로 이동
+                // val intent = Intent(getActivity(), GroupActivity::class.java)
+                // startActivity(intent)
+            }
+        })
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         val binding = FragmentDateBinding.inflate(inflater, container, false)
-        var list = arrayListOf("09.07", "09.13", "08.16", "08.23", "07.11", "06,22", "05.01")
+        dateList.add("09.07")
+        dateList.add("09.13")
+        dateList.add("08.16")
+        dateList.add("08.23")
+        dateList.add("07.11")
+        dateList.add("06.22")
+        dateList.add("05.01")
 
         val recyclerView:RecyclerView = binding.groupDateRecyclerView
         recyclerView.layoutManager = GridLayoutManager(context, 4)
         groupDateAdapter = GroupDateAdapter()
-        groupDateAdapter.replaceList(list)
+        groupDateAdapter.replaceList(dateList)
         recyclerView.adapter = groupDateAdapter
 
+        setOnClickEvent()
 
         return binding.root
     }

@@ -17,12 +17,6 @@
             android:exported="false"
             android:label="@string/title_activity_group"
             android:theme="@style/Theme.Apic" />
-            android:name=".GroupAddActivity"
-            android:exported="false" />
-      
-        <activity
-            android:name=".GroupListActivity"
-            android:exported="false" />
       
         <activity
             android:name=".MainActivity"

@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".GroupListFragment"
     android:orientation="vertical"
-    android:padding="10dp">
+    android:padding="20dp">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -26,18 +26,19 @@
         android:orientation="horizontal">
 
         <EditText
-            android:layout_width="350dp"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:hint="그룹명 검색"
-            android:background="@color/mainColor2"/>
+            android:hint="   그룹명 검색"
+            android:backgroundTint="@color/mainColor2"
+            android:background="@drawable/radius20"/>
 
         <ImageButton
             android:id="@+id/addBtn"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:src="@drawable/ic_plus"
-            android:background="@drawable/ic_cirecle_button"
-            android:layout_marginLeft="10dp"
+            android:background="@drawable/ic_circle_button"
+            android:layout_marginLeft="60dp"
             android:scaleType="centerCrop"/>
 
     </LinearLayout>

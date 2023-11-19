@@ -3,9 +3,13 @@ package com.Apic.apic
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.Apic.apic.databinding.FragmentAddGroupBinding
 import com.Apic.apic.databinding.FragmentGroupListBinding
 
 // TODO: Rename parameter arguments, choose names that match
@@ -23,11 +27,14 @@ class GroupListFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private val group_datas : ArrayList<GroupListItem> = ArrayList()
     private lateinit var groupListAdapter: GroupListAdapter
+
     private fun setOnClickEvent() {
         groupListAdapter.setItemClickListener(object:GroupListAdapter.OnItemClickListener {
             override fun onClick(view:View, position:Int) {
                 super.onClick(view, position)
+                Toast.makeText(view.context, "테스트 - ${group_datas[position].getGroupName()}클릭", Toast.LENGTH_SHORT).show()
                 val intent = Intent(getActivity(), GroupActivity::class.java)
                 startActivity(intent)
             }
@@ -39,8 +46,6 @@ class GroupListFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
-
-
     }
     
     override fun onCreateView(
@@ -50,11 +55,10 @@ class GroupListFragment : Fragment() {
         // Inflate the layout for this fragment
         val binding = FragmentGroupListBinding.inflate(inflater, container, false)
 
-        val group_datas : MutableList<GroupListItem> = mutableListOf (
-            GroupListItem("GroupA", 3, true),
-            GroupListItem("GroupB", 5, false),
-            GroupListItem("GroupC", 7, true)
-        )
+        group_datas.add(GroupListItem("GroupA", 3, true))
+        group_datas.add(GroupListItem("GroupB", 5, true))
+        group_datas.add(GroupListItem("GroupC", 6, true))
+        group_datas.add(GroupListItem("GroupD", 9, true))
 
         val recyclerView: RecyclerView = binding.groupRecyclerView
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -66,11 +70,14 @@ class GroupListFragment : Fragment() {
 
         // 그룹 추가
         binding.addBtn.setOnClickListener {
-            // 그룹 추가 프래그먼트
+            val transaction = fragmentManager?.beginTransaction()
+            if (transaction != null) {
+                transaction.replace(R.id.menu_frame_view, AddGroupFragment()).commitAllowingStateLoss()
+            }
+
         }
 
-        // 뒤로 가기 버튼
-        // (activity as AppCompatActivity).setSupportActionBar(R.id.back) // 뒤로가기 메뉴
+        //(activity as AppCompatActivity).setSupportActionBar(R.id.back) // 뒤로가기 메뉴
 
         return binding.root
     }

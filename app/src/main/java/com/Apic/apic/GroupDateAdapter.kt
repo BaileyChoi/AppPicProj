@@ -9,12 +9,22 @@ import androidx.recyclerview.widget.RecyclerView
 import com.Apic.apic.databinding.RvGroupDateBinding
 
 class GroupDateAdapter: RecyclerView.Adapter<GroupDateAdapter.ViewHolder>() {
+    private lateinit var itemClickListener : OnItemClickListener
     private var data = ArrayList<String>()
 
     inner class ViewHolder(val binding: RvGroupDateBinding): RecyclerView.ViewHolder(binding.root) {
         fun onBind(item : String) {
             binding.groupDate.text = item
         }
+    }
+
+    interface OnItemClickListener {
+        fun onClick(view: View, position: Int) {
+            // Toast.makeText(view.context, "테스트 - ${position}클릭", Toast.LENGTH_SHORT).show()
+        }
+    }
+    fun setItemClickListener(onItemClickListener: OnItemClickListener) {
+        this.itemClickListener = onItemClickListener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -25,10 +35,9 @@ class GroupDateAdapter: RecyclerView.Adapter<GroupDateAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.onBind(data[position])
-
-//        holder.layout.layoutListItem.setOnClickListener {
-//            Toast.makeText(holder.layout.context, "${list[position]} Click!", Toast.LENGTH_SHORT).show()
-//        }
+        holder.itemView.setOnClickListener {
+            itemClickListener.onClick(it, position)
+        }
     }
 
     override fun getItemCount(): Int {

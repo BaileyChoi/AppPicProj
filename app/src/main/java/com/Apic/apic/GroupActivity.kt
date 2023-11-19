@@ -58,8 +58,8 @@ class GroupActivity : AppCompatActivity() {
     // 탭 레이아웃 설정
     private fun setupTabLayout() {
         adapter = FragmentPagerAdapter(supportFragmentManager, lifecycle)
-        tabLayout.addTab(tabLayout.newTab().setText("Tab1"))
-        tabLayout.addTab(tabLayout.newTab().setText("Tab2"))
+        tabLayout.addTab(tabLayout.newTab().setText("date"))
+        tabLayout.addTab(tabLayout.newTab().setText("member"))
         viewPager2.adapter = adapter
     }
 
@@ -89,7 +89,12 @@ class GroupActivity : AppCompatActivity() {
 
     // 리스너 설정
     private fun setupListeners() {
-        fabMain.setOnClickListener { toggleFab() }
+        fabMain.setOnClickListener {
+            toggleFab()
+            // viewpager AddMeetingFragment로 전환
+
+
+        }
         fabCamera.setOnClickListener { showToast("카메라 버튼 클릭!") }
         fabCreate.setOnClickListener { showToast("버튼 클릭!") }
         groupLikedButton.setOnClickListener { toggleLikedState() }

@@ -12,7 +12,8 @@
         android:layout_width="55dp"
         android:layout_height="55dp"
         android:src="@drawable/ic_folder"
-        android:background="@drawable/ic_cirecle_button"/>
+        android:backgroundTint="@color/mainColor2"
+        android:background="@drawable/radius10" />
 
     <TextView
         android:id="@+id/group_date"

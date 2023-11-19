@@ -12,7 +12,7 @@ import com.Apic.apic.databinding.RvGroupListBinding
 
 class GroupListAdapter : RecyclerView.Adapter<GroupListAdapter.ViewHolder>() {
     private lateinit var itemClickListener : OnItemClickListener
-    private var data = mutableListOf<GroupListItem>()
+    private var data = ArrayList<GroupListItem>()
 
     inner class ViewHolder(val binding: RvGroupListBinding): RecyclerView.ViewHolder(binding.root) {
         fun onBind(item: GroupListItem) {
@@ -27,8 +27,7 @@ class GroupListAdapter : RecyclerView.Adapter<GroupListAdapter.ViewHolder>() {
     // 아이템 클릭리스너
     interface OnItemClickListener {
         fun onClick(view: View, position: Int) {
-            Toast.makeText(view.context, "테스트 - ${position}클릭", Toast.LENGTH_SHORT).show()
-
+            // Toast.makeText(view.context, "테스트 - ${position}클릭", Toast.LENGTH_SHORT).show()
         }
     }
     fun setItemClickListener(onItemClickListener: OnItemClickListener) {
@@ -52,8 +51,8 @@ class GroupListAdapter : RecyclerView.Adapter<GroupListAdapter.ViewHolder>() {
         }
     }
 
-    fun replaceList(newList: MutableList<GroupListItem>) {
-        data = newList.toMutableList()
+    fun replaceList(newList: ArrayList<GroupListItem>) {
+        data = newList
         // 어댑터에 데이터가 변했다는 notify를 날린다
         notifyDataSetChanged()
     }
