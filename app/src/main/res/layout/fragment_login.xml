@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".loginFragment">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/mainColor3">
+
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/login" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/text_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="300dp"
+        android:layout_marginLeft="120dp"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:text="로그인 ID"/>
+
+    <EditText
+        android:id="@+id/edit_email"
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:ems="10"
+        android:layout_marginTop="330dp"
+        android:layout_marginLeft="120dp"
+        android:inputType="textPassword"
+        android:hint="email 입력"
+        android:textColorHint="@color/mainColor2"
+        android:background="@color/white"/>
+
+    <TextView
+        android:id="@+id/text_pw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="350dp"
+        android:layout_marginLeft="120dp"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:text="비밀번호"/>
+
+    <EditText
+        android:id="@+id/editPassword"
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:ems="10"
+        android:layout_marginTop="380dp"
+        android:layout_marginLeft="120dp"
+        android:inputType="textPassword"
+        android:hint="Password 입력"
+        android:textColorHint="@color/mainColor2"
+        android:background="@color/white"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="410dp"
+        android:layout_marginLeft="160dp"
+        android:text="로그인"
+        />
+
+    <Button
+        android:layout_width="170dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="120dp"
+        android:layout_marginTop="460dp"
+        android:text="회원가입" />
+    <Button
+        android:layout_width="170dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="500dp"
+        android:layout_marginLeft="120dp"
+        android:text="구글계정"
+        />
+
+
+</FrameLayout>

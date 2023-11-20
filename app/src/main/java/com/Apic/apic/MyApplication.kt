@@ -20,16 +20,19 @@ class MyApplication : MultiDexApplication() {
 
     companion object {
         lateinit var db: FirebaseFirestore
+        lateinit var storage : FirebaseStorage
+
         lateinit var auth : FirebaseAuth
         //val auth: FirebaseAuth= Firebase.auth
         var email: String? = null
 
-        fun checkAuth(): Boolean {
-            val currentUser = auth.currentUser
-            return currentUser?.let {
-                email = currentUser.email
-                currentUser.isEmailVerified
-            } ?: false
+        fun checkAuth():Boolean{ //사용자가 입력한 유저 값
+            var currentuser = auth.currentUser
+            return currentuser?.let{ //사용자가 입력한 유저 값에 대한 처리
+                email=currentuser.email
+                if(currentuser.isEmailVerified) true //인증된 이메일이다.
+                else false
+            } ?: false //인증되지 못한 유저
         }
 
 
@@ -37,7 +40,10 @@ class MyApplication : MultiDexApplication() {
 
     override fun onCreate() {
         super.onCreate()
+        FirebaseApp.initializeApp(this)
         auth = Firebase.auth //초기화
 
+        db=FirebaseFirestore.getInstance()
+        storage = Firebase.storage
     }
 }

@@ -11,7 +11,6 @@ import com.Apic.apic.databinding.ActivityAuthBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 
 class AuthActivity : AppCompatActivity() {
@@ -24,7 +23,6 @@ class AuthActivity : AppCompatActivity() {
 
         changeVisibility("logout")
         //changeVisibility(intent.getStringExtra("data").toString())
-
 
         binding.goSignInBtn.setOnClickListener{
             // 회원가입
@@ -80,8 +78,7 @@ class AuthActivity : AppCompatActivity() {
                             Toast.makeText(baseContext, "이메일 인증 실패", Toast.LENGTH_LONG).show()
                         }
                     }
-                    //else{
-                    if(!task.isSuccessful) {
+                    else{
                         Toast.makeText(baseContext, "로그인 실패..", Toast.LENGTH_LONG).show()
                         changeVisibility("logout")
                     }
@@ -99,6 +96,7 @@ class AuthActivity : AppCompatActivity() {
             changeVisibility("logout")
 
         }
+
 
         //받은 id가 진짜 구글 아이디인지 확인
         val requestLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -127,7 +125,6 @@ class AuthActivity : AppCompatActivity() {
                 Log.d("mobileApp", "GoogleSignIn - ${e.message}")
             }
         }
-
 
         binding.googleLoginBtn.setOnClickListener {
             //구글 로그인....................

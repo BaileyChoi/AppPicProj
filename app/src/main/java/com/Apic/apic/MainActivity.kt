@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private val fragmentFriend = FriendFragment()
     private val GroupListActivity = GroupListActivity()
 
-    var authMenuItem : MenuItem?= null
+    var authMenuItem : MenuItem ?= null
 
 
     private val authActivityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -98,7 +98,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     //옵션 메뉴 만들기
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
-
         authMenuItem=menu!!.findItem(R.id.menu_auth)
         if (MyApplication.checkAuth()){ //인증이 된 경우
             authMenuItem!!.title = "${MyApplication.email}님"
@@ -130,11 +129,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         if (toolbar.onOptionsItemSelected(item)) {
             return true
         }
+
         if(item.itemId === R.id.menu_auth){
             val intent = Intent(this, AuthActivity::class.java)
             if (authMenuItem!!.title!!.equals("인증")){//login
                 intent.putExtra("data", "logout")
             }
+
             else{ //이메일 이미 표시
                 intent.putExtra("data", "login")
             }
@@ -145,7 +146,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         return super.onOptionsItemSelected(item)
     }
-
 
 
 

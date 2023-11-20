@@ -3,6 +3,4 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="drawer_opened">Opened Drawer</string>
     <string name="drawer_closed">Closed Drawer</string>
-    <!-- 기본 웹 클라이언트 ID -->
-    <string name="default_web_client_id">811783432152-6dreni7o5m1gsd96c1e9lea8igq1i4vp.apps.googleusercontent.com</string>
 </resources>

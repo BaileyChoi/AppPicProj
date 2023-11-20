@@ -1,40 +1,25 @@
-// 최신버전이기 때문에 firebase 사용 시 아래 buildscript추가 필요 //
-buildscript {
-    repositories {
-        google()
-        jcenter()
-    }
-    dependencies {
-        classpath 'com.google.gms:google-services:4.3.10' // 사용하고 있는 Firebase 버전에 맞게 변경
-        classpath 'com.android.tools.build:gradle:7.1.0' // 최신 버전으로 변경
-    }
-}
-
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-
-    id 'com.google.gms.google-services' version '4.3.10' // 사용하고 있는 Firebase 버전에 맞게 변경
-    id 'kotlin-kapt' //Kotlin Annotation Processing Tool (@)
+    id 'com.google.gms.google-services' version '4.3.10' // Firebase 버전에 맞는 최신 버전 사용
+    id 'kotlin-kapt'
 }
 
 android {
     namespace 'com.Apic.apic'
     compileSdk 33
+
     compileSdkVersion 34
 
     defaultConfig {
         applicationId "com.Apic.apic"
-        minSdk 24
-        targetSdk 33
+        minSdkVersion 24 // 'minSdk' 대신 'minSdkVersion' 사용
+        targetSdkVersion 34 // 'targetSdk' 대신 'targetSdkVersion' 사용
         versionCode 1
         versionName "1.0"
-
-        multiDexEnabled true //파이어베이스 추가하기
-
+        multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-
     buildTypes {
         release {
             minifyEnabled false
@@ -48,32 +33,24 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-
     viewBinding {
-        enabled true
+        enabled = true
     }
+
 }
 
 dependencies {
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.10.0'
+    implementation 'com.google.android.material:material:1.9.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation "androidx.recyclerview:recyclerview:1.1.0"
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
-    //추가 내용
-
-
-    //Firebase에 대한 내용 추가 _auth
-    // Import the Firebase BoM
-    implementation(platform("com.google.firebase:firebase-bom:32.5.0"))
-    implementation("com.google.firebase:firebase-analytics")
-    implementation platform('com.google.firebase:firebase-bom:32.5.0')
-
+//Firebase에 대한 내용 추가 _auth
+    implementation platform('com.google.firebase:firebase-bom:32.0.0')
     implementation 'com.google.firebase:firebase-bom:32.0.0'
     implementation 'com.google.android.gms:play-services-auth:20.5.0'
     implementation 'androidx.multidex:multidex:2.0.1'
