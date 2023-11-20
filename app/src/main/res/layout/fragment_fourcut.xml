@@ -24,7 +24,7 @@
         android:id="@+id/fourcut_frame"
         android:layout_width="180dp"
         android:layout_height="500dp"
-        android:src="@drawable/iv_fourcut_frame"
+        android:src="@drawable/iv_fourcut_test_img"
         android:layout_marginTop="30dp"
         android:scaleType="fitCenter"
         android:layout_marginLeft="20dp"
