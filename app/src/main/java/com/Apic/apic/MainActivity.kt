@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.Window
+import android.widget.TextView
 import com.Apic.apic.databinding.ActivityMainBinding
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
@@ -20,8 +21,14 @@ class MainActivity : AppCompatActivity() {
     private val fragmentFriend = FriendFragment()
     private val fragmentGroupList = GroupListFragment()
 
+    lateinit var email: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+//        auth = FirebaseAuth.getInstance()
+//        email = findViewById(R.id.user_id)
+//        email.text = auth.currentUser?.email
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)

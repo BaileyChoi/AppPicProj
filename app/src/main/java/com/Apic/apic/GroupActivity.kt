@@ -10,6 +10,8 @@ import android.widget.ImageButton
 import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayout
@@ -27,8 +29,10 @@ class GroupActivity : AppCompatActivity() {
 
     private lateinit var groupLikedButton: ImageButton
     private var isLiked = false
-
+    private val fragmentAddMeeting = AddMeetingFragment()
     private lateinit var menuIcon: ImageButton
+
+    private val fragmentManager: FragmentManager = supportFragmentManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -90,9 +94,8 @@ class GroupActivity : AppCompatActivity() {
     // 리스너 설정
     private fun setupListeners() {
         fabMain.setOnClickListener {
-            toggleFab()
+            // toggleFab()
             // viewpager AddMeetingFragment로 전환
-
 
         }
         fabCamera.setOnClickListener { showToast("카메라 버튼 클릭!") }

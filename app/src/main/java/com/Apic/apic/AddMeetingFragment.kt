@@ -48,19 +48,17 @@ class AddMeetingFragment : Fragment() {
             // 약속 추가
 
             // 약속 날짜 리스트로 돌아가기
-            val transaction = fragmentManager?.beginTransaction()
-            if (transaction != null) {
-                transaction.replace(R.id.menu_frame_view, DateFragment()).commitAllowingStateLoss()
-            }
+            val intent = Intent(getActivity(),GroupActivity::class.java)
+            startActivity(intent)
+
         }
 
         // 엑스 버튼
         binding.cancelBtn.setOnClickListener {
             // 약속 날짜 리스트로 돌아가기
-            val transaction = fragmentManager?.beginTransaction()
-            if (transaction != null) {
-                transaction.replace(R.id.menu_frame_view, DateFragment()).commitAllowingStateLoss()
-            }
+            val intent = Intent(getActivity(),GroupActivity::class.java)
+            startActivity(intent)
+
         }
 
         return binding.root    }
