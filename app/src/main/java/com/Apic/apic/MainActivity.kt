@@ -47,9 +47,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         // group activity test code
-//        val intent = Intent(this, GroupActivity::class.java)
-//        startActivity(intent)
-//        finish()
+        val intent = Intent(this, GroupActivity::class.java)
+        startActivity(intent)
+        finish()
 
     }
 

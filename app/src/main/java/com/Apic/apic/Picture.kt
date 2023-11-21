@@ -1,3 +1,3 @@
 package com.Apic.apic
 
-data class Picture()
+data class Picture(val imageResId: Int)

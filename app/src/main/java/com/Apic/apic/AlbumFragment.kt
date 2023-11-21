@@ -1,59 +1,85 @@
 package com.Apic.apic
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.Apic.apic.databinding.FragmentAlbumBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+class AlbumFragment : Fragment() {
 
-/**
- * A simple [Fragment] subclass.
- * Use the [SecondFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class SecondFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private lateinit var binding: FragmentAlbumBinding
+    private lateinit var albumRecyclerView: RecyclerView
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var albumAdapter: AlbumAdapter? = null
+    private var imageList: ArrayList<Uri>? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_second, container, false)
+        binding = FragmentAlbumBinding.inflate(inflater, container, false)
+        val rootView = binding.root
+
+        albumRecyclerView = binding.albumRecyclerView
+        albumRecyclerView.layoutManager = GridLayoutManager(requireContext(), 3)
+
+        // 이미지 리스트가 null이면 새로 생성, 이미 있다면 기존 리스트 사용
+        imageList = imageList ?: ArrayList()
+
+        // AlbumAdapter 초기화 및 RecyclerView에 연결
+        albumAdapter = AlbumAdapter(imageList!!, requireContext())
+        albumRecyclerView.adapter = albumAdapter
+
+        Log.d("AlbumFragment", "onCreateView called")
+
+        return rootView
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment FreindsFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            SecondFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    fun updateImageList(data: Intent?) {
+        Log.d("AlbumFragment", "updateImageList called")
+
+        if (imageList == null) {
+            imageList = ArrayList()
+        }
+
+        if (data?.clipData != null) {   // 다중 이미지 갯수
+            // 선택한 이미지 갯수
+            Log.d("AlbumFragment", "ClipData exists with itemCount: ${data.clipData!!.itemCount}")
+            val count = data.clipData!!.itemCount
+
+            for (index in 0 until count) {
+                // 이미지 담기
+                val imageUri = data.clipData!!.getItemAt(index).uri
+                // 이미지 추가
+                imageList?.add(imageUri)
+                Log.d("AlbumFragment", "Added image to imageList: $imageUri")
             }
+        } else { // 싱글 이미지
+            Log.d("AlbumFragment", "ClipData is null")
+            val imageUri = data?.data
+            imageUri?.let {
+                imageList?.add(it)
+            }
+        }
+
+        // 이미지 리스트 업데이트
+        updateAdapter()
+    }
+
+    private fun updateAdapter() {
+        imageList?.let {
+            Log.d("AlbumFragment", "imageList size: ${it.size}")
+
+            // Check if albumAdapter is initialized before calling notifyDataSetChanged
+            albumAdapter?.notifyDataSetChanged()
+            Log.d("AlbumFragment", "notifyDataSetChanged")
+        }
     }
 }

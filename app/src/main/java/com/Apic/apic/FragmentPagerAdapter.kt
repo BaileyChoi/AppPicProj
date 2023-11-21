@@ -18,6 +18,9 @@ class FragmentPagerAdapter (
         return if (position == 0)
             FirstFragment()
         else
-            SecondFragment()
+            AlbumFragment()
 
-}}
+}
+
+
+}
