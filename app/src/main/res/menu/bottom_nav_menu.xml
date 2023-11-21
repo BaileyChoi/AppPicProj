@@ -3,22 +3,22 @@
 
     <item
         android:id="@+id/menu_home"
-        android:icon="@drawable/home_house_icon"
+        android:icon="@drawable/ic_home"
         android:title="home" />
 
     <item
         android:id="@+id/menu_friend"
-        android:icon="@drawable/account_friend_human_man_member_icon"
+        android:icon="@drawable/ic_account_friend"
         android:title="friend" />
 
     <item
         android:id="@+id/menu_share"
-        android:icon="@drawable/share_social_icon"
+        android:icon="@drawable/ic_share"
         android:title="share" />
 
     <item
         android:id="@+id/menu_call"
-        android:icon="@drawable/camera_image_photo_photography_video_icon"
+        android:icon="@drawable/ic_camera"
         android:title="4cut" />
 
 </menu>

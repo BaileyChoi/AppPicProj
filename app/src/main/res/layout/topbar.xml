@@ -13,6 +13,11 @@
         android:background="@color/mainColor4"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
 
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_account_friend" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -44,7 +44,7 @@
             android:layout_height="50dp"
             android:padding="0sp"
             android:scaleType="centerInside"
-            android:background="@drawable/shape_for_circle_button"
+            android:background="@drawable/ic_circle_button"
             android:src="@drawable/ic_send_icon" />
     </LinearLayout>
 
