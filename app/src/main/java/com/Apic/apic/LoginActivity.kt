@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : AppCompatActivity() {
@@ -32,15 +33,15 @@ class LoginActivity : AppCompatActivity() {
                 .addOnCompleteListener(this) {
                         result ->
                     if(result.isSuccessful){
-                        auth.currentUser?.sendEmailVerification()   // 인증 메일 발송
-                            ?.addOnCompleteListener { sendTask ->
-                                if (sendTask.isSuccessful) {
-                                    //
-                                }
-                                else {
-
-                                }
-                            }
+//                        auth.currentUser?.sendEmailVerification()   // 인증 메일 발송
+//                            ?.addOnCompleteListener { sendTask ->
+//                                if (sendTask.isSuccessful) {
+//                                    //
+//                                }
+//                                else {
+//
+//                                }
+//                            }
                         Toast.makeText(this,"회원가입이 완료되었습니다.",Toast.LENGTH_SHORT).show()
                         if(auth.currentUser!=null){
                             var intent = Intent(this, MainActivity::class.java)
@@ -52,6 +53,7 @@ class LoginActivity : AppCompatActivity() {
                     }
                     else{
                         login(email,password)
+                        Toast.makeText(this,"로그인이 완료되었습니다.",Toast.LENGTH_SHORT).show()
                     }
                 }
         }
