@@ -16,9 +16,9 @@ class FragmentPagerAdapter (
 
     override fun createFragment(position: Int): Fragment {
         return if (position == 0)
-            FirstFragment()
-        else
             AlbumFragment()
+        else
+            MemberFragment()
 
 }
 
