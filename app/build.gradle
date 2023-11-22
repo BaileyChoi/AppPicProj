@@ -1,7 +1,9 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+
     id 'com.google.gms.google-services'
+
 }
 
 android {
@@ -69,6 +71,7 @@ dependencies {
     implementation 'androidx.compose.material3:material3'
     implementation "androidx.recyclerview:recyclerview:1.1.0"
     implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.firebase:firebase-firestore:24.9.1'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
@@ -83,6 +86,4 @@ dependencies {
 //    implementation 'com.google.android.gms:play-services-auth:20.7.0'      // 구글 인증
 
 
-    //Firebase에 대한 내용 추가_firestore
-    implementation 'com.google.firebase:firebase-firestore-ktx:24.6.0'//데이터 저장
 }
