@@ -17,8 +17,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import com.Apic.apic.databinding.FragmentFourcutBinding
 import org.opencv.android.Utils
+import org.opencv.core.Core
 import org.opencv.core.Mat
+import org.opencv.core.Size
 import org.opencv.imgproc.Imgproc
+import org.opencv.photo.Photo
+import org.opencv.photo.Photo.pencilSketch
 import org.opencv.photo.Photo.stylization
 import java.io.InputStream
 
@@ -95,7 +99,7 @@ class FourcutFragment : Fragment() {
             requestGalleryLauncher.launch(intent)
         }
 
-        // 사진 효과 적용
+        // 버튼 1) 그레이 사진 효과 적용
         binding.btnChangeEffect1.setOnClickListener {
 
             val assetManager = resources.assets
@@ -108,10 +112,6 @@ class FourcutFragment : Fragment() {
 
             Imgproc.cvtColor(gray, gray, Imgproc.COLOR_RGBA2GRAY)
 
-            // 카툰 효과 처리
-//            stylization(gray, gray, 60F, 0.45F)
-//            Log.d("4cut", "카툰 효과 처리 성공")
-
             val grayBitmap = Bitmap.createBitmap(gray.cols(), gray.rows(), Bitmap.Config.ARGB_8888)
             Utils.matToBitmap(gray, grayBitmap)
 
@@ -119,26 +119,122 @@ class FourcutFragment : Fragment() {
             Log.d("4cut", "그레이 이미지 설정 완료")
         }
 
+        binding.btnChangeEffect2.setOnClickListener {
+            val assetManager = resources.assets
+            val inputStream: InputStream = assetManager.open("iv_fourcut_test_img.jpg")
+            // decode 비트맵 변수
+            val bitmap: Bitmap = BitmapFactory.decodeStream(inputStream)
+            binding.fourcutFrame.setImageBitmap(bitmap)
+
+            // 비트맵 to mat할 Mat 변수
+            val gray = Mat()
+            Utils.bitmapToMat(bitmap, gray)
+            Log.d("4cut", "1) bitmap to mat 성공")
+
+            Imgproc.cvtColor(gray, gray, Imgproc.COLOR_BGRA2BGR)
+            Log.d("4cut", "Imgproc.COLOR_BGRA2BGR 성공")
+
+            var cartoon = Mat()
+
+            cartoon = cartoon(gray)
+            Log.d("4cut", "카툰 효과 처리 성공")
+
+            Utils.matToBitmap(cartoon, bitmap)
+
+            binding.fourcutFrame.setImageBitmap(bitmap)
+            Log.d("4cut", "카툰 효과 이미지 설정 완료")
+        }
+
+        // 3번째 버튼 : 스케치
+        binding.btnChangeEffect3.setOnClickListener {
+            val assetManager = resources.assets
+            val inputStream: InputStream = assetManager.open("iv_fourcut_test_img.jpg")
+            // decode 비트맵 변수
+            val bitmap: Bitmap = BitmapFactory.decodeStream(inputStream)
+            binding.fourcutFrame.setImageBitmap(bitmap)
+
+            // 비트맵 to mat할 Mat 변수
+            val gray = Mat()
+
+            Utils.bitmapToMat(bitmap, gray)
+            Log.d("4cut", "1) bitmap to mat 성공")
+
+            Imgproc.cvtColor(gray, gray, Imgproc.COLOR_BGRA2BGR)
+            Log.d("4cut", "Imgproc.COLOR_BGRA2BGR 성공")
+
+            var sketch = Mat()
+            sketch = sketch(gray)
+            Log.d("4cut", "스케치 효과 처리 성공")
+
+            Utils.matToBitmap(sketch, bitmap)
+
+            binding.fourcutFrame.setImageBitmap(bitmap)
+            Log.d("4cut", "스케치 효과 이미지 설정 완료")
+        }
+
+        binding.btnChangeEffect4.setOnClickListener {
+            val assetManager = resources.assets
+            val inputStream: InputStream = assetManager.open("iv_fourcut_test_img.jpg")
+            // decode 비트맵 변수
+            val bitmap: Bitmap = BitmapFactory.decodeStream(inputStream)
+            binding.fourcutFrame.setImageBitmap(bitmap)
+
+            // 비트맵 to mat할 Mat 변수
+            val gray = Mat()
+
+            Utils.bitmapToMat(bitmap, gray)
+            Log.d("4cut", "1) bitmap to mat 성공")
+
+            Imgproc.cvtColor(gray, gray, Imgproc.COLOR_BGRA2BGR)
+            Log.d("4cut", "Imgproc.COLOR_BGRA2BGR 성공")
+
+            var sketch = Mat()
+            pencilSketch(gray, sketch, sketch, 60F, 0.07F, 0.02F)
+            Log.d("4cut", "스케치 효과 처리 성공")
+
+            Utils.matToBitmap(sketch, bitmap)
+
+            binding.fourcutFrame.setImageBitmap(bitmap)
+            Log.d("4cut", "스케치 효과 이미지 설정 완료")
+        }
+
         return binding.root
     }
 
-    /*
-    fun makeGray(bitmap: Bitmap) : Bitmap {
-
-        // Create OpenCV mat object and copy content from bitmap
-        val mat = Mat()
-        Utils.bitmapToMat(bitmap, mat)
-
-        // Convert to grayscale
-        Imgproc.cvtColor(mat, mat, Imgproc.COLOR_RGB2GRAY)
-
-        // Make a mutable bitmap to copy grayscale image
-        val grayBitmap = bitmap.copy(bitmap.config, true)
-        Utils.matToBitmap(mat, grayBitmap)
-
-        return grayBitmap // 비트맵으로 리턴
+    fun sketch(src: Mat): Mat {
+        //회색조 이미지 만들기
+        val gray = Mat()
+        Imgproc.cvtColor(src, gray, Imgproc.COLOR_BGR2GRAY)
+        // 회색조 이미지를 블러시키기
+        val blur = Mat()
+        Imgproc.GaussianBlur(gray, blur, Size(0.0, 0.0), 12.0)
+        // 엣지만 남고 평탄한 부분은 흰색으로 바뀜
+        val dst = Mat()
+        Core.divide(gray, blur, dst, 255.0)
+        return dst
     }
-     */
+
+    fun cartoon(src: Mat): Mat {
+        val width = src.width()
+        val height = src.height()
+        // 이미지의 크기를 줄이면 효과적으로 뭉개고, 연산량을 빨리 하는 효과가 있음.
+        val resizedSrc = Mat()
+        Imgproc.resize(src, resizedSrc, Size(width / 8.0, height / 8.0))
+        // 블러 적용
+        val blur = Mat()
+        Imgproc.bilateralFilter(resizedSrc, blur, -1, 20.0, 7.0)
+        // 엣지 검출한 뒤, 이미지를 반전시킨다.
+        val edge = Mat()
+        Imgproc.Canny(resizedSrc, edge, 100.0, 150.0)
+        Core.bitwise_not(edge, edge)
+        Imgproc.cvtColor(edge, edge, Imgproc.COLOR_GRAY2BGR)
+        //블러시킨 이미지와 반전된 edge를 and연산자로 합치면 edge부분은 검정색으로 나오고, 나머지는 많이 뭉개지고 블러처리된 이미지로 나옴, 카툰효과
+        val dst = Mat()
+        Core.bitwise_and(blur, edge, dst)
+        Imgproc.resize(dst, dst, Size(width.toDouble(), height.toDouble()), 1.0, 1.0, Imgproc.INTER_NEAREST)
+        return dst
+    }
+
 
     // 갤러리에서 사진을 불러오는 것 (+ 불러온 이미지 크기 조정)
     private fun calculateInSampleSize(fileUri: Uri, reqWidth: Int, reqHeight: Int): Int {

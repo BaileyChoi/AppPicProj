@@ -129,14 +129,19 @@
                 android:layout_marginRight="5dp"
                 android:text="GRAY"
                 android:textStyle="bold"
-                android:textSize="20dp"
-                android:background="@drawable/white_circle_button"/>
+                android:textSize="15dp"
+                android:textColor="@color/white"
+                android:background="@drawable/gray_circle_button"/>
 
             <android.widget.Button
                 android:id="@+id/btn_change_effect2"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginRight="5dp"
+                android:text="CARTOON"
+                android:textStyle="bold"
+                android:textSize="10dp"
+                android:textColor="@color/white"
                 android:background="@drawable/gray_circle_button" />
         </LinearLayout>
 
@@ -153,7 +158,11 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginRight="5dp"
-                android:background="@drawable/black_circle_button" />
+                android:text="sketch"
+                android:textStyle="bold"
+                android:textSize="13dp"
+                android:textColor="@color/white"
+                android:background="@drawable/gray_circle_button" />
 
             <android.widget.Button
                 android:id="@+id/btn_change_effect4"
