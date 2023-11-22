@@ -18,7 +18,7 @@ import com.Apic.apic.databinding.ActivityGroupBinding
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayout
 
-class GroupDetailActivity : AppCompatActivity() {
+class GroupActivity : AppCompatActivity() {
 
     // 뷰 변수 선언
     private lateinit var tabLayout: TabLayout
