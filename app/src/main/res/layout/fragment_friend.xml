@@ -30,15 +30,15 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginTop="5dp"
-            android:background="@drawable/shape_for_circle_button"
-            android:src="@drawable/search_icon" />
+            android:background="@drawable/ic_circle_button"
+            android:src="@drawable/ic_search" />
         <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"
-            android:background="@drawable/shape_for_circle_button"
-            android:src="@drawable/user_circle_plus_icon" />
+            android:background="@drawable/ic_circle_button"
+            android:src="@drawable/ic_user_circle_plus" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

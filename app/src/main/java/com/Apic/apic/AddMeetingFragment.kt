@@ -1,14 +1,14 @@
 package com.Apic.apic
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.Apic.apic.databinding.FragmentDateBinding
-import com.Apic.apic.databinding.FragmentMemberBinding
+import android.widget.Toast
+import com.Apic.apic.databinding.FragmentAddGroupBinding
+import com.Apic.apic.databinding.FragmentAddMeetingBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -17,15 +17,15 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [MemberFragment.newInstance] factory method to
+ * Use the [AddMeetingFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class MemberFragment : Fragment() {
+class AddMeetingFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
 
-    private lateinit var groupMemberAdapter: GroupMemberAdapter
+    private lateinit var binding: FragmentAddMeetingBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,18 +40,28 @@ class MemberFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val binding = FragmentMemberBinding.inflate(inflater, container, false)
-        var list = arrayListOf("Name_A","Name_B","Name_C","Name_D","Name_E","Name_F","Name_G")
+        binding = FragmentAddMeetingBinding.inflate(inflater, container, false)
 
-        val recyclerView: RecyclerView = binding.groupMemberRecyclerView
-        recyclerView.layoutManager = GridLayoutManager(context, 4)
-        groupMemberAdapter = GroupMemberAdapter()
-        groupMemberAdapter.replaceList(list)
-        recyclerView.adapter = groupMemberAdapter
+        // 체크 버튼
+        binding.checkBtn.setOnClickListener {
+            Toast.makeText(context, "${binding.meetingYear.text}.${binding.meetingMonth.text}.${binding.meetingDay.text}폴더가 생성되었습니다.", Toast.LENGTH_SHORT).show()
+            // 약속 추가
 
+            // 약속 날짜 리스트로 돌아가기
+            val intent = Intent(getActivity(),GroupActivity::class.java)
+            startActivity(intent)
 
-        return binding.root
-    }
+        }
+
+        // 엑스 버튼
+        binding.cancelBtn.setOnClickListener {
+            // 약속 날짜 리스트로 돌아가기
+            val intent = Intent(getActivity(),GroupActivity::class.java)
+            startActivity(intent)
+
+        }
+
+        return binding.root    }
 
     companion object {
         /**
@@ -60,12 +70,12 @@ class MemberFragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment MemberFragment.
+         * @return A new instance of fragment AddMeetingFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            MemberFragment().apply {
+            AddMeetingFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)

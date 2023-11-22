@@ -17,7 +17,7 @@
             android:id="@+id/profile"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:src="@drawable/person_circle"/>
+            android:src="@drawable/ic_person_circle"/>
 
         <LinearLayout
             android:layout_width="wrap_content"

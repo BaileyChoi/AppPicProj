@@ -1,18 +1,21 @@
-// GroupActivity.kt
-
 package com.Apic.apic
 
 import android.animation.ObjectAnimator
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.viewpager2.widget.ViewPager2
 import com.Apic.apic.databinding.ActivityGroupBinding
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -29,6 +32,8 @@ class GroupActivity : AppCompatActivity() {
     private lateinit var fabCamera: FloatingActionButton
     private lateinit var fabCreate: FloatingActionButton
     private lateinit var groupLikedButton: ImageButton
+
+    private val fragmentAddMeeting = AddMeetingFragment()
     private lateinit var menuIcon: ImageButton
     lateinit var binding: ActivityGroupBinding
 
@@ -36,6 +41,8 @@ class GroupActivity : AppCompatActivity() {
     private var isFabOpen = false
     private var isLiked = false
     var imageList: ArrayList<Uri> = ArrayList()
+
+    private val fragmentManager: FragmentManager = supportFragmentManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -144,7 +151,7 @@ class GroupActivity : AppCompatActivity() {
         isFabOpen = !isFabOpen
     }
 
-    // 즐겨찾기 상태 토그ㅜㄹ
+    // 즐겨찾기 상태 토글
     private fun toggleLikedState() {
         isLiked = !isLiked
         // 즐겨찾기 상태에 따라 아이콘 변경
@@ -153,7 +160,7 @@ class GroupActivity : AppCompatActivity() {
         showToast(if (isLiked) "즐겨찾기 등록!" else "즐겨찾기 해제!")
     }
 
-    //  팝업 메뉴를 표시
+    // 팝업 메뉴 표시
     private fun showPopupMenu(view: View) {
         val popupMenu = PopupMenu(this, view)
         val inflater = popupMenu.menuInflater
@@ -166,6 +173,7 @@ class GroupActivity : AppCompatActivity() {
                     showToast("메뉴 아이템 1 클릭!")
                     true
                 }
+
                 R.id.menu_item2 -> {
                     showToast("메뉴 아이템 2 클릭!")
                     true
@@ -178,8 +186,10 @@ class GroupActivity : AppCompatActivity() {
         popupMenu.show()
     }
 
-    // Toast 메시지 표시
+    // 토스트 메시지 표시
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }
+
+

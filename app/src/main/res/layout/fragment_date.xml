@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MemberFragment"
+    tools:context=".DateFragment"
     android:orientation="vertical"
     android:background="@color/mainColor1"
     >
@@ -13,15 +13,15 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="그룹 멤버"
+        android:text="약속 날짜"
         />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/group_member_recyclerView"
+        android:id="@+id/group_date_recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="10dp"
-        tools:listitem="@layout/rv_group_member" />
+        tools:listitem="@layout/rv_group_date"/>
 
 
 </LinearLayout>
