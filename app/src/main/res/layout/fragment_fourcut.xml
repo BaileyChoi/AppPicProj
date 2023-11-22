@@ -24,7 +24,7 @@
         android:id="@+id/fourcut_frame"
         android:layout_width="180dp"
         android:layout_height="500dp"
-        android:src="@drawable/iv_fourcut_test_img"
+        android:src="@drawable/iv_fourcut_frame"
         android:layout_marginTop="30dp"
         android:scaleType="fitCenter"
         android:layout_marginLeft="20dp"
@@ -86,7 +86,8 @@
             android:id="@+id/btn_change_frame_white"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:background="@drawable/white_circle_button" />
+            android:background="@drawable/white_circle_button"
+            android:backgroundTint="@color/material_dynamic_primary50"/>
     </LinearLayout>
 
     <TextView
@@ -126,7 +127,10 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginRight="5dp"
-                android:background="@drawable/black_circle_button" />
+                android:text="GRAY"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:background="@drawable/white_circle_button"/>
 
             <android.widget.Button
                 android:id="@+id/btn_change_effect2"
