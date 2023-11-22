@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".GroupActivity">
+
+    <include
+        android:id="@+id/topView"
+        layout="@layout/topbar"/>
+
+    <!-- Group Section -->
+    <!-- 그룹 섹션 -->
+    <RelativeLayout
+        android:id="@+id/group_section"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <!-- Group Image -->
+        <!-- 그룹 이미지 -->
+        <ImageView
+            android:id="@+id/group_image"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_tmp_img" />
+
+        <!-- Group Information Layout -->
+        <!-- 그룹 정보 레이아웃 -->
+        <LinearLayout
+            android:id="@+id/group_info_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/group_image"
+            android:layout_marginStart="16dp"
+            android:orientation="vertical">
+
+            <!-- Group Name -->
+            <!-- 그룹 이름 -->
+            <TextView
+                android:id="@+id/group_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="GROUP A" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+            <!-- Group Member Num -->
+            <!-- 그룹 멤버 수 -->
+            <TextView
+                android:id="@+id/group_member_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3" />
+
+            <TextView
+                android:id="@+id/group_member_myeong"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/group_member_num"
+                android:text="명" />
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+        <!-- Group Icon Layout -->
+        <!-- 그룹 아이콘 레이아웃 -->
+        <LinearLayout
+            android:id="@+id/group_icon_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignParentEnd="true">
+
+            <!-- Liked Icon -->
+            <!-- 즐겨찾기 아이콘 -->
+            <ImageButton
+                android:id="@+id/group_liked"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_unliked"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="16dp"
+                android:background="?android:attr/selectableItemBackground"/>
+
+            <!-- Menu Icon -->
+            <!-- 메뉴 아이콘 -->
+            <ImageButton
+                android:id="@+id/menu_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_toEndOf="@id/group_liked"
+                android:background="?android:attr/selectableItemBackground"
+                android:src="@drawable/ic_menu" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <!-- TabLayout -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- Tab Layout -->
+        <!-- 탭 레이아웃 -->
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:ignore="SpeakableTextPresentCheck"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tabIndicator="@drawable/tab_indicator"
+            app:tabIndicatorAnimationMode="elastic"
+            app:tabIndicatorGravity="stretch"
+            app:tabSelectedTextColor="@color/mainColor1">
+        </com.google.android.material.tabs.TabLayout>
+
+        <!-- ViewPager -->
+        <!-- 뷰페이저 -->
+
+
+        <!-- Floating Action Buttons -->
+        <!-- 플로팅 액션 버튼들 -->
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPager2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tab_layout"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_camera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:src="@drawable/ic_picture"
+            app:fabSize="mini"
+            app:layout_constraintTop_toTopOf="@id/fab_main"
+            app:layout_constraintBottom_toBottomOf="@id/fab_main"
+            app:layout_constraintStart_toStartOf="@id/fab_main"
+            app:layout_constraintEnd_toEndOf="@id/fab_main"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_create"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:src="@drawable/ic_create"
+            app:fabSize="mini"
+            app:layout_constraintTop_toTopOf="@id/fab_main"
+            app:layout_constraintBottom_toBottomOf="@id/fab_main"
+            app:layout_constraintStart_toStartOf="@id/fab_main"
+            app:layout_constraintEnd_toEndOf="@id/fab_main"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_main"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:src="@drawable/ic_add"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Bottom NavigationView -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigationview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/mainColor3"
+        app:labelVisibilityMode="labeled"
+        app:itemIconTint="@drawable/menu_item_color"
+        app:itemTextColor="@drawable/menu_item_color"
+        app:menu="@menu/bottom_nav_menu"
+        />
+
+</LinearLayout>

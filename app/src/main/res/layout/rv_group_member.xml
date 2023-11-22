@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/layoutListItem"
+    android:orientation="vertical"
+    android:layout_marginHorizontal="20dp"
+    android:layout_gravity="center">
+
+    <ImageView
+        android:id="@+id/friend_photo"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:src="@drawable/ic_person_circle"
+        android:background="@drawable/ic_circle_button"/>
+
+    <TextView
+        android:id="@+id/member_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Name_A"
+        android:textStyle="bold"
+        android:textSize="13dp"
+        android:gravity="center"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="10dp"/>
+</LinearLayout>

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "811783432152",
+    "firebase_url": "https://pictogether-45905-default-rtdb.firebaseio.com",
+    "project_id": "pictogether-45905",
+    "storage_bucket": "pictogether-45905.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:811783432152:android:79b9b785ef4ee236f574ad",
+        "android_client_info": {
+          "package_name": "com.Apic.apic"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "811783432152-6dreni7o5m1gsd96c1e9lea8igq1i4vp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDE-KHjxLZEuUeq8shTFuObboawdxu0Xps"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "811783432152-6dreni7o5m1gsd96c1e9lea8igq1i4vp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
