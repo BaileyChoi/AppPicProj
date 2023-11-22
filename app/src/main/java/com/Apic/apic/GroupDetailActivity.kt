@@ -6,7 +6,6 @@ import android.animation.ObjectAnimator
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.ImageButton
 import android.widget.PopupMenu
@@ -19,7 +18,7 @@ import com.Apic.apic.databinding.ActivityGroupBinding
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayout
 
-class GroupActivity : AppCompatActivity() {
+class GroupDetailActivity : AppCompatActivity() {
 
     // 뷰 변수 선언
     private lateinit var tabLayout: TabLayout
