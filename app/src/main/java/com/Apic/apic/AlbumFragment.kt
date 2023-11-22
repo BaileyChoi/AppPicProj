@@ -24,9 +24,11 @@ class AlbumFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        // ViewBinding을 사용하여 프래그먼트의 레이아웃 설정
         binding = FragmentAlbumBinding.inflate(inflater, container, false)
         val rootView = binding.root
 
+        // RecyclerView 초기화 및 그리드 레이아웃 매니저 설정
         albumRecyclerView = binding.albumRecyclerView
         albumRecyclerView.layoutManager = GridLayoutManager(requireContext(), 3)
 
@@ -42,26 +44,27 @@ class AlbumFragment : Fragment() {
         return rootView
     }
 
+    // MainActivity에서 호출하여 이미지 리스트 업데이트
     fun updateImageList(data: Intent?) {
         Log.d("AlbumFragment", "updateImageList called")
 
+        // 이미지 리스트가 null인 경우 새로 생성
         if (imageList == null) {
             imageList = ArrayList()
         }
 
-        if (data?.clipData != null) {   // 다중 이미지 갯수
-            // 선택한 이미지 갯수
+        if (data?.clipData != null) {   // 다중 이미지 선택 시
+            // 선택한 이미지의 갯수
             Log.d("AlbumFragment", "ClipData exists with itemCount: ${data.clipData!!.itemCount}")
             val count = data.clipData!!.itemCount
 
+            // 각 이미지를 리스트에 추가
             for (index in 0 until count) {
-                // 이미지 담기
                 val imageUri = data.clipData!!.getItemAt(index).uri
-                // 이미지 추가
                 imageList?.add(imageUri)
                 Log.d("AlbumFragment", "Added image to imageList: $imageUri")
             }
-        } else { // 싱글 이미지
+        } else { // 단일 이미지 선택 시
             Log.d("AlbumFragment", "ClipData is null")
             val imageUri = data?.data
             imageUri?.let {
@@ -73,11 +76,12 @@ class AlbumFragment : Fragment() {
         updateAdapter()
     }
 
+    // RecyclerView 어댑터 업데이트 및 갱신
     private fun updateAdapter() {
         imageList?.let {
             Log.d("AlbumFragment", "imageList size: ${it.size}")
 
-            // Check if albumAdapter is initialized before calling notifyDataSetChanged
+            // AlbumAdapter가 초기화되었는지 확인 후 notifyDataSetChanged 호출
             albumAdapter?.notifyDataSetChanged()
             Log.d("AlbumFragment", "notifyDataSetChanged")
         }
