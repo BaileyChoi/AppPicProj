@@ -2,6 +2,7 @@ package com.example.appapicprj
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.Apic.apic.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
