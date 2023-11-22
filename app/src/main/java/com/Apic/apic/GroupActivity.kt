@@ -46,14 +46,17 @@ class GroupActivity : AppCompatActivity() {
         // albumAdapter 초기화
         albumAdapter = AlbumAdapter(imageList, this)
 
-        // 뷰 초기화, 탭 레이아웃, 뷰페이저, 리스너 설정
+        // 뷰 초기화
         initializeViews()
+        // 탭 레이아웃 설정
         setupTabLayout()
+        // 뷰페이저 설정
         setupViewPager()
+        // 리스너 설정
         setupListeners()
     }
 
-    // 뷰 참조를 초기화하는 함수
+    // 뷰 초기화
     private fun initializeViews() {
         tabLayout = findViewById(R.id.tab_layout)
         viewPager2 = findViewById(R.id.viewPager2)
@@ -64,15 +67,15 @@ class GroupActivity : AppCompatActivity() {
         menuIcon = findViewById(R.id.menu_icon)
     }
 
-    // 탭 레이아웃을 설정하는 함수
+    // 탭 레이아웃 설정
     private fun setupTabLayout() {
         adapter = FragmentPagerAdapter(supportFragmentManager, lifecycle)
-        tabLayout.addTab(tabLayout.newTab().setText("Tab1"))
         tabLayout.addTab(tabLayout.newTab().setText("album"))
+        tabLayout.addTab(tabLayout.newTab().setText("member"))
         viewPager2.adapter = adapter
     }
 
-    // 뷰페이저와 콜백을 설정하는 함수
+    // 뷰페이저와 콜백을 설정
     private fun setupViewPager() {
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             // 탭 선택 이벤트 처리
@@ -125,7 +128,7 @@ class GroupActivity : AppCompatActivity() {
         }
     }
 
-    // FAB의 가시성 및 이동을 전환하는 함수 (애니메이션)
+    // 플로팅 버튼 토글
     private fun toggleFab() {
         showToast("메인 플로팅 버튼 클릭!")
 
@@ -141,14 +144,16 @@ class GroupActivity : AppCompatActivity() {
         isFabOpen = !isFabOpen
     }
 
-    // 즐겨찾기 상태를 전환하고 즐겨찾기 버튼의 아이콘 업데이트
+    // 즐겨찾기 상태 토그ㅜㄹ
     private fun toggleLikedState() {
         isLiked = !isLiked
+        // 즐겨찾기 상태에 따라 아이콘 변경
         groupLikedButton.setImageResource(if (isLiked) R.drawable.ic_liked else R.drawable.ic_unliked)
+        // 즐겨찾기 상태에 따라 토스트 메세지 출력
         showToast(if (isLiked) "즐겨찾기 등록!" else "즐겨찾기 해제!")
     }
 
-    // 메뉴 아이콘이 클릭될 때 팝업 메뉴를 표시하는 함수
+    //  팝업 메뉴를 표시
     private fun showPopupMenu(view: View) {
         val popupMenu = PopupMenu(this, view)
         val inflater = popupMenu.menuInflater
@@ -165,6 +170,7 @@ class GroupActivity : AppCompatActivity() {
                     showToast("메뉴 아이템 2 클릭!")
                     true
                 }
+                // 추가적인 메뉴 아이템 필요한 경우 여기에 추가
                 else -> false
             }
         }
@@ -172,7 +178,7 @@ class GroupActivity : AppCompatActivity() {
         popupMenu.show()
     }
 
-    // 짧은 Toast 메시지 표시
+    // Toast 메시지 표시
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
