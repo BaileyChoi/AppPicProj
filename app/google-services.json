@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "490972767083",
+    "project_id": "pictogether-e13c3",
+    "storage_bucket": "pictogether-e13c3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:490972767083:android:02454138aee4c72865222e",
+        "android_client_info": {
+          "package_name": "com.Apic.apic"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgQgv9XeUkrkxh11EoiJKGq1nuP3jGhq0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
