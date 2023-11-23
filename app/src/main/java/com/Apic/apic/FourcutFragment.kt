@@ -73,6 +73,22 @@ class FourcutFragment : Fragment() {
     ): View? {
         var binding = FragmentFourcutBinding.inflate(inflater, container, false)
 
+        // 프레임 색 변경
+        // 주황 버튼
+        binding.btnChangeFrameOrange.setOnClickListener {
+            binding.fourcutFrame.setImageResource(R.drawable.fourcut_orange_img)
+        }
+
+        // 초록 버튼
+        binding.btnChangeFrameGreen.setOnClickListener {
+            binding.fourcutFrame.setImageResource(R.drawable.fourcut_green_img)
+        }
+
+        // 파랑 버튼
+        binding.btnChangeFrameBlue.setOnClickListener {
+            binding.fourcutFrame.setImageResource(R.drawable.fourcut_blue_img)
+        }
+
         // 사진 불러오기
         val requestGalleryLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
             try{
@@ -198,6 +214,16 @@ class FourcutFragment : Fragment() {
             Log.d("4cut", "스케치 효과 이미지 설정 완료")
         }
 
+        // save 버튼 누를 시
+        binding.btn4cutSave.setOnClickListener {
+            // 로컬에 사진 저장하기
+        }
+
+        // Delete 버튼 누를 시
+        binding.btn4cutDelete.setOnClickListener {
+            // 초기화시키기
+            binding.fourcutFrame.setImageResource(R.drawable.iv_fourcut_test_img)
+        }
         return binding.root
     }
 

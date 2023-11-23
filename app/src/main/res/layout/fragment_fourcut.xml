@@ -69,25 +69,27 @@
         app:layout_constraintTop_toBottomOf="@id/tv_color">
 
         <android.widget.Button
-            android:id="@+id/btn_change_frame_black"
+            android:id="@+id/btn_change_frame_orange"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginRight="5dp"
+            android:backgroundTint="#d4983f"
             android:background="@drawable/black_circle_button" />
 
         <android.widget.Button
-            android:id="@+id/btn_change_frame_gray"
+            android:id="@+id/btn_change_frame_green"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginRight="5dp"
+            android:backgroundTint="#6cb84b"
             android:background="@drawable/gray_circle_button" />
 
         <android.widget.Button
-            android:id="@+id/btn_change_frame_white"
+            android:id="@+id/btn_change_frame_blue"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:background="@drawable/white_circle_button"
-            android:backgroundTint="@color/material_dynamic_primary50"/>
+            android:backgroundTint="#3b82c4"/>
     </LinearLayout>
 
     <TextView
@@ -169,6 +171,10 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginRight="5dp"
+                android:text="pencil"
+                android:textStyle="bold"
+                android:textSize="13dp"
+                android:textColor="@color/white"
                 android:background="@drawable/gray_circle_button" />
         </LinearLayout>
     </LinearLayout>
