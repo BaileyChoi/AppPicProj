@@ -36,7 +36,9 @@ class GroupListFragment : Fragment() {
             override fun onClick(view:View, position:Int) {
                 super.onClick(view, position)
                 Toast.makeText(view.context, "테스트 - ${groupList[position].g_name}클릭", Toast.LENGTH_SHORT).show()
-                val intent = Intent(getActivity(), GroupActivity::class.java)
+
+                // 그룹 정보 넘기기
+                val intent = Intent(activity, GroupActivity::class.java)
                 intent.putExtra("g_name", groupList[position].g_name)
                 intent.putExtra("g_participants", groupList[position].g_participants)
                 startActivity(intent)

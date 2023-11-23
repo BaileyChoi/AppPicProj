@@ -58,11 +58,14 @@ class GroupActivity : AppCompatActivity() {
         fabCreate = findViewById(R.id.fab_create)
         groupLikedButton = findViewById(R.id.group_liked)
         menuIcon = findViewById(R.id.menu_icon)
+        groupName = findViewById(R.id.group_name)
+        groupMemberNum = findViewById(R.id.group_member_num)
 
-//        val g_name = intent.getStringExtra("g_name")
-//        val g_participants = intent.getStringExtra("g_participants")
-//        groupName.text = g_name
-//        groupMemberNum.text = g_participants
+        // 그룹 정보 반영
+        val gName = intent.getStringExtra("g_name")
+        val gParticipants = intent.getStringExtra("g_participants")
+        groupName.text = gName
+        groupMemberNum.text = gParticipants
     }
 
     // 탭 레이아웃 설정
