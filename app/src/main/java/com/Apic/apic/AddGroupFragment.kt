@@ -2,15 +2,13 @@ package com.Apic.apic
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.Apic.apic.databinding.FragmentAddGroupBinding
-import com.Apic.apic.databinding.FragmentGroupListBinding
+import com.google.firebase.database.FirebaseDatabase
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -30,6 +28,8 @@ class AddGroupFragment : Fragment() {
     private lateinit var binding: FragmentAddGroupBinding
 
 
+//    val participants_list = ArrayList<String>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -45,22 +45,26 @@ class AddGroupFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentAddGroupBinding.inflate(inflater, container, false)
 
-
         // 체크 버튼
         binding.checkBtn.setOnClickListener {
-            Toast.makeText(context, "모임 ${binding.EtGoupName.text}(${binding.groupMemberNum.text}명)가 생성되었습니다.", Toast.LENGTH_SHORT).show()
-            // AddMeetingFragment 테스트용
-            val transaction = fragmentManager?.beginTransaction()
-            if (transaction != null) {
-                transaction.replace(R.id.menu_frame_view, AddMeetingFragment()).commitAllowingStateLoss()
-            }
+
             // 그룹 추가
+            val gName = binding.EtGoupName.text.toString()
+            val gParticipants = binding.EtGroupParticipants.text.toString()
+
+            val key = FBRef.groupRef.push().key.toString()
+
+            FBRef.groupRef
+                .child(key)
+                .setValue(GroupModel(gName, gParticipants))
+
+            Toast.makeText(context, "그룹 생성 완료", Toast.LENGTH_SHORT).show()
 
             // 그룹 리스트로 돌아가기
-//            val transaction = fragmentManager?.beginTransaction()
-//            if (transaction != null) {
-//                transaction.replace(R.id.menu_frame_view, GroupListFragment()).commitAllowingStateLoss()
-//            }
+            val transaction = fragmentManager?.beginTransaction()
+            if (transaction != null) {
+                transaction.replace(R.id.menu_frame_view, GroupListFragment()).commitAllowingStateLoss()
+            }
         }
 
         // 엑스 버튼
@@ -73,10 +77,6 @@ class AddGroupFragment : Fragment() {
         }
 
         return binding.root
-    }
-
-    private fun setOnClickListener() {
-        val btnCheck = binding.checkBtn
     }
 
     companion object {

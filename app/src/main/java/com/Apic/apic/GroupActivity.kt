@@ -2,19 +2,17 @@ package com.Apic.apic
 
 import android.animation.ObjectAnimator
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.PopupMenu
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayout
+
 
 class GroupActivity : AppCompatActivity() {
 
@@ -33,6 +31,9 @@ class GroupActivity : AppCompatActivity() {
     private lateinit var menuIcon: ImageButton
 
     private val fragmentManager: FragmentManager = supportFragmentManager
+
+    private lateinit var groupName: TextView
+    private lateinit var groupMemberNum: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,6 +58,11 @@ class GroupActivity : AppCompatActivity() {
         fabCreate = findViewById(R.id.fab_create)
         groupLikedButton = findViewById(R.id.group_liked)
         menuIcon = findViewById(R.id.menu_icon)
+
+//        val g_name = intent.getStringExtra("g_name")
+//        val g_participants = intent.getStringExtra("g_participants")
+//        groupName.text = g_name
+//        groupMemberNum.text = g_participants
     }
 
     // 탭 레이아웃 설정

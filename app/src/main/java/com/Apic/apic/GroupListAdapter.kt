@@ -10,18 +10,13 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.Apic.apic.databinding.RvGroupListBinding
 
-class GroupListAdapter : RecyclerView.Adapter<GroupListAdapter.ViewHolder>() {
+class GroupListAdapter(val items:MutableList<GroupModel>) : RecyclerView.Adapter<GroupListAdapter.ViewHolder>() {
     private lateinit var itemClickListener : OnItemClickListener
-    private var data = ArrayList<GroupListItem>()
 
     inner class ViewHolder(val binding: RvGroupListBinding): RecyclerView.ViewHolder(binding.root) {
-        fun onBind(item: GroupListItem) {
-            binding.groupName.text =  item.getGroupName() // 그룹 이름
-            binding.groupNum.text = item.getGroupNum().toString()   // 그룹 멤버명수
-            binding.groupLiked.isActivated = item.isGroupLiked()  // 그룹 즐겨찾기 (안됨)
-//            Glide.with(binding)                                       // 그룹 사진
-//                .load(item.group_photo)
-//                .into(binding.groupPhoto)
+        fun onBind(items: GroupModel) {
+            binding.groupName.text =  items.g_name // 그룹 이름
+            binding.groupNum.text = items.g_participants  // 그룹 멤버명수
         }
     }
     // 아이템 클릭리스너
@@ -41,23 +36,14 @@ class GroupListAdapter : RecyclerView.Adapter<GroupListAdapter.ViewHolder>() {
     }
 
     override fun getItemCount(): Int {
-        return data.size
+        return items.size
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.onBind(data[position])
+    override fun onBindViewHolder(holder: GroupListAdapter.ViewHolder, position: Int) {
+        holder.onBind(items[position])
         holder.itemView.setOnClickListener {
             itemClickListener.onClick(it, position)
         }
     }
-
-    fun replaceList(newList: ArrayList<GroupListItem>) {
-        data = newList
-        // 어댑터에 데이터가 변했다는 notify를 날린다
-        notifyDataSetChanged()
-    }
-
-
-
 
 }
