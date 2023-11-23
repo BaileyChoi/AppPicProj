@@ -19,9 +19,9 @@
         android:orientation="vertical"
         tools:context=".MainActivity">
 
-        <include
-            android:id="@+id/topView"
-            layout="@layout/topbar"/>
+            <include
+                android:id="@+id/topView"
+                layout="@layout/topbar"/>
 
         <FrameLayout
             android:id="@+id/menu_frame_view"
@@ -47,7 +47,7 @@
         android:id="@+id/main_drawer"
         android:layout_width="300dp"
         android:layout_height="match_parent"
-        android:background="#ffaaff"
+        android:background="@color/mainColor2"
         android:text="Drawer Layout!!!!"
         android:fitsSystemWindows="true"
         android:gravity="center"

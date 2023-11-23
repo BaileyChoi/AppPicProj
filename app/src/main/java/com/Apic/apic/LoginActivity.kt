@@ -53,10 +53,14 @@ class LoginActivity : AppCompatActivity() {
                         Toast.makeText(this, "회원가입이 완료되었습니다.", Toast.LENGTH_SHORT).show()
                         if (auth.currentUser != null) {
                             sampleNumber++
+
+                            //data를 firebase에 저장
                             val data = FirebaseData(sampleNumber, name, email, password)
                             setDocument(data) // 데이터 Firestore에 저장
                             var intent = Intent(this, MainActivity::class.java)
+                            intent.putExtra("name", name) //name도 함께 전달
                             startActivity(intent)
+
                         }
                     } else if (result.exception?.message.isNullOrEmpty()) {
                         Toast.makeText(this, "오류가 발생했습니다.", Toast.LENGTH_SHORT).show()
