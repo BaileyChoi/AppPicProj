@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +13,10 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.Apic.apic.databinding.FragmentAddFriendBinding
 import com.Apic.apic.databinding.FragmentFriendBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 
 private const val ARG_PARAM1 = "param1"
@@ -29,9 +33,12 @@ class FriendFragment : Fragment() {
     private val originalList: ArrayList<FriendItem> = ArrayList()
     private val searchList: ArrayList<FriendItem> = ArrayList()
     private lateinit var editText: EditText
-    private lateinit var dialogFriendAdapter: DialogFriendAdapter
-    private lateinit var imm: InputMethodManager;
-
+    // firestore에서 data가져올때 사용
+    private lateinit var auth: FirebaseAuth // 친구 리스트와 자신 email 비교를 위해 가져옴.
+    private val db = FirebaseFirestore.getInstance()
+    private val itemList = arrayListOf<MemberData>()
+    //private lateinit var dialogFriendAdapter: DialogFriendAdapter
+    private var adapter = DialogFriendAdapter(itemList)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -45,23 +52,46 @@ class FriendFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentFriendBinding.inflate(inflater, container, false)
+        auth = FirebaseAuth.getInstance()
 
         mRecyclerView = binding.recyclerView
 
-        // initiate adapter
-        mRecyclerAdapter = DialogFriendAdapter()
-
-        // initiate recyclerview
+        // initiate adapter & recyclerview
+        mRecyclerAdapter = DialogFriendAdapter(itemList)
         mRecyclerView.adapter = mRecyclerAdapter
         mRecyclerView.layoutManager = LinearLayoutManager(requireContext())
 
+        // 친구 firestore 'memberDB'의 friendlist를 가져옴.
+        // 친구 찾기에서 친구 리스트로 recyclerview로 뜨기
+        val friendList = db.collection("memberDB").document(auth.currentUser?.email.toString()).collection("FriendList") // friendlist 항목 넣어야함.
 
-        //val friendItems = ArrayList<FriendItem>()
+            friendList
+            .get()                    // Get documents
+            .addOnSuccessListener { result ->
+                // On success
+                itemList.clear()
+                for (document in result) {
+                    val item = MemberData(
+                        document["email"] as String,
+                        document["name"] as String,
+                        //document["password"] as String
+                    )
+                    if (!auth.currentUser?.email.toString().equals(document["email"])) {    // 현재 유저가 아닐때
+                        itemList.add(item)
+                    }
+                }
+                adapter.notifyDataSetChanged()  // Update RecyclerView
+            }
+            .addOnFailureListener { exception ->
+                Log.w("AddFriendFragment", "Error getting documents: $exception")
+            }//
+
+        /*val friendItems = ArrayList<FriendItem>()
         for (i in 1..50) {
             val resourceId = R.drawable.ic_person_circle
             //friendItems.add(FriendItem(resourceId, "${i}@gmail.com", "${i}p"))
             originalList.add(FriendItem(resourceId, "${i}@gmail.com", "${i}p"))
-        }
+        }*/
 
         mRecyclerAdapter.setFriendList(originalList)
 
@@ -70,6 +100,7 @@ class FriendFragment : Fragment() {
             (activity as? MainActivity)?.setFragment(1)
         }
 
+        // 친구명으로 검색
         binding.searchButton.setOnClickListener{
             val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(binding.searchView.windowToken, 0)
@@ -91,7 +122,7 @@ class FriendFragment : Fragment() {
                 searchList.clear()
 
                 if (searchText.isEmpty()) {
-                    dialogFriendAdapter.setFriendList(originalList)
+                    adapter.setFriendList(originalList)
                 } else {
                     // 검색 단어를 포함하는지 확인
                     for (a in 0 until originalList.size) {
@@ -100,7 +131,7 @@ class FriendFragment : Fragment() {
                         }
                     }
                     //dialogFriendAdapter.setFriendList(originalList)
-                    dialogFriendAdapter.setFriendList(searchList)
+                    adapter.setFriendList(searchList)
                 }
             }
         })
@@ -108,9 +139,9 @@ class FriendFragment : Fragment() {
         // 리사이클러뷰, 어댑터 연결
         val recyclerView: RecyclerView = binding.recyclerView
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        dialogFriendAdapter = DialogFriendAdapter()
-        dialogFriendAdapter.setFriendList(originalList)
-        recyclerView.adapter = dialogFriendAdapter
+        adapter = DialogFriendAdapter(itemList) //
+        adapter.setFriendList(originalList) //
+        recyclerView.adapter = adapter  //
 
         return binding.root
     }

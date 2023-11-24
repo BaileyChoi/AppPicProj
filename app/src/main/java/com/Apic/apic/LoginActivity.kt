@@ -7,8 +7,6 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import androidx.core.content.ContextCompat.startActivity
-import com.Apic.apic.databinding.ActivityLoginBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -16,7 +14,7 @@ class LoginActivity : AppCompatActivity() {
 
     lateinit var nameEt : EditText // 이름
     lateinit var emailEt: EditText
-    lateinit var passwordEt: EditText
+    private lateinit var passwordEt: EditText
     lateinit var loginBtn: Button
 
     private lateinit var auth: FirebaseAuth
@@ -59,8 +57,8 @@ class LoginActivity : AppCompatActivity() {
                             sampleNumber++  //
                             val data = FirebaseData(sampleNumber, name, email, password)     //
                             setDocument(data) // 데이터 Firestore에 저장  //
-                            val friendData = MemberFriendData(email, name)  //
-                            setFriend(friendData)   //
+                            val memberData = MemberData(email, name)//, password)  //
+                            setMember(memberData)   //
                             var intent = Intent(this, MainActivity::class.java)
                             startActivity(intent)
                         }
@@ -90,10 +88,10 @@ class LoginActivity : AppCompatActivity() {
     }
 
     // Firestore의 memberFriendDB에 데이터 저장 함수
-    private fun setFriend(data : MemberFriendData){
+    private fun setMember(data : MemberData){
         Log.d("db", "firebaseStore")
         val db = FirebaseFirestore.getInstance()
-        db.collection("memberFriendDB")
+        db.collection("memberDB")
             .document(data.email)
             .set(data)
             //.add(data)

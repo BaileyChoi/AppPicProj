@@ -1,24 +1,16 @@
 package com.Apic.apic
 
 import android.os.Bundle
-import android.provider.ContactsContract.CommonDataKinds.Email
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.Apic.apic.databinding.FragmentAddFriendBinding
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.auth.User
-import com.google.firebase.ktx.Firebase
-import java.util.jar.Attributes
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -31,7 +23,7 @@ class AddFriendFragment : Fragment(), DialogAddFriendAdapter.OnAddFriendClickLis
     private lateinit var auth: FirebaseAuth // 친구 리스트와 자신 email 비교를 위해 가져옴.
     private lateinit var binding: FragmentAddFriendBinding
     private val db = FirebaseFirestore.getInstance()
-    private val itemList = arrayListOf<MemberFriendData>()
+    private val itemList = arrayListOf<MemberData>()
     private val adapter = DialogAddFriendAdapter(itemList)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,15 +55,16 @@ class AddFriendFragment : Fragment(), DialogAddFriendAdapter.OnAddFriendClickLis
         binding.recyclerView.adapter = adapter
 
         // 친구 찾기에서 친구 리스트로 recyclerview로 뜨기
-        db.collection("memberFriendDB")   // Collection to work with
+        db.collection("memberDB")   // Collection to work with
             .get()                    // Get documents
             .addOnSuccessListener { result ->
                 // On success
                 itemList.clear()
                 for (document in result) {
-                    val item = MemberFriendData(
+                    val item = MemberData(
                         document["email"] as String,
-                        document["name"] as String
+                        document["name"] as String,
+                        //document["password"] as String
                     )
                     if (!auth.currentUser?.email.toString().equals(document["email"])) {    // 현재 유저가 아닐때
                         itemList.add(item)
@@ -90,7 +83,7 @@ class AddFriendFragment : Fragment(), DialogAddFriendAdapter.OnAddFriendClickLis
         adapter.setOnAddFriendClickListener(this) // Set the listener here
     }
 
-    // Handle the button click event for the item at the given position
+    // checkBtn누르면 firestore에 친구 추가하기.
     override fun onAddFriendClick(position: Int) {
         val clickedItem = itemList[position]
         Log.d("db", "Button clicked for ${clickedItem.name}")   // add : 오류 확인을 위함
@@ -107,10 +100,11 @@ class AddFriendFragment : Fragment(), DialogAddFriendAdapter.OnAddFriendClickLis
     private fun addFriend(data: FriendList){
         Log.d("db", "addFriend")
         val db = FirebaseFirestore.getInstance()
-        db.collection("memberFriendDB")
+        db.collection("memberDB")
             .document(auth.currentUser?.email.toString())
             .collection("FriendList")
-            .add(data)
+            .document(data.email)   // .add(data)해도 상관없음
+            .set(data)
             .addOnSuccessListener {
                 Log.d("db", "success : addFriend")
             }.addOnFailureListener{

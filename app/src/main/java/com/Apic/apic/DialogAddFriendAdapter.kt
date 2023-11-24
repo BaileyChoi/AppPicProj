@@ -4,13 +4,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageButton
 import androidx.recyclerview.widget.RecyclerView
-import com.Apic.apic.databinding.FriendAddRecyclerviewBinding
 
-class DialogAddFriendAdapter(val itemList: ArrayList<MemberFriendData>) : RecyclerView.Adapter<DialogAddFriendAdapter.ViewHolder>() {
+class DialogAddFriendAdapter(val itemList: ArrayList<MemberData>) : RecyclerView.Adapter<DialogAddFriendAdapter.ViewHolder>() {
 
     // recyclerview의 chekButton을 위한 함수...
     interface OnAddFriendClickListener {

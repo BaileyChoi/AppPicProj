@@ -1,7 +1,7 @@
 package com.Apic.apic
 
-class MemberFriendData (
+class MemberData (
     val email : String,
     val name : String,
-
+    //val password : String,
 )
