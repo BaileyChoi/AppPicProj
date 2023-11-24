@@ -48,4 +48,15 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 }
             }
     }
+
+    private val _selectedDateTodos = MutableStateFlow<List<Todo>>(emptyList())
+    val selectedDateTodos: StateFlow<List<Todo>> = _selectedDateTodos
+
+    fun getTodosBySelectedDate(selectedDate: Long) {
+        viewModelScope.launch {
+            db.todoDao().getTodosByDate(selectedDate).collect { todos ->
+                _selectedDateTodos.value = todos
+            }
+        }
+    }
 }

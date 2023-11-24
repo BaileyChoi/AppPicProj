@@ -1,5 +1,6 @@
 package com.Apic.apic.data
 
+
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
@@ -17,4 +18,7 @@ interface TodoDao {
 
     @Query("SELECT * FROM todo WHERE date = :selectedDate ORDER BY date DESC")
     fun getByDate(selectedDate: Long): List<Todo>
+
+    @Query("SELECT * FROM todo WHERE date = :selectedDate ORDER BY date DESC")
+    fun getTodosByDate(selectedDate: Long): Flow<List<Todo>>
 }

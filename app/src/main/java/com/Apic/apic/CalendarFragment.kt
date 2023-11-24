@@ -1,5 +1,6 @@
 package com.Apic.apic
 
+
 import TodoListAdapter
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,6 +15,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.Apic.apic.data.Todo
+
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.util.Calendar
@@ -44,9 +46,14 @@ class CalendarFragment : Fragment() {
         viewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
 
         // RecyclerView 초기화
+        val layoutManager = LinearLayoutManager(requireContext())
+        layoutManager.reverseLayout = true
+        layoutManager.stackFromEnd = true
+        recyclerView.layoutManager = layoutManager
+
+        // Adapter 설정 부분은 그대로 유지
         val adapter = TodoListAdapter { todo -> viewModel.deleteTodo(todo.id) }
         recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         // CalendarView 이벤트 핸들링
         calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
