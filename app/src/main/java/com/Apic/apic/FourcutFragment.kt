@@ -1,12 +1,13 @@
 package com.Apic.apic
 
-import android.app.Activity
+import android.content.Context
 import android.content.Intent
-import android.content.Intent.ACTION_PICK
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Canvas
 import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
@@ -21,10 +22,13 @@ import org.opencv.core.Core
 import org.opencv.core.Mat
 import org.opencv.core.Size
 import org.opencv.imgproc.Imgproc
-import org.opencv.photo.Photo
 import org.opencv.photo.Photo.pencilSketch
-import org.opencv.photo.Photo.stylization
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
 import java.io.InputStream
+import java.text.SimpleDateFormat
+import java.util.*
 
 /*
 import android.provider.MediaStore
@@ -55,6 +59,7 @@ class FourcutFragment : Fragment() {
     val content = MutableLiveData<String>()
 
     lateinit var binding : FourcutFragment
+    private lateinit var targetView: View
     init {
         System.loadLibrary("opencv_java4")
     }
@@ -216,16 +221,54 @@ class FourcutFragment : Fragment() {
 
         // save 버튼 누를 시
         binding.btn4cutSave.setOnClickListener {
-            // 로컬에 사진 저장하기
+            // 사진 저장
+            targetView = binding.fourcutFrame
+
+            Log.d("4cut", "targetView 가져오기")
+            viewSave(targetView)
+            Log.d("4cut", "viewSave() 함수 통과")
         }
 
         // Delete 버튼 누를 시
         binding.btn4cutDelete.setOnClickListener {
-            // 초기화시키기
+            // 초기화
             binding.fourcutFrame.setImageResource(R.drawable.iv_fourcut_test_img)
         }
         return binding.root
     }
+
+    private fun getViewBitmap(view: View): Bitmap {
+        val bitmap = Bitmap.createBitmap(
+            view.measuredWidth, view.measuredHeight, Bitmap.Config.ARGB_8888
+        )
+        val canvas = Canvas(bitmap)
+        view.draw(canvas)
+        return bitmap
+    }
+
+    private fun getSaveFilePathName(): String {
+        val folder = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString()
+        val fileName = SimpleDateFormat("yyyyMMddHHmmss").format(Date())
+        return "$folder/$fileName.jpg"
+    }
+
+    private fun bitmapFileSave(bitmap: Bitmap, path: String) {
+        val fos: FileOutputStream
+        try{
+            fos = FileOutputStream(File(path))
+            bitmap.compress(Bitmap.CompressFormat.JPEG,100,fos)
+            fos.close()
+        }catch (e: IOException) {
+            e.printStackTrace()
+        }
+    }
+
+    private fun viewSave(view: View) {
+        val bitmap = getViewBitmap(view)
+        val filePath = getSaveFilePathName()
+        bitmapFileSave(bitmap, filePath)
+    }
+
 
     fun sketch(src: Mat): Mat {
         //회색조 이미지 만들기
