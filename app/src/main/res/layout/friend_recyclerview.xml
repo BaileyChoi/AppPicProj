@@ -16,9 +16,9 @@
         <!--프로필 사진-->
         <ImageView
             android:id="@+id/profile"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:src="@drawable/ic_person_circle"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:src="@drawable/ic_friend"
             android:layout_marginLeft="10dp"
             />
 

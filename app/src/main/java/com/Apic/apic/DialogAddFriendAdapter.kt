@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageButton
 import androidx.recyclerview.widget.RecyclerView
 
-class DialogAddFriendAdapter(val itemList: ArrayList<MemberData>) : RecyclerView.Adapter<DialogAddFriendAdapter.ViewHolder>() {
+class DialogAddFriendAdapter(var itemList: ArrayList<MemberData>) : RecyclerView.Adapter<DialogAddFriendAdapter.ViewHolder>() {
 
     // recyclerview의 chekButton을 위한 함수...
     interface OnAddFriendClickListener {
@@ -31,6 +31,12 @@ class DialogAddFriendAdapter(val itemList: ArrayList<MemberData>) : RecyclerView
         Log.d("db", "Adapter1")
         holder.name.text = itemList[position].name  // adapter에 있는 이름에 MemberFriendData의 이름 데이터를 넣는다.
         holder.emailId.text = itemList[position].email
+    }
+
+    fun setFriendList(list: ArrayList<MemberData>) {
+        itemList = list
+        notifyDataSetChanged()
+        //Log.d("db", "notifyDataSetChanged called")
     }
 
     // inner 추가
