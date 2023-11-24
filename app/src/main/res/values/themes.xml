@@ -3,6 +3,10 @@
     <style name="Theme.Apic" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
 
+
+        <!-- 애뮬레이터 상태바 없애기(보라색)-->
+        <item name="android:windowFullscreen">true</item>
+
         <item name="colorPrimary">@color/mainColor3</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
         <item name="colorOnPrimary">@color/white</item>
