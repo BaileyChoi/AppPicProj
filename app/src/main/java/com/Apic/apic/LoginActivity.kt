@@ -28,6 +28,8 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        auth = FirebaseAuth.getInstance()
+
         nameEt = findViewById(R.id.user_name)
         emailEt = findViewById(R.id.user_id)
         passwordEt = findViewById(R.id.user_id)// _id 여기서 오류

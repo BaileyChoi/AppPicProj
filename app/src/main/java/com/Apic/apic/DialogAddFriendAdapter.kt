@@ -12,6 +12,7 @@ import com.Apic.apic.databinding.FriendAddRecyclerviewBinding
 
 class DialogAddFriendAdapter(val itemList: ArrayList<MemberFriendData>) : RecyclerView.Adapter<DialogAddFriendAdapter.ViewHolder>() {
 
+    // recyclerview의 chekButton을 위한 함수...
     interface OnAddFriendClickListener {
         fun onAddFriendClick(position: Int)
     }
@@ -19,6 +20,7 @@ class DialogAddFriendAdapter(val itemList: ArrayList<MemberFriendData>) : Recycl
     fun setOnAddFriendClickListener(listener: OnAddFriendClickListener) {
         this.listener = listener
     }
+    //
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DialogAddFriendAdapter.ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.friend_add_recyclerview, parent, false)
@@ -38,8 +40,8 @@ class DialogAddFriendAdapter(val itemList: ArrayList<MemberFriendData>) : Recycl
         val name: TextView = itemView.findViewById(R.id.name)
         val emailId: TextView = itemView.findViewById(R.id.emailId)
 
-        // add : checkBtn눌렀을 때 반응
-        //private val checkButton: Button? = itemView.findViewById(R.id.checkButton)
+
+        // add : recyclerview의 checkBtn눌렀을 때 반응
         val checkButton: AppCompatImageButton = itemView.findViewById(R.id.checkButton)
         init {
             checkButton?.setOnClickListener {

@@ -28,6 +28,7 @@ class AddFriendFragment : Fragment(), DialogAddFriendAdapter.OnAddFriendClickLis
     private var param1: String? = null
     private var param2: String? = null
 
+    private lateinit var auth: FirebaseAuth // 친구 리스트와 자신 email 비교를 위해 가져옴.
     private lateinit var binding: FragmentAddFriendBinding
     private val db = FirebaseFirestore.getInstance()
     private val itemList = arrayListOf<MemberFriendData>()
@@ -45,6 +46,7 @@ class AddFriendFragment : Fragment(), DialogAddFriendAdapter.OnAddFriendClickLis
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentAddFriendBinding.inflate(inflater, container, false)
+        auth = FirebaseAuth.getInstance()
 
         // Close Button click listener -> FriendFragment
         binding.closeBtn.setOnClickListener {
@@ -60,40 +62,62 @@ class AddFriendFragment : Fragment(), DialogAddFriendAdapter.OnAddFriendClickLis
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.adapter = adapter
 
-        binding.searchBtn.setOnClickListener {
-            db.collection("memberFriendDB")   // Collection to work with
-                .get()                    // Get documents
-                .addOnSuccessListener { result ->
-                    // On success
-                    itemList.clear()
-                    for (document in result) {
-                        val item = MemberFriendData(
-                            document["email"] as String,
-                            document["name"] as String
-                        )
+        // 친구 찾기에서 친구 리스트로 recyclerview로 뜨기
+        db.collection("memberFriendDB")   // Collection to work with
+            .get()                    // Get documents
+            .addOnSuccessListener { result ->
+                // On success
+                itemList.clear()
+                for (document in result) {
+                    val item = MemberFriendData(
+                        document["email"] as String,
+                        document["name"] as String
+                    )
+                    if (!auth.currentUser?.email.toString().equals(document["email"])) {    // 현재 유저가 아닐때
                         itemList.add(item)
                     }
-                    adapter.notifyDataSetChanged()  // Update RecyclerView
                 }
-                .addOnFailureListener { exception ->
-                    // On failure
-                    Log.w("AddFriendFragment", "Error getting documents: $exception")
-                }
-        }
+                adapter.notifyDataSetChanged()  // Update RecyclerView
+            }
+            .addOnFailureListener { exception ->
+                // On failure
+                Log.w("AddFriendFragment", "Error getting documents: $exception")
+            }
+
 
         // add
         //val adapter = DialogAddFriendAdapter(itemList)
         adapter.setOnAddFriendClickListener(this) // Set the listener here
     }
 
+    // Handle the button click event for the item at the given position
     override fun onAddFriendClick(position: Int) {
-        // Handle the button click event for the item at the given position
-        // You can show a dialog, perform an action, etc.
         val clickedItem = itemList[position]
         Log.d("db", "Button clicked for ${clickedItem.name}")   // add : 오류 확인을 위함
-        // Example: Show a Toast
-        Toast.makeText(requireContext(), "Button clicked for ${clickedItem.name}", Toast.LENGTH_SHORT).show()
+        var name  = clickedItem.name
+        var email = clickedItem.email
+        val reqFriendList = FriendList(email, name)  //
+        //val resFriendList = FriendList(auth.currentUser?.email, auth.currentUser?.name)  //
+        addFriend(reqFriendList)
+
+        Toast.makeText(requireContext(), "${clickedItem.name} : 친구 추가", Toast.LENGTH_SHORT).show()
     }
+
+    // 친구 추가 하위 컬렉션 추가 : addFriend(friendData)
+    private fun addFriend(data: FriendList){
+        Log.d("db", "addFriend")
+        val db = FirebaseFirestore.getInstance()
+        db.collection("memberFriendDB")
+            .document(auth.currentUser?.email.toString())
+            .collection("FriendList")
+            .add(data)
+            .addOnSuccessListener {
+                Log.d("db", "success : addFriend")
+            }.addOnFailureListener{
+                Log.d("db", "fail : addFriend")
+            }
+    }
+    //
 
 companion object {
         /**
