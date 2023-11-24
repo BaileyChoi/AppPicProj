@@ -25,7 +25,8 @@ class FriendFragment : Fragment() {
 
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var mRecyclerAdapter: DialogFriendAdapter
-    private val originalList: ArrayList<FriendItem> = ArrayList()   // =friendItems // Adapter list이름 확인
+    //private val originalList: ArrayList<FriendItem> = ArrayList()   // =friendItems // Adapter list이름 확인
+    private val originalList: ArrayList<FriendItem> = ArrayList()
     private val searchList: ArrayList<FriendItem> = ArrayList()
     private lateinit var editText: EditText
     private lateinit var dialogFriendAdapter: DialogFriendAdapter

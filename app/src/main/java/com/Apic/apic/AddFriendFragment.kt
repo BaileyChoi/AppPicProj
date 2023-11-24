@@ -1,22 +1,37 @@
 package com.Apic.apic
 
 import android.os.Bundle
+import android.provider.ContactsContract.CommonDataKinds.Email
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.Apic.apic.databinding.FragmentAddFriendBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.auth.User
+import com.google.firebase.ktx.Firebase
+import java.util.jar.Attributes
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-class AddFriendFragment : Fragment() {
+class AddFriendFragment : Fragment(), DialogAddFriendAdapter.OnAddFriendClickListener {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
 
+    private lateinit var binding: FragmentAddFriendBinding
+    private val db = FirebaseFirestore.getInstance()
+    private val itemList = arrayListOf<MemberFriendData>()
+    private val adapter = DialogAddFriendAdapter(itemList)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -25,30 +40,13 @@ class AddFriendFragment : Fragment() {
         }
     }
 
-    private lateinit var mRecyclerView: RecyclerView
-    private lateinit var mRecyclerAdapter: DialogAddFriendAdapter
-    private lateinit var fragmentTransaction: FragmentTransaction   //
-    private val fragmentFriend = FriendFragment()
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = com.Apic.apic.databinding.FragmentAddFriendBinding.inflate(inflater, container, false)
-        mRecyclerView = binding.recyclerView
-        mRecyclerAdapter = DialogAddFriendAdapter()
-        mRecyclerView.adapter = mRecyclerAdapter
-        mRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding = FragmentAddFriendBinding.inflate(inflater, container, false)
 
-        val friendItems = ArrayList<FriendItem>()
-        for (i in 1..10) {
-            val resourceProfile = R.drawable.ic_person_circle
-            friendItems.add(FriendItem(resourceProfile, "${i}@gmail.com", "${i}p"))
-        }
-
-        mRecyclerAdapter.setFriendList(friendItems)
-
-        // Close Button click listener -> MainA
+        // Close Button click listener -> FriendFragment
         binding.closeBtn.setOnClickListener {
             (activity as? MainActivity)?.setFragment(0)
         }
@@ -56,7 +54,48 @@ class AddFriendFragment : Fragment() {
         return binding.root
     }
 
-    companion object {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        binding.recyclerView.adapter = adapter
+
+        binding.searchBtn.setOnClickListener {
+            db.collection("memberFriendDB")   // Collection to work with
+                .get()                    // Get documents
+                .addOnSuccessListener { result ->
+                    // On success
+                    itemList.clear()
+                    for (document in result) {
+                        val item = MemberFriendData(
+                            document["email"] as String,
+                            document["name"] as String
+                        )
+                        itemList.add(item)
+                    }
+                    adapter.notifyDataSetChanged()  // Update RecyclerView
+                }
+                .addOnFailureListener { exception ->
+                    // On failure
+                    Log.w("AddFriendFragment", "Error getting documents: $exception")
+                }
+        }
+
+        // add
+        //val adapter = DialogAddFriendAdapter(itemList)
+        adapter.setOnAddFriendClickListener(this) // Set the listener here
+    }
+
+    override fun onAddFriendClick(position: Int) {
+        // Handle the button click event for the item at the given position
+        // You can show a dialog, perform an action, etc.
+        val clickedItem = itemList[position]
+        Log.d("db", "Button clicked for ${clickedItem.name}")   // add : 오류 확인을 위함
+        // Example: Show a Toast
+        Toast.makeText(requireContext(), "Button clicked for ${clickedItem.name}", Toast.LENGTH_SHORT).show()
+    }
+
+companion object {
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.

@@ -65,14 +65,14 @@
             android:background="#e4e7eb"
             android:layout_marginRight="10dp"
             android:src="@drawable/ic_check_circle_icon" />
-        <ImageButton
+        <!--<ImageButton
             android:id="@+id/cancelButton"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:padding="0sp"
             android:scaleType="centerCrop"
             android:background="#e4e7eb"
-            android:src="@drawable/ic_cancel_circle_close_delete_discard_icon"/>
+            android:src="@drawable/ic_cancel_circle_close_delete_discard_icon"/>-->
     </LinearLayout>
 
     <!--margin-->
