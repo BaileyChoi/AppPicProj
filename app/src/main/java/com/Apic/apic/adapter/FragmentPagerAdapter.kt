@@ -1,9 +1,11 @@
-package com.Apic.apic
+package com.Apic.apic.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.Apic.apic.AlbumFragment
+import com.Apic.apic.MemberFragment
 
 
 class FragmentPagerAdapter (

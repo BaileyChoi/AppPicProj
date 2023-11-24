@@ -4,12 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.Apic.apic.databinding.FragmentAddGroupBinding
+import com.Apic.apic.adapter.GroupListAdapter
 import com.Apic.apic.databinding.FragmentGroupListBinding
 
 // TODO: Rename parameter arguments, choose names that match
@@ -31,7 +29,7 @@ class GroupListFragment : Fragment() {
     private lateinit var groupListAdapter: GroupListAdapter
 
     private fun setOnClickEvent() {
-        groupListAdapter.setItemClickListener(object:GroupListAdapter.OnItemClickListener {
+        groupListAdapter.setItemClickListener(object: GroupListAdapter.OnItemClickListener {
             override fun onClick(view:View, position:Int) {
                 super.onClick(view, position)
                 Toast.makeText(view.context, "테스트 - ${group_datas[position].getGroupName()}클릭", Toast.LENGTH_SHORT).show()

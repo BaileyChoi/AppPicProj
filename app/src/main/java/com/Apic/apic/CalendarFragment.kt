@@ -1,59 +1,85 @@
 package com.Apic.apic
 
+import TodoListAdapter
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.CalendarView
+import android.widget.EditText
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.Apic.apic.data.Todo
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
+import java.util.Calendar
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [CalendarFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class CalendarFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var todoEditText: EditText
+    private lateinit var calendarView: CalendarView
+    private lateinit var addButton: Button
+
+    private lateinit var viewModel: MainViewModel
+    private var selectedDate: Long = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_calendar, container, false)
-    }
+        val view = inflater.inflate(R.layout.fragment_calendar, container, false)
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment CalendarFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            CalendarFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+        // 뷰 초기화
+        recyclerView = view.findViewById(R.id.recyclerView)
+        todoEditText = view.findViewById(R.id.todoEditText)
+        calendarView = view.findViewById(R.id.calendar)
+        addButton = view.findViewById(R.id.btnAdd)
+
+        // MainViewModel 초기화
+        viewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
+
+        // RecyclerView 초기화
+        val adapter = TodoListAdapter { todo -> viewModel.deleteTodo(todo.id) }
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+        // CalendarView 이벤트 핸들링
+        calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
+            val calendar = Calendar.getInstance()
+            calendar.set(year, month, dayOfMonth)
+            selectedDate = calendar.timeInMillis
+        }
+
+        // 초기에 오늘 날짜로 선택되도록 설정
+        val today = Calendar.getInstance()
+        selectedDate = today.timeInMillis
+        calendarView.date = selectedDate
+
+        // "추가" 버튼 클릭 이벤트 처리
+        addButton.setOnClickListener {
+            val todoText = todoEditText.text.toString()
+            if (selectedDate != 0L && todoText.isNotBlank()) {
+                // Todo 객체 생성 및 저장
+                val newTodo = Todo(todoText, selectedDate)
+                viewModel.addTodo(newTodo)
+
+                // EditText 초기화
+                todoEditText.text.clear()
             }
+        }
+
+        // ViewModel에서 데이터 관찰
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.items.collect { todos ->
+                adapter.submitList(todos)
+            }
+        }
+
+        return view
     }
 }

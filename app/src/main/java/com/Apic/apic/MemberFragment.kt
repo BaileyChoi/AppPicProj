@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.Apic.apic.databinding.FragmentDateBinding
+import com.Apic.apic.adapter.GroupMemberAdapter
 import com.Apic.apic.databinding.FragmentMemberBinding
 
 // TODO: Rename parameter arguments, choose names that match
