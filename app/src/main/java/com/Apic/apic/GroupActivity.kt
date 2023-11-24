@@ -1,6 +1,7 @@
 package com.Apic.apic
 
 import android.animation.ObjectAnimator
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageButton
@@ -66,6 +67,12 @@ class GroupActivity : AppCompatActivity() {
         val gParticipants = intent.getStringExtra("g_participants")
         groupName.text = gName
         groupMemberNum.text = gParticipants
+
+        // MemberFragment에 그룹 정보 전달
+        var memberFragment = MemberFragment()
+        var bundle = Bundle()
+        bundle.putString("g_name", gName)
+        memberFragment.arguments = bundle
     }
 
     // 탭 레이아웃 설정
@@ -104,7 +111,6 @@ class GroupActivity : AppCompatActivity() {
     private fun setupListeners() {
         fabMain.setOnClickListener {
             // toggleFab()
-            // viewpager AddMeetingFragment로 전환
 
         }
         fabCamera.setOnClickListener { showToast("카메라 버튼 클릭!") }

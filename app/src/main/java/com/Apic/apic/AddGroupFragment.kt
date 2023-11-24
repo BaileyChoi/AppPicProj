@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.Apic.apic.databinding.FragmentAddGroupBinding
+import com.google.android.play.core.integrity.p
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -36,7 +37,8 @@ class AddGroupFragment : Fragment() {
 
     private val friendList = mutableListOf<FriendData>()
 
-//    val participants_list = ArrayList<String>()
+    private val participantsList = mutableListOf<FriendData>()
+    private val participantsNameList = ArrayList<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +47,21 @@ class AddGroupFragment : Fragment() {
             param2 = it.getString(ARG_PARAM2)
         }
     }
+
+    // 친구 리스트에서 참여자 선택
+    private fun setOnClickEvent() {
+        groupParticipantsAdapter.setItemClickListener(object: GroupParticipantsAdapter.OnItemClickListener {
+            override fun onClick(view: View, position: Int) {
+                super.onClick(view, position)
+                Toast.makeText(view.context, "테스트 - ${friendList[position].f_name} 클릭", Toast.LENGTH_SHORT).show()
+                participantsList.add(friendList[position])
+                participantsNameList.add(friendList[position].f_name)
+                binding.groupParticipants.text = participantsNameList.toString()
+                binding.groupMemberNum.text = participantsNameList.size.toString()
+            }
+        })
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -60,17 +77,27 @@ class AddGroupFragment : Fragment() {
         groupParticipantsAdapter = GroupParticipantsAdapter(friendList)
         recyclerView.adapter = groupParticipantsAdapter
 
-        getFriendData()
+        getFriendData() // 친구 목록 불러오기
+
+        setOnClickEvent()   // 참여자 선택
 
         // 체크 버튼
         binding.checkBtn.setOnClickListener {
 
             // 그룹 추가
             val gName = binding.EtGoupName.text.toString()
-            val gParticipants = binding.EtGroupParticipants.text.toString()
+            val gParticipants = participantsNameList.size.toString()
 
             val groupData = GroupData(gName, gParticipants)
             addGroup(groupData)
+
+            // 참여자 추가
+            for (participant in participantsList) {
+                val fName = participant.f_name
+                val fEmail = participant.f_email
+                val participantsData = FriendData(fName, fEmail)
+                addParticipants(groupData, participantsData)
+            }
 
             Toast.makeText(context, "그룹 생성 완료", Toast.LENGTH_SHORT).show()
 
@@ -122,6 +149,23 @@ class AddGroupFragment : Fragment() {
             .collection("groups")
             .document(groupData.g_name)
             .set(groupData)
+            .addOnCompleteListener {
+                Log.d("db", "success")
+            }
+            .addOnFailureListener {
+                Log.d("db", "fail")
+            }
+    }
+
+    private fun addParticipants(groupData: GroupData, participantsData: FriendData) {
+
+        db.collection("memberDB")
+            .document(auth.currentUser!!.email.toString())
+            .collection("groups")
+            .document(groupData.g_name)
+            .collection("participants")
+            .document(participantsData.f_email)
+            .set(participantsData)
             .addOnCompleteListener {
                 Log.d("db", "success")
             }

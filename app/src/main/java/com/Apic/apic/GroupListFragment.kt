@@ -43,11 +43,18 @@ class GroupListFragment : Fragment() {
                 super.onClick(view, position)
                 Toast.makeText(view.context, "테스트 - ${groupList[position].g_name}클릭", Toast.LENGTH_SHORT).show()
 
-                // 그룹 정보 넘기기
+                // 그룹 정보 넘기기 -> groupActivity
                 val intent = Intent(activity, GroupActivity::class.java)
                 intent.putExtra("g_name", groupList[position].g_name)
                 intent.putExtra("g_participants", groupList[position].g_participants)
                 startActivity(intent)
+
+                // 그룹 정보 넘기기 -> memberFragment
+                var memberFragment = MemberFragment()
+                var bundle = Bundle()
+                bundle.putString("g_name", groupList[position].g_name)
+                Log.d("groupname", bundle.toString())
+                memberFragment.arguments = bundle
             }
         })
     }

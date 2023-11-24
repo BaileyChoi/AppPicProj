@@ -5,12 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.Apic.apic.databinding.RvGroupMemberBinding
 
-class GroupMemberAdapter: RecyclerView.Adapter<GroupMemberAdapter.ViewHolder>() {
-    private var data = ArrayList<String>()
+class GroupMemberAdapter(val items:MutableList<GroupMemberData>): RecyclerView.Adapter<GroupMemberAdapter.ViewHolder>() {
 
     inner class ViewHolder(val binding: RvGroupMemberBinding): RecyclerView.ViewHolder(binding.root) {
-        fun onBind(item : String) {
-            binding.memberName.text = item
+        fun onBind(items : GroupMemberData) {
+            binding.memberName.text = items.gm_name
         }
     }
 
@@ -20,17 +19,12 @@ class GroupMemberAdapter: RecyclerView.Adapter<GroupMemberAdapter.ViewHolder>() 
         return ViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.onBind(data[position])
+    override fun onBindViewHolder(holder: GroupMemberAdapter.ViewHolder, position: Int) {
+        holder.onBind(items[position])
     }
 
     override fun getItemCount(): Int {
-        return data.size
+        return items.size
     }
 
-    fun replaceList(newList:ArrayList<String>) {
-        data = newList
-        // 어댑터에 데이터가 변했다는 notify를 날린다
-        notifyDataSetChanged()
-    }
 }
