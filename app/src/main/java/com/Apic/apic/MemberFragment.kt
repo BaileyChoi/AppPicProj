@@ -49,7 +49,6 @@ class MemberFragment : Fragment() {
         groupMemberAdapter.replaceList(list)
         recyclerView.adapter = groupMemberAdapter
 
-
         return binding.root
     }
 

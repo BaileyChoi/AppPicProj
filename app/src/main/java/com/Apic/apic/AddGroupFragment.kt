@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.Apic.apic.databinding.FragmentAddGroupBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -30,6 +32,10 @@ class AddGroupFragment : Fragment() {
     private val db = FirebaseFirestore.getInstance()
     private lateinit var auth: FirebaseAuth
 
+    private lateinit var groupParticipantsAdapter: GroupParticipantsAdapter
+
+    private val friendList = mutableListOf<FriendData>()
+
 //    val participants_list = ArrayList<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,6 +54,13 @@ class AddGroupFragment : Fragment() {
         binding = FragmentAddGroupBinding.inflate(inflater, container, false)
 
         auth = FirebaseAuth.getInstance()
+
+        val recyclerView: RecyclerView = binding.groupParticipantsRecyclerView
+        recyclerView.layoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
+        groupParticipantsAdapter = GroupParticipantsAdapter(friendList)
+        recyclerView.adapter = groupParticipantsAdapter
+
+        getFriendData()
 
         // 체크 버튼
         binding.checkBtn.setOnClickListener {
@@ -78,6 +91,28 @@ class AddGroupFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    private fun getFriendData() {
+        db.collection("memberDB")
+            .document(auth.currentUser!!.email.toString())
+            .collection("FriendList")
+            .get()
+            .addOnSuccessListener { result ->
+                friendList.clear()
+                for (document in result) {
+                    val friend = FriendData (
+                        document["email"] as String,
+                        document["name"] as String
+                    )
+                    friendList.add(friend)
+                }
+                groupParticipantsAdapter.notifyDataSetChanged()
+                Log.d("db", "success")
+            }
+            .addOnFailureListener {
+                Log.d("db", "fail")
+            }
     }
 
     private fun addGroup(groupData: GroupData) {

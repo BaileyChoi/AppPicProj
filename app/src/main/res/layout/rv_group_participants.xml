@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:id="@+id/layoutListItem"
     android:orientation="vertical"
-    android:layout_marginHorizontal="20dp"
+    android:layout_marginHorizontal="5dp"
     android:layout_gravity="center"
     android:backgroundTint="@color/mainColor1"
     android:background="@drawable/radius10">

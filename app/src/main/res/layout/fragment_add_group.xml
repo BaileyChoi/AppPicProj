@@ -121,13 +121,25 @@
             android:hint="  참여자를 초대해주세요."/>
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:orientation="horizontal"
-        tools:listitem="@layout/rv_group_participants"/>
+    <HorizontalScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scrollbarThumbHorizontal="@android:color/darker_gray"
+        android:scrollbarSize="8dp"
+        android:scrollbarFadeDuration="@integer/material_motion_duration_long_2">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/group_participants_recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="8dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="horizontal"
+            tools:listitem="@layout/rv_group_participants"/>
+
+    </HorizontalScrollView>
+
 
 
 </LinearLayout>
