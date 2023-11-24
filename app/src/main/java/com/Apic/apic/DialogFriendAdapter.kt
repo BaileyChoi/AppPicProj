@@ -7,11 +7,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
-import com.Apic.apic.databinding.FriendRecyclerviewBinding
 
-class DialogFriendAdapter(val itemList: ArrayList<MemberData>) : RecyclerView.Adapter<DialogFriendAdapter.ViewHolder>() {
+class DialogFriendAdapter(var itemList: ArrayList<MemberData>) : RecyclerView.Adapter<DialogFriendAdapter.ViewHolder>() {
 
-    private var mFriendList: ArrayList<FriendItem> = ArrayList()
+    private var mFriendList: ArrayList<MemberData> = ArrayList()
 
     @NonNull
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -33,9 +32,16 @@ class DialogFriendAdapter(val itemList: ArrayList<MemberData>) : RecyclerView.Ad
         holder.emailId.text = itemList[position].email
     }
 
-    fun setFriendList(list: ArrayList<FriendItem>) {
+
+    fun setFriendList(list: ArrayList<MemberData>) {
         mFriendList = list
+        itemList = mFriendList
+        for (m in mFriendList) {    // 확인용 코드
+            val mname = m.name
+            Log.d("db", mname)
+        }
         notifyDataSetChanged()
+        //Log.d("db", "notifyDataSetChanged called")
     }
 
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {

@@ -29,16 +29,16 @@ class FriendFragment : Fragment() {
 
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var mRecyclerAdapter: DialogFriendAdapter
-    //private val originalList: ArrayList<FriendItem> = ArrayList()   // =friendItems // Adapter list이름 확인
-    private val originalList: ArrayList<FriendItem> = ArrayList()
-    private val searchList: ArrayList<FriendItem> = ArrayList()
     private lateinit var editText: EditText
+    private val originalList: ArrayList<MemberData> = ArrayList()
+    private val searchList: ArrayList<MemberData> = ArrayList()
+
     // firestore에서 data가져올때 사용
     private lateinit var auth: FirebaseAuth // 친구 리스트와 자신 email 비교를 위해 가져옴.
     private val db = FirebaseFirestore.getInstance()
-    private val itemList = arrayListOf<MemberData>()
+    //private val itemList = arrayListOf<MemberData>()
     //private lateinit var dialogFriendAdapter: DialogFriendAdapter
-    private var adapter = DialogFriendAdapter(itemList)
+    private var adapter = DialogFriendAdapter(originalList)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -56,20 +56,21 @@ class FriendFragment : Fragment() {
 
         mRecyclerView = binding.recyclerView
 
+
         // initiate adapter & recyclerview
-        mRecyclerAdapter = DialogFriendAdapter(itemList)
+        mRecyclerAdapter = DialogFriendAdapter(originalList)
         mRecyclerView.adapter = mRecyclerAdapter
         mRecyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         // 친구 firestore 'memberDB'의 friendlist를 가져옴.
         // 친구 찾기에서 친구 리스트로 recyclerview로 뜨기
-        val friendList = db.collection("memberDB").document(auth.currentUser?.email.toString()).collection("FriendList") // friendlist 항목 넣어야함.
-
-            friendList
+        db.collection("memberDB")
+            .document(auth.currentUser?.email.toString())
+            .collection("FriendList") // friendlist 항목 넣어야함.
             .get()                    // Get documents
             .addOnSuccessListener { result ->
                 // On success
-                itemList.clear()
+                originalList.clear()
                 for (document in result) {
                     val item = MemberData(
                         document["email"] as String,
@@ -77,10 +78,17 @@ class FriendFragment : Fragment() {
                         //document["password"] as String
                     )
                     if (!auth.currentUser?.email.toString().equals(document["email"])) {    // 현재 유저가 아닐때
-                        itemList.add(item)
+                        originalList.add(item)
                     }
                 }
-                adapter.notifyDataSetChanged()  // Update RecyclerView
+
+                // 데이터 로드가 완료된 후에 어댑터 초기화와 업데이트
+                adapter.notifyDataSetChanged()
+
+                //adapter.notifyDataSetChanged()  // Update RecyclerView
+//                adapter.setFriendList(originalList)
+//                mRecyclerView.adapter = adapter
+//                mRecyclerView.layoutManager = LinearLayoutManager(requireContext())
             }
             .addOnFailureListener { exception ->
                 Log.w("AddFriendFragment", "Error getting documents: $exception")
@@ -95,12 +103,12 @@ class FriendFragment : Fragment() {
 
         mRecyclerAdapter.setFriendList(originalList)
 
-        // Button click listener
+        // Button click listener : AddFriendFragment로 이동
         binding.addButton.setOnClickListener {
             (activity as? MainActivity)?.setFragment(1)
         }
 
-        // 친구명으로 검색
+        // Button click listener : search Friend email
         binding.searchButton.setOnClickListener{
             val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(binding.searchView.windowToken, 0)
@@ -117,32 +125,49 @@ class FriendFragment : Fragment() {
                 // Optional: Add any functionality needed during text changes
             }
 
+
             override fun afterTextChanged(editable: Editable) {
-                val searchText = editText.text.toString() //editable.toString()
-                searchList.clear()
+                //Log.d("db", "addTextChangedListener")
+                val searchText = editText.text.toString().trim() //editable.toString()
+                //Log.d("db", "$searchText")
+                searchList.clear()  // 검색 결과 갱신
 
                 if (searchText.isEmpty()) {
                     adapter.setFriendList(originalList)
                 } else {
                     // 검색 단어를 포함하는지 확인
                     for (a in 0 until originalList.size) {
+                        //Log.d("db", "for loop: $a")
                         if (originalList[a].getName().toLowerCase().contains(searchText.toLowerCase())) {
                             searchList.add(originalList[a])
                         }
                     }
+                    /*for (original in originalList){
+                        if(searchText.contains(original.getName(), ignoreCase=true)){
+                            val fname = original.name
+                            val femail = original.email
+                            Log.d("db", fname)
+                            Log.d("db", femail)
+                            val search = MemberData(femail. fname)
+                            searchList.add(search)
+                            searchList = MemberData(femail, fname)
+                        }
+                    }*/
                     //dialogFriendAdapter.setFriendList(originalList)
                     adapter.setFriendList(searchList)
+                    adapter.notifyDataSetChanged()
                 }
             }
         })
-        //
+
         // 리사이클러뷰, 어댑터 연결
         val recyclerView: RecyclerView = binding.recyclerView
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        adapter = DialogFriendAdapter(itemList) //
+
+        //어댑터 연결 확인
+        //adapter = DialogFriendAdapter(originalList) //
         adapter.setFriendList(originalList) //
         recyclerView.adapter = adapter  //
-
         return binding.root
     }
 

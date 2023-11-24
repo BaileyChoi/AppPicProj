@@ -30,7 +30,7 @@ class LoginActivity : AppCompatActivity() {
 
         nameEt = findViewById(R.id.user_name)
         emailEt = findViewById(R.id.user_id)
-        passwordEt = findViewById(R.id.user_id)// _id 여기서 오류
+        passwordEt = findViewById(R.id.user_pw)// _id 여기서 오류
         loginBtn = findViewById(R.id.button)
 
 
