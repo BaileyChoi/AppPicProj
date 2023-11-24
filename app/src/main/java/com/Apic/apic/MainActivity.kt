@@ -23,6 +23,7 @@ import androidx.fragment.app.FragmentTransaction
 import com.Apic.apic.databinding.TopbarBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
+import com.google.android.material.navigation.NavigationView.OnNavigationItemSelectedListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
@@ -39,6 +40,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private lateinit var auth: FirebaseAuth
 
+    var MenuAuth : MenuItem ?= null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -52,9 +55,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         transaction.replace(R.id.menu_frame_view, fragmentCalendar).commitAllowingStateLoss()
 
 
-            //Login//
+            //Login// -> menu_nav로 옮겨서 아래 Item에 있어요
 
             //로그인 한 회원만 사용 가능하도록
+
             val logoutBtn: Button = findViewById(R.id.logOut)
             logoutBtn.setOnClickListener {
                 auth.signOut()
@@ -62,6 +66,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 startActivity(intent)
                 finish()
             }
+
 
             val bottomNavigationView =
                 findViewById<BottomNavigationView>(R.id.bottom_navigationview)
@@ -82,6 +87,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         //drawer-> navigation_hear에 있는 textView에 현재 로그인 정보 전달
         val navigationView: NavigationView = findViewById(R.id.main_drawer)
+        navigationView.setNavigationItemSelectedListener(this)
+
         val headerView = navigationView.getHeaderView(0)
         //xml
         val auth_name: TextView = headerView.findViewById(R.id.auth_name)
@@ -112,7 +119,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         authBtn.setOnClickListener {
             drawlayout.openDrawer(GravityCompat.START)
 
-
             // group activity test code
 //        val intent = Intent(this, GroupActivity::class.java)
 //        startActivity(intent)
@@ -122,16 +128,30 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     }
         override fun onNavigationItemSelected(item: MenuItem): Boolean {
+            return when (item.itemId) {
+                R.id.logOut -> {
+                    Log.d("logout", "로그아웃 버튼 클릭")
 
-            return true
+                    auth.signOut()
+                    val intent = Intent(this, LoginActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                    true
+                }
+                else -> super.onOptionsItemSelected(item)
+            }
         }
+
 
         //옵션메뉴 -> 메뉴바 보여지도록 가시화(명시)
         //옵션 멘 만들기
         override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-
+            menuInflater.inflate(R.menu.menu_navigation, menu)
             return super.onCreateOptionsMenu(menu)
         }
+
+
+
 }
 
 
