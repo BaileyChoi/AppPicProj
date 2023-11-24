@@ -44,14 +44,14 @@
             android:layout_marginLeft="8dp"/>
     </LinearLayout>
 
-    <ImageButton
+    <ImageView
         android:id="@+id/group_photo"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_gravity="center_horizontal"
         android:scaleType="centerCrop"
         android:backgroundTint="@color/mainColor1"
-        android:src="@drawable/ic_gallery"
+        android:src="@drawable/ic_group"
         android:layout_marginBottom="10dp"
         android:background="@drawable/radius20"/>
 
@@ -100,7 +100,7 @@
                 android:textSize="20dp"
                 android:textColor="@color/black"
                 android:gravity="end"
-                android:text="0"
+                android:text=""
                 android:inputType="number"/>
 
             <TextView

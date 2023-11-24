@@ -2,9 +2,13 @@ package com.Apic.apic
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.*
+import android.widget.EditText
 import android.widget.Toast
+import androidx.compose.ui.text.toLowerCase
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -32,6 +36,9 @@ class GroupListFragment : Fragment() {
 
     private val groupList = mutableListOf<GroupData>()
     private lateinit var groupListAdapter: GroupListAdapter
+
+    private val searchList: ArrayList<GroupData> = ArrayList()
+    private lateinit var Etsearch: EditText
 
     private lateinit var auth: FirebaseAuth
     private val db = FirebaseFirestore.getInstance()
@@ -90,8 +97,39 @@ class GroupListFragment : Fragment() {
             }
         }
 
+        // 그룹 리스트
         getGroupData()
         //(activity as AppCompatActivity).setSupportActionBar(R.id.back) // 뒤로가기 메뉴
+
+        // 그룹 검색
+        Etsearch = binding.Etsearch
+        Etsearch.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                //
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                //
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+                val searchText = Etsearch.text.toString().trim()
+                searchList.clear()
+
+                if (searchText.isEmpty()) {
+                    groupListAdapter.setGroupList(groupList)
+                }
+                else {
+                    for (a in 0 until groupList.size) {
+                        if (groupList[a].getName().toLowerCase().contains(searchText.toLowerCase())) {
+                            searchList.add(groupList[a])
+                        }
+                    }
+                }
+                groupListAdapter.setGroupList(searchList)
+                groupListAdapter.notifyDataSetChanged()
+            }
+        })
 
         return binding.root
     }

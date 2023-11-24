@@ -15,7 +15,7 @@
         android:layout_width="55dp"
         android:layout_height="55dp"
         android:layout_margin="10dp"
-        android:src="@drawable/ic_person_circle"
+        android:src="@drawable/ic_friend"
         android:background="@drawable/ic_circle_button"/>
 
     <TextView

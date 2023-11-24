@@ -6,8 +6,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.Apic.apic.databinding.RvGroupListBinding
 
-class GroupListAdapter(val items:MutableList<GroupData>) : RecyclerView.Adapter<GroupListAdapter.ViewHolder>() {
+class GroupListAdapter(var items:MutableList<GroupData>) : RecyclerView.Adapter<GroupListAdapter.ViewHolder>() {
     private lateinit var itemClickListener : OnItemClickListener
+
+    private var mGroupList: MutableList<GroupData> = ArrayList()
 
     inner class ViewHolder(val binding: RvGroupListBinding): RecyclerView.ViewHolder(binding.root) {
         fun onBind(items: GroupData) {
@@ -40,6 +42,12 @@ class GroupListAdapter(val items:MutableList<GroupData>) : RecyclerView.Adapter<
         holder.itemView.setOnClickListener {
             itemClickListener.onClick(it, position)
         }
+    }
+
+    fun setGroupList(list: MutableList<GroupData>) {
+        mGroupList = list
+        items = mGroupList
+        notifyDataSetChanged()
     }
 
 }
