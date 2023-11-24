@@ -25,7 +25,7 @@ class SplashActivity : AppCompatActivity() {
                 finish()
             } //mainActivity 실행 후 종료
 
-        }, 2, TimeUnit.SECONDS) //{실행내용}, 딜레이(얼마간 실행), 숫자에 대한 단위 (2초)
+        }, 3, TimeUnit.SECONDS) //{실행내용}, 딜레이(얼마간 실행), 숫자에 대한 단위 (2초)
         Log.d("splash", "나와라ㅑ")
     }
 }

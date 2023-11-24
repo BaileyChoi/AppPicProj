@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat.startActivity
 import androidx.core.view.isVisible
@@ -37,9 +38,13 @@ class LoginActivity : AppCompatActivity() {
         _binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //topbar에 있는 회원페이지 안 보이게 하기
+        //topbar에 있는 회원페이지 안 보이게 하기 (사실상 로그인 페이지에 더이상 topbar가 필요 없어서 topbar자체를 삭제)
+        /*
         val auth_Btn:  ImageView = findViewById(R.id.authBtn)
+        val logout_Btn : TextView = findViewById(R.id.logOut)
         auth_Btn.visibility = View.INVISIBLE
+        logout_Btn.visibility = View.INVISIBLE
+         */
 
         auth = FirebaseAuth.getInstance()
 

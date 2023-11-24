@@ -4,6 +4,7 @@ package com.Apic.apic
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.util.Log
 import android.view.Gravity
 import android.view.Menu
@@ -59,6 +60,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
             //로그인 한 회원만 사용 가능하도록
 
+        /*
             val logoutBtn: Button = findViewById(R.id.logOut)
             logoutBtn.setOnClickListener {
                 auth.signOut()
@@ -66,6 +68,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 startActivity(intent)
                 finish()
             }
+         */
 
 
             val bottomNavigationView =
@@ -149,7 +152,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             menuInflater.inflate(R.menu.menu_navigation, menu)
             return super.onCreateOptionsMenu(menu)
         }
-
 
 
 }
