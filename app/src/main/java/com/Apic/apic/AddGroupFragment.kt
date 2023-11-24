@@ -1,14 +1,15 @@
 package com.Apic.apic
 
-import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.Apic.apic.databinding.FragmentAddGroupBinding
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,7 +27,8 @@ class AddGroupFragment : Fragment() {
     private var param2: String? = null
 
     private lateinit var binding: FragmentAddGroupBinding
-
+    private val db = FirebaseFirestore.getInstance()
+    private lateinit var auth: FirebaseAuth
 
 //    val participants_list = ArrayList<String>()
 
@@ -45,6 +47,8 @@ class AddGroupFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentAddGroupBinding.inflate(inflater, container, false)
 
+        auth = FirebaseAuth.getInstance()
+
         // 체크 버튼
         binding.checkBtn.setOnClickListener {
 
@@ -52,11 +56,8 @@ class AddGroupFragment : Fragment() {
             val gName = binding.EtGoupName.text.toString()
             val gParticipants = binding.EtGroupParticipants.text.toString()
 
-            val key = FBRef.groupRef.push().key.toString()
-
-            FBRef.groupRef
-                .child(key)
-                .setValue(GroupModel(gName, gParticipants))
+            val groupData = GroupData(gName, gParticipants)
+            addGroup(groupData)
 
             Toast.makeText(context, "그룹 생성 완료", Toast.LENGTH_SHORT).show()
 
@@ -77,6 +78,21 @@ class AddGroupFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    private fun addGroup(groupData: GroupData) {
+
+        db.collection("memberDB")
+            .document(auth.currentUser!!.email.toString())
+            .collection("groups")
+            .document(groupData.g_name)
+            .set(groupData)
+            .addOnCompleteListener {
+                Log.d("db", "success")
+            }
+            .addOnFailureListener {
+                Log.d("db", "fail")
+            }
     }
 
     companion object {

@@ -9,9 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.Apic.apic.databinding.FragmentGroupListBinding
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.firestore.FirebaseFirestore
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -28,8 +30,12 @@ class GroupListFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
-    private val groupList = mutableListOf<GroupModel>()
+    private val groupList = mutableListOf<GroupData>()
     private lateinit var groupListAdapter: GroupListAdapter
+
+    private lateinit var auth: FirebaseAuth
+    private val db = FirebaseFirestore.getInstance()
+
 
     private fun setOnClickEvent() {
         groupListAdapter.setItemClickListener(object:GroupListAdapter.OnItemClickListener {
@@ -60,6 +66,8 @@ class GroupListFragment : Fragment() {
         // Inflate the layout for this fragment
         val binding = FragmentGroupListBinding.inflate(inflater, container, false)
 
+        auth = FirebaseAuth.getInstance()
+
         val recyclerView: RecyclerView = binding.groupRecyclerView
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         groupListAdapter = GroupListAdapter(groupList)
@@ -75,29 +83,32 @@ class GroupListFragment : Fragment() {
             }
         }
 
-        getFBGroupData()
+        getGroupData()
         //(activity as AppCompatActivity).setSupportActionBar(R.id.back) // 뒤로가기 메뉴
 
         return binding.root
     }
 
-    private fun getFBGroupData() {
-        val addListener = object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
+    private fun getGroupData() {
+        db.collection("memberDB")
+            .document(auth.currentUser!!.email.toString())
+            .collection("groups")
+            .get()
+            .addOnSuccessListener { result ->
                 groupList.clear()
-
-                for (data in snapshot.children) {
-                    val item = data.getValue(GroupModel::class.java)
-                    Log.d("GroupListActivity", "item: ${item}")
-                    groupList.add(item!!)
+                for (document in result) {
+                    val group = GroupData (
+                        document["g_name"] as String,
+                        document["g_participants"] as String
+                    )
+                    groupList.add(group)
                 }
-                groupList.reverse()
                 groupListAdapter.notifyDataSetChanged()
+                Log.d("db", "success")
             }
-            override fun onCancelled(error: DatabaseError) {
+            .addOnFailureListener {
+                Log.d("db", "fail")
             }
-        }
-        FBRef.groupRef.addValueEventListener(addListener)
     }
 
     // 뒤로가기 버튼

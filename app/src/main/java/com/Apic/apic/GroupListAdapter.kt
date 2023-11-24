@@ -1,20 +1,16 @@
 package com.Apic.apic
 
-import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.Apic.apic.databinding.RvGroupListBinding
 
-class GroupListAdapter(val items:MutableList<GroupModel>) : RecyclerView.Adapter<GroupListAdapter.ViewHolder>() {
+class GroupListAdapter(val items:MutableList<GroupData>) : RecyclerView.Adapter<GroupListAdapter.ViewHolder>() {
     private lateinit var itemClickListener : OnItemClickListener
 
     inner class ViewHolder(val binding: RvGroupListBinding): RecyclerView.ViewHolder(binding.root) {
-        fun onBind(items: GroupModel) {
+        fun onBind(items: GroupData) {
             binding.groupName.text =  items.g_name // 그룹 이름
             binding.groupNum.text = items.g_participants  // 그룹 멤버명수
         }
