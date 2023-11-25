@@ -2,15 +2,18 @@ package com.Apic.apic
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import android.view.*
+import android.widget.EditText
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.Apic.apic.databinding.FragmentAddGroupBinding
 import com.Apic.apic.databinding.FragmentGroupListBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -27,16 +30,34 @@ class GroupListFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
-    private val group_datas : ArrayList<GroupListItem> = ArrayList()
+    private val groupList = mutableListOf<GroupData>()
     private lateinit var groupListAdapter: GroupListAdapter
 
+    private val searchList: ArrayList<GroupData> = ArrayList()
+    private lateinit var Etsearch: EditText
+
+    private lateinit var auth: FirebaseAuth
+    private val db = FirebaseFirestore.getInstance()
+
+
     private fun setOnClickEvent() {
-        groupListAdapter.setItemClickListener(object:GroupListAdapter.OnItemClickListener {
+        groupListAdapter.setItemClickListener(object: GroupListAdapter.OnItemClickListener {
             override fun onClick(view:View, position:Int) {
                 super.onClick(view, position)
-                Toast.makeText(view.context, "테스트 - ${group_datas[position].getGroupName()}클릭", Toast.LENGTH_SHORT).show()
-                val intent = Intent(getActivity(), GroupActivity::class.java)
+                Toast.makeText(view.context, "테스트 - ${groupList[position].g_name}클릭", Toast.LENGTH_SHORT).show()
+
+                // 그룹 정보 넘기기 -> groupActivity
+                val intent = Intent(activity, GroupActivity::class.java)
+                intent.putExtra("g_name", groupList[position].g_name)
+                intent.putExtra("g_participants", groupList[position].g_participants)
                 startActivity(intent)
+
+                // 그룹 정보 넘기기 -> memberFragment
+                var memberFragment = MemberFragment()
+                var bundle = Bundle()
+                bundle.putString("g_name", groupList[position].g_name)
+                Log.d("groupname", bundle.toString())
+                memberFragment.arguments = bundle
             }
         })
     }
@@ -55,15 +76,11 @@ class GroupListFragment : Fragment() {
         // Inflate the layout for this fragment
         val binding = FragmentGroupListBinding.inflate(inflater, container, false)
 
-        group_datas.add(GroupListItem("GroupA", 3, true))
-        group_datas.add(GroupListItem("GroupB", 5, true))
-        group_datas.add(GroupListItem("GroupC", 6, true))
-        group_datas.add(GroupListItem("GroupD", 9, true))
+        auth = FirebaseAuth.getInstance()
 
         val recyclerView: RecyclerView = binding.groupRecyclerView
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        groupListAdapter = GroupListAdapter()
-        groupListAdapter.replaceList(group_datas)
+        groupListAdapter = GroupListAdapter(groupList)
         recyclerView.adapter = groupListAdapter
 
         setOnClickEvent()
@@ -74,12 +91,65 @@ class GroupListFragment : Fragment() {
             if (transaction != null) {
                 transaction.replace(R.id.menu_frame_view, AddGroupFragment()).commitAllowingStateLoss()
             }
-
         }
 
+        // 그룹 리스트
+        getGroupData()
         //(activity as AppCompatActivity).setSupportActionBar(R.id.back) // 뒤로가기 메뉴
 
+        // 그룹 검색
+        Etsearch = binding.Etsearch
+        Etsearch.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                //
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                //
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+                val searchText = Etsearch.text.toString().trim()
+                searchList.clear()
+
+                if (searchText.isEmpty()) {
+                    groupListAdapter.setGroupList(groupList)
+                }
+                else {
+                    for (a in 0 until groupList.size) {
+                        if (groupList[a].g_name.toLowerCase().contains(searchText.toLowerCase())) {
+                            searchList.add(groupList[a])
+                        }
+                    }
+                }
+                groupListAdapter.setGroupList(searchList)
+                groupListAdapter.notifyDataSetChanged()
+            }
+        })
+
         return binding.root
+    }
+
+    private fun getGroupData() {
+        db.collection("memberDB")
+            .document(auth.currentUser!!.email.toString())
+            .collection("groups")
+            .get()
+            .addOnSuccessListener { result ->
+                groupList.clear()
+                for (document in result) {
+                    val group = GroupData (
+                        document["g_name"] as String,
+                        document["g_participants"] as String
+                    )
+                    groupList.add(group)
+                }
+                groupListAdapter.notifyDataSetChanged()
+                Log.d("db", "success")
+            }
+            .addOnFailureListener {
+                Log.d("db", "fail")
+            }
     }
 
     // 뒤로가기 버튼

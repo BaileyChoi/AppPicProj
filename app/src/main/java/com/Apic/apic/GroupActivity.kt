@@ -4,18 +4,15 @@ import android.animation.ObjectAnimator
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.PopupMenu
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import androidx.viewpager2.widget.ViewPager2
 import com.Apic.apic.databinding.ActivityGroupBinding
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -31,9 +28,9 @@ class GroupActivity : AppCompatActivity() {
     private lateinit var fabMain: FloatingActionButton
     private lateinit var fabCamera: FloatingActionButton
     private lateinit var fabCreate: FloatingActionButton
+
     private lateinit var groupLikedButton: ImageButton
 
-    private val fragmentAddMeeting = AddMeetingFragment()
     private lateinit var menuIcon: ImageButton
     lateinit var binding: ActivityGroupBinding
 
@@ -43,6 +40,9 @@ class GroupActivity : AppCompatActivity() {
     var imageList: ArrayList<Uri> = ArrayList()
 
     private val fragmentManager: FragmentManager = supportFragmentManager
+
+    private lateinit var groupName: TextView
+    private lateinit var groupMemberNum: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,6 +72,20 @@ class GroupActivity : AppCompatActivity() {
         fabCreate = findViewById(R.id.fab_create)
         groupLikedButton = findViewById(R.id.group_liked)
         menuIcon = findViewById(R.id.menu_icon)
+        groupName = findViewById(R.id.group_name)
+        groupMemberNum = findViewById(R.id.group_member_num)
+
+        // 그룹 정보 반영
+        val gName = intent.getStringExtra("g_name")
+        val gParticipants = intent.getStringExtra("g_participants")
+        groupName.text = gName
+        groupMemberNum.text = gParticipants
+
+        // MemberFragment에 그룹 정보 전달
+        var memberFragment = MemberFragment()
+        var bundle = Bundle()
+        bundle.putString("g_name", gName)
+        memberFragment.arguments = bundle
     }
 
     // 탭 레이아웃 설정
