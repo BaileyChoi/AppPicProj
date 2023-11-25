@@ -4,6 +4,9 @@ plugins {
 
     id 'com.google.gms.google-services'
 
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+
 }
 
 android {
@@ -101,6 +104,13 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth-ktx:22.3.0'
     implementation 'com.google.firebase:firebase-firestore:24.9.1'
 //    implementation 'com.google.android.gms:play-services-auth:20.7.0'      // 구글 인증
+
+
+    implementation("androidx.lifecycle:lifecycle-runtime:2.6.2")
+    kapt("androidx.room:room-compiler:2.6.0")
+    implementation("androidx.room:room-ktx:2.6.0")
+
+
 
 
 }

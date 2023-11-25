@@ -41,7 +41,7 @@ class GroupListFragment : Fragment() {
 
 
     private fun setOnClickEvent() {
-        groupListAdapter.setItemClickListener(object:GroupListAdapter.OnItemClickListener {
+        groupListAdapter.setItemClickListener(object: GroupListAdapter.OnItemClickListener {
             override fun onClick(view:View, position:Int) {
                 super.onClick(view, position)
                 Toast.makeText(view.context, "테스트 - ${groupList[position].g_name}클릭", Toast.LENGTH_SHORT).show()
