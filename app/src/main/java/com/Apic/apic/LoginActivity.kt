@@ -4,27 +4,16 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.Button
 import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import androidx.core.content.ContextCompat.startActivity
-import androidx.core.view.isVisible
 import com.Apic.apic.databinding.ActivityLoginBinding
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
-import java.util.jar.Attributes
 
 class LoginActivity : AppCompatActivity() {
 
-    lateinit var registerBinding: ActivityLoginBinding
-
-    private var _binding: ActivityLoginBinding?= null
-    private val binding get() =_binding!!
+    private lateinit var binding: ActivityLoginBinding
 
     lateinit var nameEt: EditText //이름
     lateinit var emailEt: EditText //이메일
@@ -38,7 +27,7 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        _binding = ActivityLoginBinding.inflate(layoutInflater)
+        binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         //topbar에 있는 회원페이지 안 보이게 하기 (사실상 로그인 페이지에 더이상 topbar가 필요 없어서 topbar자체를 삭제)
@@ -73,7 +62,8 @@ class LoginActivity : AppCompatActivity() {
                             //data를 firebase에 저장
                             val data = FirebaseData(sampleNumber, name, email, password)
                             setDocument(data) // 데이터 Firestore에 저장
-                            val memberData = MemberData(email, name, password)
+                            // val memberData = MemberData(email, name, password)
+                            val memberData = MemberData(email, name)
                             setMember(memberData)
                             var intent = Intent(this, MainActivity::class.java)
                             intent.putExtra("name", name) //name도 함께 전달
@@ -104,7 +94,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
 
-    // Firestore의 memberFriendDB에 데이터 저장 함수
+    // Firestore의 memberDB에 데이터 저장 함수
     private fun setMember(data : MemberData){
         Log.d("db", "firebaseStore")
         val db = FirebaseFirestore.getInstance()

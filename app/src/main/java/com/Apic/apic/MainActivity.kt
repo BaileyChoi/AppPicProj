@@ -1,35 +1,22 @@
 package com.Apic.apic
 
-
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.util.Log
-import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
-import android.view.Window
-import android.widget.Button
-import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toolbar
-import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.Apic.apic.databinding.ActivityMainBinding
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import com.Apic.apic.databinding.TopbarBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
-import com.google.android.material.navigation.NavigationView.OnNavigationItemSelectedListener
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
-import org.w3c.dom.Text
-import kotlin.math.log
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     lateinit var binding: ActivityMainBinding
@@ -40,8 +27,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private val fragmentCalendar = CalendarFragment()
     private val fragmentFriend = FriendFragment()
     private val fragmentGroupList = GroupListFragment()
+    private val fragmentFourcut = FourcutFragment()
 
     private lateinit var auth: FirebaseAuth
+    private val db = FirebaseFirestore.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,7 +40,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         auth = FirebaseAuth.getInstance()
 
         val transaction: FragmentTransaction = fragmentManager.beginTransaction()
-        transaction.replace(R.id.menu_frame_view, fragmentCalendar).commitAllowingStateLoss()
+        // 오류!!!!!
+        // transaction.replace(R.id.menu_frame_view,fragmentCalendar).commitAllowingStateLoss()
+        transaction.replace(R.id.menu_frame_view,AddMeetingFragment()).commitAllowingStateLoss()
 
 
             //Login// -> menu_nav로 옮겨서 아래 Item에 있어요
@@ -75,13 +66,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 val transaction = fragmentManager.beginTransaction()
 
                 when (menuItem.itemId) {
-                    R.id.menu_home -> transaction.replace(R.id.menu_frame_view, fragmentCalendar)
+                    // 오류!!!!!
+                    R.id.menu_home -> transaction.replace(R.id.menu_frame_view, AddMeetingFragment())
+                    //R.id.menu_home -> transaction.replace(R.id.menu_frame_view, fragmentCalendar)
                         .commitAllowingStateLoss()
                     R.id.menu_friend -> transaction.replace(R.id.menu_frame_view, fragmentFriend)
                         .commitAllowingStateLoss()
                     R.id.menu_share -> transaction.replace(R.id.menu_frame_view, fragmentGroupList)
                         .commitAllowingStateLoss()
-
+                    R.id.menu_fourcut -> transaction.replace(R.id.menu_frame_view, fragmentFourcut)
+                        .commitAllowingStateLoss()
                 }
                 true
             }
@@ -97,7 +91,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val auth_email: TextView = headerView.findViewById(R.id.auth_email)
         //firebaseAuth 데이터 가져오기
         val user = auth.currentUser
-        val db = FirebaseFirestore.getInstance()
 
         user?.let { currentUser ->
             user?.let {
@@ -129,7 +122,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
 
     }
-        override fun onNavigationItemSelected(item: MenuItem): Boolean {
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
             return when (item.itemId) {
                 R.id.logOut -> {
                     Log.d("logout", "로그아웃 버튼 클릭")
