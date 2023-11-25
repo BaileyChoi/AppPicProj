@@ -64,6 +64,9 @@ android {
 
 dependencies {
 
+    // OpenCV 4.5.1
+    implementation project(":opencv")
+
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.10.0'
