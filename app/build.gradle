@@ -1,6 +1,9 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+
+    id 'com.google.gms.google-services'
+
 }
 
 android {
@@ -41,6 +44,7 @@ android {
     }
     buildFeatures {
         compose true
+        viewBinding = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion '1.4.3'
@@ -54,6 +58,7 @@ android {
         pickFirst 'lib/x86_64/libc++_shared.so'
         pickFirst 'lib/armeabi -v7a/libc++_shared.so'
     }
+
 }
 
 
@@ -77,6 +82,8 @@ dependencies {
     implementation 'androidx.compose.ui:ui-tooling-preview'
     implementation 'androidx.compose.material3:material3'
     implementation "androidx.recyclerview:recyclerview:1.1.0"
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.firebase:firebase-firestore:24.9.1'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
@@ -85,4 +92,14 @@ dependencies {
     androidTestImplementation 'androidx.compose.ui:ui-test-junit4'
     debugImplementation 'androidx.compose.ui:ui-tooling'
     debugImplementation 'androidx.compose.ui:ui-test-manifest'
+
+    // glide
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+
+    implementation(platform("com.google.firebase:firebase-bom:32.6.0"))
+    implementation 'com.google.firebase:firebase-auth-ktx:22.3.0'
+//    implementation 'com.google.android.gms:play-services-auth:20.7.0'      // 구글 인증
+
+
 }
