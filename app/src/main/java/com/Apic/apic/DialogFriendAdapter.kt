@@ -14,9 +14,6 @@ class DialogFriendAdapter(var itemList: ArrayList<MemberData>) : RecyclerView.Ad
 
     @NonNull
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-//        val layoutInflater = LayoutInflater.from(parent.context)
-//        val binding = FriendRecyclerviewBinding.inflate(layoutInflater, parent, false)
-//        return ViewHolder(binding)
         val view = LayoutInflater.from(parent.context).inflate(R.layout.friend_recyclerview, parent, false)
         return ViewHolder(view)
     }

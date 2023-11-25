@@ -13,7 +13,6 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.Apic.apic.databinding.FragmentAddFriendBinding
 import com.Apic.apic.databinding.FragmentFriendBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -34,10 +33,8 @@ class FriendFragment : Fragment() {
     private val searchList: ArrayList<MemberData> = ArrayList()
 
     // firestore에서 data가져올때 사용
-    private lateinit var auth: FirebaseAuth // 친구 리스트와 자신 email 비교를 위해 가져옴.
+    private lateinit var auth: FirebaseAuth // 친구 리스트와 현재 로그인 user email 비교를 위해 가져옴.
     private val db = FirebaseFirestore.getInstance()
-    //private val itemList = arrayListOf<MemberData>()
-    //private lateinit var dialogFriendAdapter: DialogFriendAdapter
     private var adapter = DialogFriendAdapter(originalList)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +52,6 @@ class FriendFragment : Fragment() {
         auth = FirebaseAuth.getInstance()
 
         mRecyclerView = binding.recyclerView
-
 
         // initiate adapter & recyclerview
         mRecyclerAdapter = DialogFriendAdapter(originalList)
@@ -75,31 +71,19 @@ class FriendFragment : Fragment() {
                     val item = MemberData(
                         document["email"] as String,
                         document["name"] as String,
-                        //document["password"] as String
                     )
-                    if (!auth.currentUser?.email.toString().equals(document["email"])) {    // 현재 유저가 아닐때
+                    // 현재 유저가 아닐때
+                    if (!auth.currentUser?.email.toString().equals(document["email"])) {
                         originalList.add(item)
                     }
                 }
 
                 // 데이터 로드가 완료된 후에 어댑터 초기화와 업데이트
                 adapter.notifyDataSetChanged()
-
-                //adapter.notifyDataSetChanged()  // Update RecyclerView
-//                adapter.setFriendList(originalList)
-//                mRecyclerView.adapter = adapter
-//                mRecyclerView.layoutManager = LinearLayoutManager(requireContext())
             }
             .addOnFailureListener { exception ->
                 Log.w("AddFriendFragment", "Error getting documents: $exception")
-            }//
-
-        /*val friendItems = ArrayList<FriendItem>()
-        for (i in 1..50) {
-            val resourceId = R.drawable.ic_person_circle
-            //friendItems.add(FriendItem(resourceId, "${i}@gmail.com", "${i}p"))
-            originalList.add(FriendItem(resourceId, "${i}@gmail.com", "${i}p"))
-        }*/
+            }
 
         mRecyclerAdapter.setFriendList(originalList)
 
@@ -120,15 +104,13 @@ class FriendFragment : Fragment() {
             override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
                 // Optional: Add any functionality needed before text changes
             }
-
             override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
                 // Optional: Add any functionality needed during text changes
             }
 
-
             override fun afterTextChanged(editable: Editable) {
                 //Log.d("db", "addTextChangedListener")
-                val searchText = editText.text.toString().trim() //editable.toString()
+                val searchText = editText.text.toString().trim()    // trim()추가 : 검색 편리화, 띄어쓰기해도 검색 가능
                 //Log.d("db", "$searchText")
                 searchList.clear()  // 검색 결과 갱신
 
@@ -138,11 +120,11 @@ class FriendFragment : Fragment() {
                     // 검색 단어를 포함하는지 확인
                     for (a in 0 until originalList.size) {
                         //Log.d("db", "for loop: $a")
-                        if (originalList[a].getName().toLowerCase().contains(searchText.toLowerCase())) {
+                        if (originalList[a].getName().toLowerCase().contains(searchText.toLowerCase(), ignoreCase=true)) {  // ignoreCase=true : 검색 편리화, 대문자=소문자
                             searchList.add(originalList[a])
                         }
                     }
-                    /*for (original in originalList){
+                    /*for (original in originalList){   // for문의 또다른 방식 - 간단해서 추천 삭제해도 됨.
                         if(searchText.contains(original.getName(), ignoreCase=true)){
                             val fname = original.name
                             val femail = original.email
@@ -150,10 +132,8 @@ class FriendFragment : Fragment() {
                             Log.d("db", femail)
                             val search = MemberData(femail. fname)
                             searchList.add(search)
-                            searchList = MemberData(femail, fname)
                         }
                     }*/
-                    //dialogFriendAdapter.setFriendList(originalList)
                     adapter.setFriendList(searchList)
                     adapter.notifyDataSetChanged()
                 }
@@ -165,22 +145,14 @@ class FriendFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         //어댑터 연결 확인
-        //adapter = DialogFriendAdapter(originalList) //
-        adapter.setFriendList(originalList) //
-        recyclerView.adapter = adapter  //
+        //adapter = DialogFriendAdapter(originalList)
+        adapter.setFriendList(originalList)
+        recyclerView.adapter = adapter
         return binding.root
     }
 
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment FriendFragment.
-         */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =

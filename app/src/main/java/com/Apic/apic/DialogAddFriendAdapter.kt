@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 class DialogAddFriendAdapter(var itemList: ArrayList<MemberData>) : RecyclerView.Adapter<DialogAddFriendAdapter.ViewHolder>() {
 
-    // recyclerview의 chekButton을 위한 함수...
+    // recyclerview의 chekButton을 위한 함수
     interface OnAddFriendClickListener {
         fun onAddFriendClick(position: Int)
     }
