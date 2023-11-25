@@ -1,54 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/mainColor3"
     tools:context=".MainActivity">
 
-    <include
-        android:id="@+id/topView"
-        layout="@layout/topbar"/>
-
-    <TextView
-        android:id="@+id/textView5"
+    <ImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="이메일" />
+        android:layout_height="match_parent"
+        android:src="@drawable/login"
+        />
 
-    <EditText
-        android:id="@+id/user_id"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:layout_width="220dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginLeft="85dp"
+        android:layout_marginTop="330dp"
+        android:padding="20dp">
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="패스워드" />
+        <!--로그인 시-->
 
-    <EditText
-        android:id="@+id/user_pw"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/textEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Email" />
 
-    <TextView
-        android:id="@+id/textName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="이름" />
+        <EditText
+            android:id="@+id/user_id"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"/>
 
-    <EditText
-        android:id="@+id/user_name"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/textPw"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Password" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Button" />
+        <EditText
+            android:id="@+id/user_pw"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"/>
 
 
-</LinearLayout>
+        <!-- 회원가입 시 가시화-->
+
+        <TextView
+            android:id="@+id/textName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Name" />
+
+        <EditText
+            android:id="@+id/user_name"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="login / sign up" />
+    </LinearLayout>
+
+
+</FrameLayout>

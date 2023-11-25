@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_view"
+    android:layout_width="match_parent"
+    android:layout_height="550dp"
+    android:background="@color/mainColor5">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="10dp"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="My Profile"
+            android:textColor="@color/white"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="20dp"/>
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp">
+            <ImageView
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:src="@drawable/profile"/>
+            <androidx.cardview.widget.CardView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                app:cardCornerRadius="100dp"
+                app:cardElevation="0dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="50dp"
+                >
+                <ImageView
+                    android:id="@+id/userImageView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/user_basic"
+                    android:scaleType="centerCrop"
+                    />
+            </androidx.cardview.widget.CardView>
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginLeft="30dp">
+                <TextView
+                    android:id="@+id/id_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Name"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:textSize="30dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"/>
+                <TextView
+                    android:id="@+id/auth_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="name"
+                    android:textColor="@color/white"
+                    android:padding="7dp"
+                    android:textSize="20dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginLeft="30dp">
+                <TextView
+                    android:id="@+id/mail_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="E-mail"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:textSize="30dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    />
+                <TextView
+                    android:id="@+id/auth_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="email"
+                    android:padding="7dp"
+                    android:textColor="@color/white"
+                    android:textSize="20dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"   />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</RelativeLayout>
