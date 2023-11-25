@@ -7,7 +7,6 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.Apic.apic.adapter.GroupListAdapter
 import com.Apic.apic.databinding.FragmentGroupListBinding
 
 // TODO: Rename parameter arguments, choose names that match

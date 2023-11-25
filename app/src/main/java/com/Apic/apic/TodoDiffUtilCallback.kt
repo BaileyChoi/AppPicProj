@@ -1,4 +1,4 @@
-package com.Apic.apic.adapter
+package com.Apic.apic
 
 import androidx.recyclerview.widget.DiffUtil
 import com.Apic.apic.data.Todo

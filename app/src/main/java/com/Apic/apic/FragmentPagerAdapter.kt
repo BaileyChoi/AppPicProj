@@ -1,4 +1,4 @@
-package com.Apic.apic.adapter
+package com.Apic.apic
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

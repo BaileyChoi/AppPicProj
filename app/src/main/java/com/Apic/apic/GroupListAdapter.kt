@@ -1,10 +1,9 @@
-package com.Apic.apic.adapter
+package com.Apic.apic
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.Apic.apic.GroupListItem
 import com.Apic.apic.databinding.RvGroupListBinding
 
 class GroupListAdapter : RecyclerView.Adapter<GroupListAdapter.ViewHolder>() {
