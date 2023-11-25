@@ -2,7 +2,6 @@ package com.Apic.apic
 
 import android.content.Context
 import android.net.Uri
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
 class AlbumAdapter() : RecyclerView.Adapter<AlbumAdapter.ViewHolder>() {
-    lateinit var albumRecyclerView: RecyclerView
     lateinit var imageList: ArrayList<Uri>
     lateinit var context: Context
 

@@ -26,16 +26,17 @@
         android:orientation="horizontal">
 
         <EditText
+            android:id="@+id/Etsearch"
             android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:hint="   그룹명 검색"
+            android:layout_height="40dp"
+            android:hint="그룹명 검색"
             android:backgroundTint="@color/mainColor2"
             android:background="@drawable/radius20"/>
 
         <ImageButton
             android:id="@+id/addBtn"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:src="@drawable/ic_plus"
             android:background="@drawable/ic_circle_button"
             android:layout_marginLeft="60dp"

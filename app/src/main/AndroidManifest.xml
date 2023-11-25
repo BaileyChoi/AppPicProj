@@ -2,6 +2,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.Apic.apic">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -15,7 +20,6 @@
         <activity
             android:name=".LoginActivity"
             android:exported="false" />
-
         <activity
             android:name=".GroupActivity"
             android:exported="false"
@@ -31,15 +35,10 @@
                 <!-- SplashActivity를 런처로 설정 -->
             </intent-filter>
         </activity>
-
         <activity
             android:name=".MainActivity"
             android:exported="false">
             <!-- MainActivity는 런처로 설정되지 않음 -->
         </activity>
-
-
-
     </application>
-
 </manifest>

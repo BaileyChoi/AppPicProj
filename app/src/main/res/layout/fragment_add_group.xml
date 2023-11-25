@@ -44,14 +44,14 @@
             android:layout_marginLeft="8dp"/>
     </LinearLayout>
 
-    <ImageButton
+    <ImageView
         android:id="@+id/group_photo"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_gravity="center_horizontal"
         android:scaleType="centerCrop"
         android:backgroundTint="@color/mainColor1"
-        android:src="@drawable/ic_gallery"
+        android:src="@drawable/ic_group"
         android:layout_marginBottom="10dp"
         android:background="@drawable/radius20"/>
 
@@ -85,7 +85,7 @@
             android:layout_marginBottom="10dp">
 
             <TextView
-                android:id="@+id/group_participants"
+                android:id="@+id/group_p"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
@@ -100,7 +100,9 @@
                 android:textSize="20dp"
                 android:textColor="@color/black"
                 android:gravity="end"
-                android:text="6" />
+                android:text=""
+                android:inputType="number"/>
+
             <TextView
                 android:id="@+id/text_view"
                 android:layout_width="wrap_content"
@@ -112,22 +114,34 @@
                 android:text="명" />
         </LinearLayout>
 
-        <EditText
-            android:id="@+id/EtGroupParticipants"
+        <TextView
+            android:id="@+id/group_participants"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:backgroundTint="@color/mainColor1"
             android:background="@drawable/radius10"
-            android:hint="  참여자를 초대해주세요."/>
+            android:text="친구목록에서 친구를 선택하여 참여자를 추가해주세요."/>
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:orientation="horizontal"
-        tools:listitem="@layout/rv_group_participants"/>
+    <HorizontalScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scrollbarThumbHorizontal="@android:color/darker_gray"
+        android:scrollbarSize="8dp"
+        android:scrollbarFadeDuration="@integer/material_motion_duration_long_2">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/group_participants_recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="8dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="horizontal"
+            tools:listitem="@layout/rv_group_participants"/>
+
+    </HorizontalScrollView>
+
 
 
 </LinearLayout>

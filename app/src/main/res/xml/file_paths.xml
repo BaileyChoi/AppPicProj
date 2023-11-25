@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <external-path
+        name="myimages"
+        path="Android/data/package com.Apic.apic/files/Pictures" /> <!-- name은 변수 이름, 해당 파일이 있는 경로 지정 -->
+</paths>

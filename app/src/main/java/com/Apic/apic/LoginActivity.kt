@@ -23,7 +23,7 @@ class LoginActivity : AppCompatActivity() {
     private var _binding: ActivityLoginBinding?= null
     private val binding get() =_binding!!
 
-    lateinit var nameEt : EditText //이름
+    lateinit var nameEt: EditText //이름
     lateinit var emailEt: EditText //이메일
     lateinit var passwordEt: EditText //pw
     lateinit var loginBtn: Button
@@ -69,6 +69,8 @@ class LoginActivity : AppCompatActivity() {
                             //data를 firebase에 저장
                             val data = FirebaseData(sampleNumber, name, email, password)
                             setDocument(data) // 데이터 Firestore에 저장
+                            val memberData = MemberData(email, name, password)
+                            setMember(memberData)
                             var intent = Intent(this, MainActivity::class.java)
                             intent.putExtra("name", name) //name도 함께 전달
                             startActivity(intent)
@@ -106,6 +108,19 @@ class LoginActivity : AppCompatActivity() {
             }
             .addOnFailureListener { e ->
                 Log.w("DB", "Error adding document", e)
+            }
+    }
+
+    private fun setMember(data : MemberData){
+        Log.d("db", "firebaseStore")
+        val db = FirebaseFirestore.getInstance()
+        db.collection("memberDB")
+            .document(data.email)
+            .set(data)
+            .addOnSuccessListener {
+                Log.d("db", "success")
+            }.addOnFailureListener{
+                Log.d("db", "fail")
             }
     }
 }

@@ -41,16 +41,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private lateinit var auth: FirebaseAuth
 
-    var MenuAuth : MenuItem ?= null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         auth = FirebaseAuth.getInstance()
-//        email = findViewById(R.id.userEmail)
-//        email.text = auth.currentUser?.email    // 회원 이메일 표시
 
         val transaction: FragmentTransaction = fragmentManager.beginTransaction()
         transaction.replace(R.id.menu_frame_view, fragmentCalendar).commitAllowingStateLoss()
@@ -156,6 +152,3 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
 
 }
-
-
-
