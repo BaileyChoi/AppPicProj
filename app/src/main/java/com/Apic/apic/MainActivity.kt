@@ -34,7 +34,9 @@ import kotlin.math.log
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     lateinit var binding: ActivityMainBinding
 
-    private val fragmentManager: FragmentManager = supportFragmentManager
+    private lateinit var fragmentTransaction: FragmentTransaction   //
+    private val fragmentAddFriend = AddFriendFragment()
+    private var fragmentManager: FragmentManager = supportFragmentManager
     private val fragmentCalendar = CalendarFragment()
     private val fragmentFriend = FriendFragment()
     private val fragmentGroupList = GroupListFragment()
@@ -150,5 +152,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             return super.onCreateOptionsMenu(menu)
         }
 
+
+    fun setFragment(n: Int) {
+        fragmentManager = supportFragmentManager
+        fragmentTransaction = fragmentManager.beginTransaction()
+        when (n) {
+            1 -> fragmentTransaction.replace(R.id.menu_frame_view, fragmentAddFriend).commit()  // FriendFragment, addButton눌렀을 때
+
+        }
+        when (n) {
+            0 -> fragmentTransaction.replace(R.id.menu_frame_view, fragmentFriend).commit()  // FriendFragment, addButton눌렀을 때
+        }
+
+    }
 
 }

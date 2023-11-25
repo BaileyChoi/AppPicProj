@@ -10,6 +10,8 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import androidx.core.content.ContextCompat.startActivity
 import androidx.core.view.isVisible
 import com.Apic.apic.databinding.ActivityLoginBinding
@@ -18,6 +20,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import java.util.jar.Attributes
 
 class LoginActivity : AppCompatActivity() {
+
     lateinit var registerBinding: ActivityLoginBinding
 
     private var _binding: ActivityLoginBinding?= null
@@ -50,14 +53,15 @@ class LoginActivity : AppCompatActivity() {
 
         nameEt = findViewById(R.id.user_name)
         emailEt = findViewById(R.id.user_id)
+        // 로그인
         passwordEt = findViewById(R.id.user_pw)
         loginBtn = findViewById(R.id.button)
 
-        //로그인
         loginBtn.setOnClickListener {
             var email = emailEt.text.toString()
             var password = passwordEt.text.toString()
             var name = nameEt.text.toString()
+
 
             auth.createUserWithEmailAndPassword(email, password) // 회원 가입
                 .addOnCompleteListener(this) { result ->
@@ -87,13 +91,30 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun login(email:String,password:String){
+        Log.d("db", "success1")
         auth.signInWithEmailAndPassword(email,password) // 로그인
             .addOnCompleteListener {
                     result->
                 if(result.isSuccessful){
+                    Log.d("db", "success2")
                     var intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                 }
+            }
+    }
+
+
+    // Firestore의 memberFriendDB에 데이터 저장 함수
+    private fun setMember(data : MemberData){
+        Log.d("db", "firebaseStore")
+        val db = FirebaseFirestore.getInstance()
+        db.collection("memberDB")
+            .document(data.email)
+            .set(data)
+            .addOnSuccessListener {
+                Log.d("db", "success")
+            }.addOnFailureListener{
+                Log.d("db", "fail")
             }
     }
 
@@ -108,19 +129,6 @@ class LoginActivity : AppCompatActivity() {
             }
             .addOnFailureListener { e ->
                 Log.w("DB", "Error adding document", e)
-            }
-    }
-
-    private fun setMember(data : MemberData){
-        Log.d("db", "firebaseStore")
-        val db = FirebaseFirestore.getInstance()
-        db.collection("memberDB")
-            .document(data.email)
-            .set(data)
-            .addOnSuccessListener {
-                Log.d("db", "success")
-            }.addOnFailureListener{
-                Log.d("db", "fail")
             }
     }
 }

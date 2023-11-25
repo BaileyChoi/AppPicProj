@@ -1,8 +1,8 @@
 package com.Apic.apic
 
-data class FirebaseData (
+data class FirebaseData(
     val Num : Int,
-    val name : String,
+    val Name : String,
     val Email : String,
     val Password : String
 )

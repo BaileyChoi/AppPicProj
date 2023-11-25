@@ -1,5 +1,4 @@
 <resources>
-
     <string name="app_name">Apic</string>
     <string name="drawer_opened">Opened Drawer</string>
     <string name="drawer_closed">Closed Drawer</string>

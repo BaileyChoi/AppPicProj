@@ -1,7 +1,12 @@
 package com.Apic.apic
 
-data class MemberData (
-    val email: String,
+class MemberData (
+    val email : String,
     val name : String,
-    val password : String
-)
+    //val password : String,
+){
+    @JvmName("callFromString")
+    fun getName(): String {
+    return name
+    }
+}
