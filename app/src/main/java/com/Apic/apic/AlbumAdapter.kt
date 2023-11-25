@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
 class AlbumAdapter() : RecyclerView.Adapter<AlbumAdapter.ViewHolder>() {
-    lateinit var albumRecyclerView: RecyclerView
     lateinit var imageList: ArrayList<Uri>
     lateinit var context: Context
 
