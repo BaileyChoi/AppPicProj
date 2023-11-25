@@ -33,8 +33,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         auth = FirebaseAuth.getInstance()
-//        email = findViewById(R.id.userEmail)
-//        email.text = auth.currentUser?.email    // 회원 이메일 표시
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -62,11 +60,6 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
-
-        // group activity test code
-//        val intent = Intent(this, GroupActivity::class.java)
-//        startActivity(intent)
-//        finish()
     }
 
 }

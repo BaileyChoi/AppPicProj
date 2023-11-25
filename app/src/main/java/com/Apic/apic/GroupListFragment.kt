@@ -121,7 +121,7 @@ class GroupListFragment : Fragment() {
                 }
                 else {
                     for (a in 0 until groupList.size) {
-                        if (groupList[a].getName().toLowerCase().contains(searchText.toLowerCase())) {
+                        if (groupList[a].g_name.toLowerCase().contains(searchText.toLowerCase())) {
                             searchList.add(groupList[a])
                         }
                     }

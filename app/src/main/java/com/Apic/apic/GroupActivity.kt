@@ -1,7 +1,6 @@
 package com.Apic.apic
 
 import android.animation.ObjectAnimator
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageButton
@@ -28,7 +27,6 @@ class GroupActivity : AppCompatActivity() {
 
     private lateinit var groupLikedButton: ImageButton
     private var isLiked = false
-    private val fragmentAddMeeting = AddMeetingFragment()
     private lateinit var menuIcon: ImageButton
 
     private val fragmentManager: FragmentManager = supportFragmentManager
