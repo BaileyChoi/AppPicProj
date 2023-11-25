@@ -1,7 +1,9 @@
 package com.Apic.apic
 
 
+import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.PersistableBundle
@@ -31,6 +33,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import org.w3c.dom.Text
 import kotlin.math.log
 
+@Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     lateinit var binding: ActivityMainBinding
 
@@ -41,7 +44,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private lateinit var auth: FirebaseAuth
 
+
     var MenuAuth : MenuItem ?= null
+
+    companion object {
+        const val PICK_IMAGE_REQUEST_CODE = 1000 // 아무 숫자나 상관없지만 중복되지 않도록 정의
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -132,6 +140,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
         override fun onNavigationItemSelected(item: MenuItem): Boolean {
             return when (item.itemId) {
+                R.id.galleryButton -> {
+                    Log.d("item", "사진 불러오기")
+
+                    val intent = Intent(Intent.ACTION_PICK)
+                    intent.type = "image/*"
+                    startActivityForResult(intent, PICK_IMAGE_REQUEST_CODE)
+
+                    true
+                }
                 R.id.logOut -> {
                     Log.d("logout", "로그아웃 버튼 클릭")
 
@@ -141,6 +158,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     finish()
                     true
                 }
+
                 else -> super.onOptionsItemSelected(item)
             }
         }
@@ -152,6 +170,20 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             menuInflater.inflate(R.menu.menu_navigation, menu)
             return super.onCreateOptionsMenu(menu)
         }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == PICK_IMAGE_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            if (data != null) {
+                val selectedImageUri: Uri? = data.data
+                // 선택한 이미지 URI를 auth_img에 설정
+                val auth_img: ImageView = findViewById(R.id.userImageView)
+                auth_img.setImageURI(selectedImageUri)
+            }
+        }
+    }
 
 
 }
