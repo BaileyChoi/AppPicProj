@@ -121,14 +121,6 @@ class FourcutFragment : Fragment() {
             // val intent = Intent(Intent.ACTION_PICK)
             intent.type = "image/*" // 가져오기 전에 가져올 타입을 image만 가져오도록 타입을 지정
             requestGalleryLauncher.launch(intent)
-
-            // 불러온 원본 이미지 delete 기능을 위해 저장 (첫 프레임으로 돌아감 -> 추후 수정 예정)
-            if (binding.fourcutFrame.drawable is BitmapDrawable) {
-                originImg = (binding.fourcutFrame.drawable as BitmapDrawable).bitmap
-            } else {
-                val drawable = binding.fourcutFrame.drawable
-                originImg = Bitmap.createBitmap(drawable.intrinsicWidth, drawable.intrinsicHeight, Bitmap.Config.ARGB_8888)
-            }
         }
 
         // 버튼 1) 그레이 사진 효과 적용
@@ -137,6 +129,14 @@ class FourcutFragment : Fragment() {
 //            val assetManager = resources.assets
 //            val inputStream: InputStream = assetManager.open("iv_fourcut_test_img.jpg")
 //            val bitmap: Bitmap = BitmapFactory.decodeStream(inputStream)
+
+            // 불러온 원본 이미지 delete 기능을 위해 저장 (첫 프레임으로 돌아감 -> 추후 수정 예정)
+            if (binding.fourcutFrame.drawable is BitmapDrawable) {
+                originImg = (binding.fourcutFrame.drawable as BitmapDrawable).bitmap
+            } else {
+                val drawable = binding.fourcutFrame.drawable
+                originImg = Bitmap.createBitmap(drawable.intrinsicWidth, drawable.intrinsicHeight, Bitmap.Config.ARGB_8888)
+            }
 
             lateinit var bitmap : Bitmap
 
@@ -162,20 +162,18 @@ class FourcutFragment : Fragment() {
         }
 
         binding.btnChangeEffect2.setOnClickListener {
-//            val assetManager = resources.assets
-//            val inputStream: InputStream = assetManager.open("iv_fourcut_test_img.jpg")
-//            // decode 비트맵 변수
-//            val bitmap: Bitmap = BitmapFactory.decodeStream(inputStream)
-//            binding.fourcutFrame.setImageBitmap(bitmap)
-
-            lateinit var bitmap : Bitmap
-
+            // 불러온 원본 이미지 delete 기능을 위해 저장 (첫 프레임으로 돌아감 -> 추후 수정 예정)
             if (binding.fourcutFrame.drawable is BitmapDrawable) {
-                bitmap = (binding.fourcutFrame.drawable as BitmapDrawable).bitmap
+                originImg = (binding.fourcutFrame.drawable as BitmapDrawable).bitmap
             } else {
                 val drawable = binding.fourcutFrame.drawable
-                bitmap = Bitmap.createBitmap(drawable.intrinsicWidth, drawable.intrinsicHeight, Bitmap.Config.ARGB_8888)
+                originImg = Bitmap.createBitmap(drawable.intrinsicWidth, drawable.intrinsicHeight, Bitmap.Config.ARGB_8888)
             }
+
+            val assetManager = resources.assets
+            val inputStream: InputStream = assetManager.open("iv_fourcut_test_img.jpg")
+            // decode 비트맵 변수
+            val bitmap: Bitmap = BitmapFactory.decodeStream(inputStream)
 
             binding.fourcutFrame.setImageBitmap(bitmap)
 
@@ -187,12 +185,10 @@ class FourcutFragment : Fragment() {
             Imgproc.cvtColor(gray, gray, Imgproc.COLOR_BGRA2BGR)
             Log.d("4cut", "Imgproc.COLOR_BGRA2BGR 성공")
 
-            var cartoon = Mat()
-
-            cartoon = cartoon(gray)
+            var cartoon = cartoon(gray)
             Log.d("4cut", "카툰 효과 처리 성공")
 
-            val grayBitmap = Bitmap.createBitmap(cartoon.cols(), cartoon.rows(), Bitmap.Config.ARGB_8888)
+            val grayBitmap = Bitmap.createBitmap(gray.cols(), gray.rows(), Bitmap.Config.ARGB_8888)
             Utils.matToBitmap(cartoon, grayBitmap)
             // Utils.matToBitmap(cartoon, bitmap)
 
@@ -202,20 +198,20 @@ class FourcutFragment : Fragment() {
 
         // 3번째 버튼 : 스케치
         binding.btnChangeEffect3.setOnClickListener {
-//            val assetManager = resources.assets
-//            val inputStream: InputStream = assetManager.open("iv_fourcut_test_img.jpg")
-//            // decode 비트맵 변수
-//            val bitmap: Bitmap = BitmapFactory.decodeStream(inputStream)
-//            binding.fourcutFrame.setImageBitmap(bitmap)
-
-            lateinit var bitmap : Bitmap
-
+            // 불러온 원본 이미지 delete 기능을 위해 저장 (첫 프레임으로 돌아감 -> 추후 수정 예정)
             if (binding.fourcutFrame.drawable is BitmapDrawable) {
-                bitmap = (binding.fourcutFrame.drawable as BitmapDrawable).bitmap
+                originImg = (binding.fourcutFrame.drawable as BitmapDrawable).bitmap
             } else {
                 val drawable = binding.fourcutFrame.drawable
-                bitmap = Bitmap.createBitmap(drawable.intrinsicWidth, drawable.intrinsicHeight, Bitmap.Config.ARGB_8888)
+                originImg = Bitmap.createBitmap(drawable.intrinsicWidth, drawable.intrinsicHeight, Bitmap.Config.ARGB_8888)
             }
+
+            val assetManager = resources.assets
+            val inputStream: InputStream = assetManager.open("iv_fourcut_test_img.jpg")
+            // decode 비트맵 변수
+            val bitmap: Bitmap = BitmapFactory.decodeStream(inputStream)
+            binding.fourcutFrame.setImageBitmap(bitmap)
+
 
             binding.fourcutFrame.setImageBitmap(bitmap)
 
@@ -230,29 +226,29 @@ class FourcutFragment : Fragment() {
 
             var sketch = Mat()
             sketch = sketch(gray)
-            Log.d("4cut", "스케치 효과 처리 성공")
+            Log.d("4cut", "그레이 스케치 효과 처리 성공")
 
-            Utils.matToBitmap(sketch, bitmap)
+            val grayBitmap = Bitmap.createBitmap(gray.cols(), gray.rows(), Bitmap.Config.ARGB_8888)
+            Utils.matToBitmap(sketch, grayBitmap)
 
-            binding.fourcutFrame.setImageBitmap(bitmap)
-            Log.d("4cut", "스케치 효과 이미지 설정 완료")
+            binding.fourcutFrame.setImageBitmap(grayBitmap)
+            Log.d("4cut", "그레이 스케치 효과 이미지 설정 완료")
         }
 
         binding.btnChangeEffect4.setOnClickListener {
-//            val assetManager = resources.assets
-//            val inputStream: InputStream = assetManager.open("iv_fourcut_test_img.jpg")
-//            // decode 비트맵 변수
-//            val bitmap: Bitmap = BitmapFactory.decodeStream(inputStream)
-//            binding.fourcutFrame.setImageBitmap(bitmap)
-
-            lateinit var bitmap : Bitmap
-
+            // 불러온 원본 이미지 delete 기능을 위해 저장 (첫 프레임으로 돌아감 -> 추후 수정 예정)
             if (binding.fourcutFrame.drawable is BitmapDrawable) {
-                bitmap = (binding.fourcutFrame.drawable as BitmapDrawable).bitmap
+                originImg = (binding.fourcutFrame.drawable as BitmapDrawable).bitmap
             } else {
                 val drawable = binding.fourcutFrame.drawable
-                bitmap = Bitmap.createBitmap(drawable.intrinsicWidth, drawable.intrinsicHeight, Bitmap.Config.ARGB_8888)
+                originImg = Bitmap.createBitmap(drawable.intrinsicWidth, drawable.intrinsicHeight, Bitmap.Config.ARGB_8888)
             }
+
+            val assetManager = resources.assets
+            val inputStream: InputStream = assetManager.open("iv_fourcut_test_img.jpg")
+            // decode 비트맵 변수
+            val bitmap: Bitmap = BitmapFactory.decodeStream(inputStream)
+            binding.fourcutFrame.setImageBitmap(bitmap)
 
             binding.fourcutFrame.setImageBitmap(bitmap)
 
@@ -267,12 +263,12 @@ class FourcutFragment : Fragment() {
 
             var sketch = Mat()
             pencilSketch(gray, sketch, sketch, 60F, 0.07F, 0.02F)
-            Log.d("4cut", "스케치 효과 처리 성공")
+            Log.d("4cut", "펜슬 스케치 효과 처리 성공")
 
             Utils.matToBitmap(sketch, bitmap)
 
             binding.fourcutFrame.setImageBitmap(bitmap)
-            Log.d("4cut", "스케치 효과 이미지 설정 완료")
+            Log.d("4cut", "펜슬 스케치 효과 이미지 설정 완료")
         }
 
         // save 버튼 누를 시
