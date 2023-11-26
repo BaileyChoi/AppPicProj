@@ -1,0 +1,23 @@
+Index: app/src/main/java/com/Apic/apic/MainActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.Apic.apic\n\n\nimport android.content.Intent\nimport androidx.appcompat.app.AppCompatActivity\nimport android.os.Bundle\nimport com.Apic.apic.databinding.ActivityMainBinding\nimport androidx.fragment.app.FragmentManager\nimport androidx.fragment.app.FragmentTransaction\nimport com.google.android.material.bottomnavigation.BottomNavigationView\n\nclass MainActivity : AppCompatActivity() {\n    lateinit var binding: ActivityMainBinding\n\n    private val fragmentManager: FragmentManager = supportFragmentManager\n    private val fragmentCalendar = CalendarFragment()\n    private val fragmentFriend = FriendFragment()\n    private val GroupListActivity = GroupListActivity()\n\n    override fun onCreate(savedInstanceState: Bundle?) {\n        super.onCreate(savedInstanceState)\n\n        binding = ActivityMainBinding.inflate(layoutInflater)\n        setContentView(binding.root)\n\n        setSupportActionBar(findViewById(R.id.toolbar)) // 뒤로가기 메뉴\n\n        val transaction: FragmentTransaction = fragmentManager.beginTransaction()\n        transaction.replace(R.id.menu_frame_view, fragmentCalendar).commitAllowingStateLoss()\n\n        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigationview)\n        bottomNavigationView.setOnNavigationItemSelectedListener { menuItem ->\n            val transaction = fragmentManager.beginTransaction()\n\n            when (menuItem.itemId) {\n                R.id.menu_home -> transaction.replace(R.id.menu_frame_view, fragmentCalendar).commitAllowingStateLoss()\n                R.id.menu_friend -> transaction.replace(R.id.menu_frame_view, fragmentFriend).commitAllowingStateLoss()\n                R.id.menu_share -> {\n                    val intent = Intent(this, GroupListActivity::class.java)\n                    startActivity(intent)\n                }\n            }\n            true\n        }\n\n        // group activity test code\n        val intent = Intent(this, GroupActivity::class.java)\n        startActivity(intent)\n        finish()\n\n    }\n\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/Apic/apic/MainActivity.kt b/app/src/main/java/com/Apic/apic/MainActivity.kt
+--- a/app/src/main/java/com/Apic/apic/MainActivity.kt	(revision 0085522fd05b6d49900a62f19fbd11bdf05424da)
++++ b/app/src/main/java/com/Apic/apic/MainActivity.kt	(date 1700627154050)
+@@ -44,9 +44,9 @@
+         }
+ 
+         // group activity test code
+-        val intent = Intent(this, GroupActivity::class.java)
+-        startActivity(intent)
+-        finish()
++        // val intent = Intent(this, GroupActivity::class.java)
++        // startActivity(intent)
++        // finish()
+ 
+     }
+ 

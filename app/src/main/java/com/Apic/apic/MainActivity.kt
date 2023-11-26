@@ -96,6 +96,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 true
             }
 
+
         //drawer-> navigation_hear에 있는 textView에 현재 로그인 정보 전달
         val navigationView: NavigationView = findViewById(R.id.main_drawer)
         navigationView.setNavigationItemSelectedListener(this)
