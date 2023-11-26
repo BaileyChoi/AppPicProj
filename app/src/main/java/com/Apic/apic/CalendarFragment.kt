@@ -41,7 +41,7 @@ class CalendarFragment : Fragment() {
         addButton = view.findViewById(R.id.btnAdd)
 
         // MainViewModel 초기화
-        viewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
 
         // RecyclerView 초기화
         val layoutManager = LinearLayoutManager(requireContext())

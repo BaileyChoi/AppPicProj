@@ -44,10 +44,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         auth = FirebaseAuth.getInstance()
 
         val transaction: FragmentTransaction = fragmentManager.beginTransaction()
-        // 오류!!!!!
-        // transaction.replace(R.id.menu_frame_view,fragmentCalendar).commitAllowingStateLoss()
-        transaction.replace(R.id.menu_frame_view,AddMeetingFragment()).commitAllowingStateLoss()
-
+        transaction.replace(R.id.menu_frame_view,fragmentCalendar).commitAllowingStateLoss()
 
             //Login// -> menu_nav로 옮겨서 아래 Item에 있어요
 
@@ -70,9 +67,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 val transaction = fragmentManager.beginTransaction()
 
                 when (menuItem.itemId) {
-                    // 오류!!!!!
-                    R.id.menu_home -> transaction.replace(R.id.menu_frame_view, AddMeetingFragment())
-                    //R.id.menu_home -> transaction.replace(R.id.menu_frame_view, fragmentCalendar)
+                    R.id.menu_home -> transaction.replace(R.id.menu_frame_view, fragmentCalendar)
                         .commitAllowingStateLoss()
                     R.id.menu_friend -> transaction.replace(R.id.menu_frame_view, fragmentFriend)
                         .commitAllowingStateLoss()
