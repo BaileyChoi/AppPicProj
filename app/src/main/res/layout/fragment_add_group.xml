@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddGroupFragment"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:background="@color/white"
+    >
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="Group 생성"
+            android:textColor="@color/black"
+            android:textSize="30dp" />
+
+        <ImageButton
+            android:id="@+id/checkBtn"
+            android:layout_width="27dp"
+            android:layout_height="27dp"
+            android:src="@drawable/ic_check_circle"
+            android:background="@android:color/transparent"
+            android:scaleType="centerCrop"
+            android:layout_marginTop="1dp"
+            android:layout_marginLeft="145dp"/>
+
+        <ImageButton
+            android:id="@+id/cancelBtn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_x_circle"
+            android:scaleType="centerCrop"
+            android:background="@android:color/transparent"
+            android:layout_marginLeft="8dp"/>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/group_photo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center_horizontal"
+        android:scaleType="centerCrop"
+        android:backgroundTint="@color/mainColor1"
+        android:src="@drawable/ic_group"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/radius20"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="10dp">
+        <TextView
+            android:id="@+id/group_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            android:text="Group name"
+            android:layout_marginBottom="10dp"/>
+
+        <EditText
+            android:id="@+id/EtGoupName"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="  그룹명을 설정해주세요."
+            android:background="@drawable/radius10"
+            android:backgroundTint="@color/mainColor1"
+            android:layout_marginBottom="10dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:id="@+id/group_p"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:textColor="@color/black"
+                android:text="Participants" />
+
+            <TextView
+                android:id="@+id/group_member_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="20dp"
+                android:textColor="@color/black"
+                android:gravity="end"
+                android:text=""
+                android:inputType="number"/>
+
+            <TextView
+                android:id="@+id/text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:textColor="@color/black"
+                android:gravity="end"
+                android:layout_marginRight="10dp"
+                android:text="명" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/group_participants"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:backgroundTint="@color/mainColor1"
+            android:background="@drawable/radius10"
+            android:text="친구목록에서 친구를 선택하여 참여자를 추가해주세요."/>
+    </LinearLayout>
+
+    <HorizontalScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scrollbarThumbHorizontal="@android:color/darker_gray"
+        android:scrollbarSize="8dp"
+        android:scrollbarFadeDuration="@integer/material_motion_duration_long_2">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/group_participants_recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="8dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="horizontal"
+            tools:listitem="@layout/rv_group_participants"/>
+
+    </HorizontalScrollView>
+
+
+
+</LinearLayout>

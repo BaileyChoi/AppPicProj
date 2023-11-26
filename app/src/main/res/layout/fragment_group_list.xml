@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".GroupListFragment"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="GROUP"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:paddingLeft="10dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/Etsearch"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:hint="그룹명 검색"
+            android:backgroundTint="@color/mainColor2"
+            android:background="@drawable/radius20"/>
+
+        <ImageButton
+            android:id="@+id/addBtn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_plus"
+            android:background="@drawable/ic_circle_button"
+            android:layout_marginLeft="60dp"
+            android:scaleType="centerCrop"/>
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:id="@+id/group_recyclerView"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        tools:listitem="@layout/rv_group_list"/>
+
+
+
+</LinearLayout>

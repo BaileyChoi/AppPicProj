@@ -1,20 +1,22 @@
-<<<<<<< HEAD
+
 *.iml
 .gradle
 /local.properties
 /.idea/caches
 /.idea/libraries
+/.idea/.name
 /.idea/modules.xml
 /.idea/workspace.xml
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
+/.idea/deploymentTargetDropDown.xml
 .DS_Store
 /build
 /captures
 .externalNativeBuild
 .cxx
 local.properties
-=======
+
 # Compiled class file
 *.class
 
@@ -39,4 +41,3 @@ local.properties
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
->>>>>>> 45b9bbd530ca12c6e6031eeb9e94c5e6c37e6dff

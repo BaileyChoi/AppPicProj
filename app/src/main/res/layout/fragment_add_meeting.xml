@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddGroupFragment"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:background="@color/white"
+    >
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="26dp"
+        android:text="생성할 모임날짜를 선택하세요."
+        android:gravity="center_horizontal"
+        android:textColor="@color/black"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="80dp"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/meeting_year"
+                android:layout_width="100dp"
+                android:layout_height="70dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/radius10"
+                android:backgroundTint="@color/mainColor1"
+                android:hint="  2023  "
+                android:textSize="32dp"
+                android:inputType="number"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="년"
+                android:textColor="@color/black"
+                android:textSize="27dp"
+                android:textStyle="bold"
+                android:layout_marginLeft="5dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp">
+
+            <EditText
+                android:id="@+id/meeting_month"
+                android:layout_width="100dp"
+                android:layout_height="70dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/radius10"
+                android:backgroundTint="@color/mainColor1"
+                android:hint="  09  "
+                android:textSize="32dp"
+                android:inputType="number"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:id="@+id/month"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="월"
+                android:textColor="@color/black"
+                android:textSize="27dp"
+                android:textStyle="bold"
+                android:layout_marginLeft="5dp"/>
+            <EditText
+                android:id="@+id/meeting_day"
+                android:layout_width="100dp"
+                android:layout_height="70dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/radius10"
+                android:backgroundTint="@color/mainColor1"
+                android:hint="  29  "
+                android:textSize="32dp"
+                android:inputType="number"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:layout_marginLeft="15dp"/>
+
+            <TextView
+                android:id="@+id/day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="일"
+                android:textColor="@color/black"
+                android:textSize="27dp"
+                android:textStyle="bold"
+                android:layout_marginLeft="5dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="50dp">
+
+            <TextView
+                android:id="@+id/meeting_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="'Group A' 모임에 2023.09.29"
+                android:textSize="27dp" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="모임 폴더를 생성하시겠습니까?"
+                android:textSize="27dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="50dp">
+
+            <ImageButton
+                android:id="@+id/checkBtn"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_check_circle"
+                android:background="@android:color/transparent"
+                android:layout_marginTop="5dp"
+                android:scaleType="centerCrop"/>
+
+            <ImageButton
+                android:id="@+id/cancelBtn"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/ic_x_circle"
+                android:scaleType="centerCrop"
+                android:background="@android:color/transparent"
+                android:layout_marginLeft="70dp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
