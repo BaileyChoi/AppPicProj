@@ -119,10 +119,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 auth_email.text = email
             }
         }
+
+
         //name을 가져오기 위해 그냥 Edit 가져올게요..
         val name = intent.getStringExtra("name")
         auth_name.text = name
-
+/*
+        //이메일도 그냥 가져올게요
+        val email = intent.getStringExtra("email")
+        auth_email.text = email
+*/
 
         //사람 이미지 클릭 시 drawer
         val authBtn: ImageView = findViewById(R.id.authBtn)

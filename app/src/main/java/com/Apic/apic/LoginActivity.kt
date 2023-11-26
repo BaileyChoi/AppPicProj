@@ -85,11 +85,15 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun login(email:String,password:String){
+        nameEt = findViewById(R.id.user_name)
+        var name = nameEt.text.toString()
+
         auth.signInWithEmailAndPassword(email,password) // 로그인
             .addOnCompleteListener {
                     result->
                 if(result.isSuccessful){
                     var intent = Intent(this, MainActivity::class.java)
+                    intent.putExtra("name", name) //name도 함께 전달
                     startActivity(intent)
                 }
             }
