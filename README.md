@@ -13,7 +13,7 @@
 
 > **개발 버전** : [https://github.com/BaileyChoi/AppPicProj.git](https://github.com/BaileyChoi/AppPicProj.git) <br>
 
-## 웹개발팀 소개
+## 앱개발팀 소개
 
 |                                                            헤이                                                             |                                                            깡지                                                             |                                                            말이                                                             |                                                            도도                                                             |                                                            호요요                                                            |
 |:-------------------------------------------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------------------------------------:|
@@ -30,7 +30,7 @@
 ## Stacks 🐈
 
 ### Environment
-![Android Studio](https://img.shields.io/badge/Android Studio-3DDC84?style=flat-square&logo=Android Studio&logoColor=white)
+![Android Studio](https://img.shields.io/badge/AndroidStudio-3DDC84?style=flat-square&logo=AndroidStudio&logoColor=white)
 ![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=Git&logoColor=white)
 ![Github](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white)
 ![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=flat-square&logo=firebase&logoColor=black)
