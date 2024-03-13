@@ -59,7 +59,7 @@ class MemberFragment : Fragment() {
 
 //        val groupName = arguments?.getString("g_name")
         // 오류사항 - 시연때 그룹이름 픽스
-        val groupName = "apppic"
+        val groupName = "appic"
         getMemberData(groupName)
 
         return binding.root
